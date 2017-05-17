@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<idemia:AgentModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:idemia="utn.frsf.cidisi">
+  <Environment name="Ambiente">
+    <EnvironmentState name="AmbienteEstado">
+      <DataStructure/>
+      <DataStructure name="DataStructureName2"/>
+    </EnvironmentState>
+  </Environment>
+  <Agent name="PatrulleroAgente">
+    <Strategy xsi:type="idemia:Search"/>
+    <Goal name="PatrulleroObjetivo"/>
+    <AgentState name="PatrulleroEstado">
+      <DataStructure/>
+    </AgentState>
+  </Agent>
+  <Actions execute_by="//@Agent" executed_on="//@Environment" name="Avanzar"/>
+  <Actions execute_by="//@Agent" executed_on="//@Environment" name="DoblarADerecha"/>
+  <Actions execute_by="//@Agent" executed_on="//@Environment" name="DoblarAIzquierda"/>
+  <Perceptions perceived_on="//@Environment" perceived_by="//@Agent" name="congestion_transito"/>
+  <Perceptions perceived_on="//@Environment" perceived_by="//@Agent" name="marcha"/>
+  <Perceptions perceived_on="//@Environment" perceived_by="//@Agent" name="accidente_transito"/>
+  <Perceptions perceived_on="//@Environment" perceived_by="//@Agent" name="evento_social"/>
+  <Perceptions perceived_on="//@Environment" perceived_by="//@Agent" name="plan_bacheo"/>
+</idemia:AgentModel>
