@@ -1,5 +1,6 @@
 package frsf.cidisi.exercise.patrullero.search;
 
+import frsf.cidisi.exercise.patrullero.dominio.Mapa;
 import frsf.cidisi.faia.state.EnvironmentState;
 
 /**
@@ -8,7 +9,7 @@ import frsf.cidisi.faia.state.EnvironmentState;
 public class AmbienteEstado extends EnvironmentState {
 	
 	//TODO: Setup Variables
-    private int DataStructureName;
+    private Mapa mapa;
     private int DataStructureName2;
 	
     public AmbienteEstado() {
@@ -45,11 +46,11 @@ public class AmbienteEstado extends EnvironmentState {
 	//TODO: Complete this section with agent-specific methods
     // The following methods are agent-specific:
 	
-     public int getDataStructureName(){
-        return DataStructureName;
+     public Mapa getDataStructureName(){
+        return mapa;
      }
-     public void setDataStructureName(int arg){
-        DataStructureName = arg;
+     public void setDataStructureName(Mapa arg){
+        mapa = arg;
      }
      public int getDataStructureName2(){
         return DataStructureName2;
