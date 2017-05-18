@@ -6,10 +6,15 @@ import java.util.List;
 public class Nodo {
 	
 	private List<Segmento> segmentosConectados;
+	private boolean habilitado;
+	/*private String calle1;
+	private String calle2;*/
+	private int costo=1;
 	
 
-	public Nodo(){
+	public Nodo(/*String c1, String c2*/){
 		segmentosConectados= new ArrayList<Segmento>();
+		habilitado=true;
 	}
 
 	public List<Segmento> getSegmentosConectados() {
