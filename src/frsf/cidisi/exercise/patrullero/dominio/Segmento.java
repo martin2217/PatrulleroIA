@@ -25,4 +25,68 @@ public class Segmento {
 		numeroHasta=numHasta;
 		direccion=direcc;
 	}
+
+	public Nodo getNodoDesde() {
+		return nodoDesde;
+	}
+
+	public void setNodoDesde(Nodo nodoDesde) {
+		this.nodoDesde = nodoDesde;
+	}
+
+	public Nodo getNodoHasta() {
+		return nodoHasta;
+	}
+
+	public void setNodoHasta(Nodo nodoHasta) {
+		this.nodoHasta = nodoHasta;
+	}
+
+	public String getNombreCalle() {
+		return nombreCalle;
+	}
+
+	public void setNombreCalle(String nombreCalle) {
+		this.nombreCalle = nombreCalle;
+	}
+
+	public int getNumeroDesde() {
+		return numeroDesde;
+	}
+
+	public void setNumeroDesde(int numeroDesde) {
+		this.numeroDesde = numeroDesde;
+	}
+
+	public int getNumeroHasta() {
+		return numeroHasta;
+	}
+
+	public void setNumeroHasta(int numeroHasta) {
+		this.numeroHasta = numeroHasta;
+	}
+
+	public int getCosto() {
+		return costo;
+	}
+
+	public void setCosto(int costo) {
+		this.costo = costo;
+	}
+
+	public boolean isHabilitado() {
+		return habilitado;
+	}
+
+	public void setHabilitado(boolean habilitado) {
+		this.habilitado = habilitado;
+	}
+
+	public int getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(int direccion) {
+		this.direccion = direccion;
+	}
 }
