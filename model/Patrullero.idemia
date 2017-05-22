@@ -2,8 +2,9 @@
 <idemia:AgentModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:idemia="utn.frsf.cidisi">
   <Environment name="Ambiente">
     <EnvironmentState name="AmbienteEstado">
+      <DataStructure name="listaMarchas" type="Other"/>
+      <DataStructure name="listaAccidenteTransito" type="Other"/>
       <DataStructure/>
-      <DataStructure name="DataStructureName2"/>
     </EnvironmentState>
   </Environment>
   <Agent name="PatrulleroAgente">
