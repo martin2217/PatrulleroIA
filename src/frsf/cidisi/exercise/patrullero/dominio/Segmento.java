@@ -1,6 +1,6 @@
 package frsf.cidisi.exercise.patrullero.dominio;
 
-public class Segmento {
+public class Segmento extends Posicion {
 	
 	// Usado para la dirección del segmento/patrullero
 	public static final int CRECIENDO=1;
@@ -10,15 +10,13 @@ public class Segmento {
 	private Nodo nodoHasta;
 	private String nombreCalle;
 	private int numeroDesde;
-	private int numeroHasta;
-	private int costo;
-	private boolean habilitado;
+	private int numeroHasta;	
 	private int direccion;
 	
 	public Segmento(String nombCalle, int numDesde, int numHasta, int direcc){
+		super();
 		nodoDesde=null;
 		nodoHasta=null;
-		habilitado=true;
 		costo=1; // Usar los numeros desde-hasta para dar costo (1 metro = 1 punto de costo)
 		nombreCalle=nombCalle;
 		numeroDesde=numDesde;
@@ -75,6 +73,7 @@ public class Segmento {
 		this.numeroHasta = numeroHasta;
 	}
 
+	@Override
 	public int getCosto() {
 		return costo;
 	}

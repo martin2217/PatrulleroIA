@@ -7,7 +7,7 @@ import frsf.cidisi.faia.environment.Environment;
 public class PatrulleroAgentePerception extends Perception {
 
 	//TODO: Setup Statics
-    //public static int UNKNOWN_PERCEPTION = -1;   
+    public static int UNKNOWN_PERCEPTION = -1;   
 	
 	
 	//TODO: Setup Sensors
@@ -21,6 +21,11 @@ public class PatrulleroAgentePerception extends Perception {
 
     public  PatrulleroAgentePerception() {
     	//TODO: Complete Method
+    	congestion_transito=UNKNOWN_PERCEPTION;
+    	marcha=UNKNOWN_PERCEPTION;
+    	accidente_transito=UNKNOWN_PERCEPTION;
+    	evento_social=UNKNOWN_PERCEPTION;
+    	plan_bacheo=UNKNOWN_PERCEPTION;
     }
 
     public PatrulleroAgentePerception(Agent agent, Environment environment) {

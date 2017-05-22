@@ -38,8 +38,11 @@ public class Avanzar extends SearchAction {
         if (true) {
             // Update the real world
             
+        	
+        	
             // Update the agent state
             
+        	
             return environmentState;
         }
 

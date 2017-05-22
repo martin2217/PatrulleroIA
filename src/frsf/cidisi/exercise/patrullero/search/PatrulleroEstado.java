@@ -1,5 +1,10 @@
 package frsf.cidisi.exercise.patrullero.search;
 
+import java.util.List;
+
+import frsf.cidisi.exercise.patrullero.dominio.Mapa;
+import frsf.cidisi.exercise.patrullero.dominio.Posicion;
+import frsf.cidisi.exercise.patrullero.dominio.Segmento;
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
 
@@ -9,8 +14,13 @@ import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
 public class PatrulleroEstado extends SearchBasedAgentState {
 	
 	//TODO: Setup Variables
-    private int DataStructureName;
-	
+    private Posicion posicionActual;
+    private Posicion posicionIncidente;
+    private Mapa mapa;
+    private Segmento ultimoSegmento;
+    private List<Posicion> listaCortesParciales;
+    private List<Posicion> listaCortesTotales;
+	private List<Posicion> listaNodosVisitados;
 
     public PatrulleroEstado() {
     
@@ -79,13 +89,7 @@ public class PatrulleroEstado extends SearchBasedAgentState {
 
     //TODO: Complete this section with agent-specific methods
     // The following methods are agent-specific:
-   	
-     public int getDataStructureName(){
-        return DataStructureName;
-     }
-     public void setDataStructureName(int arg){
-        DataStructureName = arg;
-     }
+   	    
 	
 }
 

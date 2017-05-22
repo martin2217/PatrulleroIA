@@ -3,23 +3,22 @@ package frsf.cidisi.exercise.patrullero.dominio;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Nodo {
+public class Nodo extends Posicion{
 	
 	private List<Segmento> segmentosConectados;
 	private List<String> nombres; //Sin usar
 	private List<String> calles;
-	private boolean habilitado;
 	private String codigo;
-	private int costo=1;
-	
+		
 
 	public Nodo(String unNombre, ArrayList<String> call){
+		super();		
 		segmentosConectados= new ArrayList<Segmento>();
 		nombres = new ArrayList<String>();
 		calles = new ArrayList<String>();
 		calles = call;
 		codigo=unNombre;
-		habilitado=true;
+		costo = 1;
 	}
 
 	public List<Segmento> getSegmentosConectados() {
@@ -56,7 +55,8 @@ public class Nodo {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-
+	
+	@Override
 	public int getCosto() {
 		return costo;
 	}
