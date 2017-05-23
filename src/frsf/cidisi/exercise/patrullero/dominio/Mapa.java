@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import edu.uci.ics.jung.graph.util.Pair;
+
 public class Mapa {
 
 	private HashMap<String, Nodo> nodos;
@@ -36,9 +38,9 @@ public class Mapa {
 		n1.addSegmento(s); // Grafo dirigido
 		s.setNodoDesde(n1); s.setNodoHasta(n2);
 	}
-	private void cargarNodo(String cod, ArrayList<String> calles){
+	private void cargarNodo(String cod, ArrayList<String> calles, Double x, Double y){
 		Nodo n1;
-		n1=new Nodo(cod, calles); // Se crea el nodo
+		n1=new Nodo(cod, calles, x, y); // Se crea el nodo
 		nodos.put(cod, n1); // Se agrega a la lista de nodos
 	}
 	private void cargarSegmento(String calle, int numDesde, int numHasta, int direcc, int nodoDesde, int nodoHasta){
@@ -50,6 +52,9 @@ public class Mapa {
 		segmentos.put(s.getHash(), s);
 		// Se conecta el segmento y los nodos
 		conectar(nodos.get(String.valueOf(nodoDesde)), nodos.get(String.valueOf(nodoHasta)), s);
+	}
+	private void posicionar(ArrayList<Pair<Double>> pos, int x, int y){
+		pos.add(new Pair<Double>((double)x,(double)y));
 	}
 	
 	private final String SALVADOR_DEL_CARRIL = "Salvador del Carril";
@@ -98,7 +103,7 @@ public class Mapa {
 		
 		// Lista, de lista de calles (las calles que contiene cada nodo, no las conexiones en si)
 		ArrayList< ArrayList<String >> ls = new ArrayList< ArrayList<String> >();
-		ArrayList<Double> pos = new ArrayList<Double>(167);
+		ArrayList<Pair<Double>> pos = new ArrayList<Pair<Double>>(167);
 		
 		//ArrayList<String> l = new ArrayList<String>();
 		
@@ -315,10 +320,71 @@ public class Mapa {
 		ls.add(new ArrayList<String>(Arrays.asList(BONEO, AV_BROWN)));
 		
 		
+		
+		// Carga de posiciones para visualización
+
+		posicionar(pos, 32, 825);
+		posicionar(pos, 95, 838);
+		posicionar(pos, 155, 850);
+		posicionar(pos, 213, 863);
+		posicionar(pos, 272, 875);
+		posicionar(pos, 321, 884);
+		posicionar(pos, 346, 889);
+		posicionar(pos, 403, 901);
+		posicionar(pos, 464, 916);
+		
+		// 10
+		posicionar(pos, 54, 790);
+		posicionar(pos, 105, 802);
+		posicionar(pos, 163, 816);
+		posicionar(pos, 221, 831);
+		posicionar(pos, 279, 845);
+		posicionar(pos, 325, 856);
+		posicionar(pos, 355, 851);
+		posicionar(pos, 412, 860);
+		
+		//18
+		posicionar(pos, 88, 737);
+		posicionar(pos, 120, 743);
+		posicionar(pos, 178, 761);
+		posicionar(pos, 236, 772);
+		posicionar(pos, 294, 786);
+		posicionar(pos, 343, 801);
+		posicionar(pos, 367, 805);
+		posicionar(pos, 422, 819);
+		posicionar(pos, 490, 835);
+		
+		//27
+		posicionar(pos, 129, 681);
+		posicionar(pos, 190, 698);
+		posicionar(pos, 252, 713);
+		posicionar(pos, 309, 728);
+		posicionar(pos, 355, 740);
+		posicionar(pos, 379, 745);
+		posicionar(pos, 439, 762);
+		posicionar(pos, 490, 774);
+		posicionar(pos, 514, 778);
+		
+		
+		// TODO continuar
+		
+		
 		// Creación de los nodos
 		for (int i=1; i<=176; i++){
-			cargarNodo(String.valueOf(i),ls.get(i-1));
+			Double x;
+			Double y;
+			if (pos.size()+1 <= i){
+				x=0.0; y=0.0;
+			}
+			else {
+				x=pos.get(i-1).getFirst();
+				y=pos.get(i-1).getSecond();
+			}
+			cargarNodo(String.valueOf(i),ls.get(i-1), x, y);
 		}
+		
+		
+		
 		
 		
 		// Carga de segmentos    -    Se deben deshabilitar (o poner mas costo) a AMBOS segmentos manualmente .. Al menos hasta ahora es manual

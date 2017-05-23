@@ -66,7 +66,7 @@ public class PruebaJung {
 		Layout<Integer, Integer> layout = new StaticLayout(grafo, locationTransformer);
 		// NUESTRO
 		
-		layout.setSize(new Dimension(800,800));
+		layout.setSize(new Dimension(800,1000));
 		// The BasicVisualizationServer<V,E> is parameterized by the edge types
 		BasicVisualizationServer<Integer,Integer> vv =
 		new BasicVisualizationServer<Integer,Integer>(layout);
@@ -93,13 +93,14 @@ public class PruebaJung {
             @Override
             public Point2D transform(Nodo n) {
             	Random r = new Random();
-            	int posX;
-            	int posY;
-            	//posX = n.getPosX();
-            	//posY = n.getPosY(); 
-            	posX = r.nextInt(1290-10) + 10;
-            	posY = r.nextInt(890-10) + 10;
-                return new Point2D.Double((double) posX, (double) posY);
+            	double posX;
+            	double posY;
+            	posX = n.getPosX();
+            	posY = n.getPosY(); 
+            	/*posX = (double)r.nextInt(1290-10) + 10;
+            	posY = (double)r.nextInt(890-10) + 10;
+            	*/
+                return new Point2D.Double(posX, posY);
             }
         };
 
@@ -111,11 +112,11 @@ public class PruebaJung {
 		Layout<Integer, Integer> layout = new StaticLayout(grafo, locationTransformer);
 		// NUESTRO
 		
-		layout.setSize(new Dimension(800,800));
+		layout.setSize(new Dimension(800,1000));
 		// The BasicVisualizationServer<V,E> is parameterized by the edge types
 		BasicVisualizationServer<Integer,Integer> vv =
 		new BasicVisualizationServer<Integer,Integer>(layout);
-		vv.setPreferredSize(new Dimension(600,600)); //Sets the viewing area size
+		vv.setPreferredSize(new Dimension(800,1000)); //Sets the viewing area size
 
 		JFrame frame = new JFrame("Simple Graph View");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
