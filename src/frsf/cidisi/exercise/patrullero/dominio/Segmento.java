@@ -19,11 +19,20 @@ public class Segmento {
 		nodoDesde=null;
 		nodoHasta=null;
 		habilitado=true;
-		costo=1;
+		costo=1; // Usar los numeros desde-hasta para dar costo (1 metro = 1 punto de costo)
 		nombreCalle=nombCalle;
 		numeroDesde=numDesde;
 		numeroHasta=numHasta;
 		direccion=direcc;
+	}
+	
+	public String getHash(){
+		String s=nombreCalle+" ";
+		if(direccion==CRECIENDO){
+			s+=numeroDesde+" -> "+numeroHasta;
+		}
+		else s+=numeroHasta+" -> "+numeroDesde;
+		return s;
 	}
 
 	public Nodo getNodoDesde() {
