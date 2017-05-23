@@ -1,6 +1,7 @@
 package frsf.cidisi.exercise.patrullero.search;
 
-import frsf.cidisi.exercise.patrullero.dominio.Mapa;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+
 import frsf.cidisi.faia.state.EnvironmentState;
 
 /**
@@ -9,8 +10,12 @@ import frsf.cidisi.faia.state.EnvironmentState;
 public class AmbienteEstado extends EnvironmentState {
 	
 	//TODO: Setup Variables
-    private Mapa mapa;
-    private int DataStructureName2;
+    private List listaMarchas;
+    private List listaAccidentesTransito;
+    private List listaCongestionTransito;
+    private List listaEventoSocial;
+    private List listaPlanBacheo;
+    private String posicionPatrullero;
 	
     public AmbienteEstado() {
         
@@ -46,11 +51,11 @@ public class AmbienteEstado extends EnvironmentState {
 	//TODO: Complete this section with agent-specific methods
     // The following methods are agent-specific:
 	
-     public Mapa getDataStructureName(){
-        return mapa;
+     public int getDataStructureName(){
+        return DataStructureName;
      }
-     public void setDataStructureName(Mapa arg){
-        mapa = arg;
+     public void setDataStructureName(int arg){
+        DataStructureName = arg;
      }
      public int getDataStructureName2(){
         return DataStructureName2;

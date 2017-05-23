@@ -24,11 +24,20 @@
             <element xmi:type="idemia:DataStructure" href="Patrullero.idemia#//@Environment/@EnvironmentState/@DataStructure.1"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tW918TqNEee2iIzAgVIFmw"/>
           </children>
+          <children xmi:type="notation:Shape" xmi:id="_tnm1cDy7EeeIhNzCkHNFMA" type="3009" fontName="Segoe UI">
+            <children xmi:type="notation:DecorationNode" xmi:id="_tnpRsDy7EeeIhNzCkHNFMA" type="5014"/>
+            <children xmi:type="notation:DecorationNode" xmi:id="_tnpRsTy7EeeIhNzCkHNFMA" type="5015">
+              <styles xmi:type="notation:DescriptionStyle" xmi:id="_tnp4wDy7EeeIhNzCkHNFMA"/>
+            </children>
+            <children xmi:type="notation:DecorationNode" xmi:id="_tnp4wTy7EeeIhNzCkHNFMA" type="5016"/>
+            <element xmi:type="idemia:DataStructure" href="Patrullero.idemia#//@Environment/@EnvironmentState/@DataStructure.2"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tnm1cTy7EeeIhNzCkHNFMA"/>
+          </children>
           <styles xmi:type="notation:SortingStyle" xmi:id="_y260VDqJEee2iIzAgVIFmw"/>
           <styles xmi:type="notation:FilteringStyle" xmi:id="_y260VTqJEee2iIzAgVIFmw"/>
         </children>
         <element xmi:type="idemia:State" href="Patrullero.idemia#//@Environment/@EnvironmentState"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_y260UTqJEee2iIzAgVIFmw" x="15" y="14" width="221" height="72"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_y260UTqJEee2iIzAgVIFmw" x="15" y="14" width="221" height="151"/>
       </children>
     </children>
     <element xmi:type="idemia:Environment" href="Patrullero.idemia#//@Environment"/>
