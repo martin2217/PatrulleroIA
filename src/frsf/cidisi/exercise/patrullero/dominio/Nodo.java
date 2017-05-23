@@ -9,7 +9,10 @@ public class Nodo extends Posicion{
 	private List<String> nombres; //Sin usar
 	private List<String> calles;
 	private String codigo;
-		
+	private int costo=1;
+	private double posX;
+	private double posY;
+	
 
 	public Nodo(String unNombre, ArrayList<String> call){
 		super();		
@@ -19,6 +22,28 @@ public class Nodo extends Posicion{
 		calles = call;
 		codigo=unNombre;
 		costo = 1;
+		posX=0;
+		posY=0;
+	}
+	public Nodo(String unNombre, ArrayList<String> call, double x, double y){
+		segmentosConectados= new ArrayList<Segmento>();
+		nombres = new ArrayList<String>();
+		calles = new ArrayList<String>();
+		calles = call;
+		codigo=unNombre;
+		habilitado=true;
+		posX=x;
+		posY=y;
+	}
+	
+	public String toString(){
+		String retorno=new String();
+		/*
+		retorno+="Esquina "+calles.get(0);
+		if(calles.size()>1) retorno+=" y "+calles.get(1);
+		*/
+		retorno=codigo;
+		return retorno;
 	}
 
 	public List<Segmento> getSegmentosConectados() {
@@ -64,6 +89,17 @@ public class Nodo extends Posicion{
 	public void setCosto(int costo) {
 		this.costo = costo;
 	}
-
+	public double getPosX() {
+		return posX;
+	}
+	public void setPosX(double posX) {
+		this.posX = posX;
+	}
+	public double getPosY() {
+		return posY;
+	}
+	public void setPosY(double posY) {
+		this.posY = posY;
+	}
 	
 }
