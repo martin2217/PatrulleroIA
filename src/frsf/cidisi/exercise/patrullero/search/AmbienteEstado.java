@@ -51,18 +51,6 @@ public class AmbienteEstado extends EnvironmentState {
 	//TODO: Complete this section with agent-specific methods
     // The following methods are agent-specific:
 	
-     public int getDataStructureName(){
-        return DataStructureName;
-     }
-     public void setDataStructureName(int arg){
-        DataStructureName = arg;
-     }
-     public int getDataStructureName2(){
-        return DataStructureName2;
-     }
-     public void setDataStructureName2(int arg){
-        DataStructureName2 = arg;
-     }
 	
 
 }

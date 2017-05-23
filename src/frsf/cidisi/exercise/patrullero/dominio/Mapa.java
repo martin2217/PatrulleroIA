@@ -64,7 +64,7 @@ public class Mapa {
 	private final String AV_BROWN = "Av Almirante Brown";
 	private final String DERQUI = "Santiago Derqui";
 	private final String ZUVIRIA = "José María Zuviría";
-	private final String GODOY = "Ruperto Godoy";
+	private final String R_GODOY = "Ruperto Godoy";
 	private final String HUERGO = "D Huergo";
 	private final String ARZAMENDIA = "Pje Arzamendia";
 	private final String LLERENA = "Llerena";
@@ -73,12 +73,14 @@ public class Mapa {
 	private final String GOROSTIAGA = "Gorostiaga";
 	private final String MOSQUERA = "Mosquera";
 	private final String ITURRI = "Pje Iturri";
+	private final String PEDRO_DE_VEGA = "Pedro de Vega";
+	private final String ALDAO = "Ricardo Aldao";
 	
 	private final String TACUARI = "Tacuarí";
 	private final String PIEDRAS = "Piedras";
 	private final String A_GODOY = "Antonia Godoy";
 	private final String ECHAGUE = "Echagüe";
-	private final String CASANELLO = "Ángel Cassanello";
+	private final String CASSANELLO = "Ángel Cassanello";
 	private final String CULLEN = "Patricio Cullen";
 	private final String TALCAHUANO = "Talcahuano";
 	private final String LOPEZ = "J P LOPEZ";
@@ -96,6 +98,7 @@ public class Mapa {
 		
 		// Lista, de lista de calles (las calles que contiene cada nodo, no las conexiones en si)
 		ArrayList< ArrayList<String >> ls = new ArrayList< ArrayList<String> >();
+		ArrayList<Double> pos = new ArrayList<Double>(167);
 		
 		//ArrayList<String> l = new ArrayList<String>();
 		
@@ -132,15 +135,15 @@ public class Mapa {
 		ls.add(new ArrayList<String>(Arrays.asList(DERQUI, "Av Almirante Brown")));
 		
 		//27
-		ls.add(new ArrayList<String>(Arrays.asList(GODOY, GRAL_PAZ)));
-		ls.add(new ArrayList<String>(Arrays.asList(GODOY, "Güemes")));
-		ls.add(new ArrayList<String>(Arrays.asList(GODOY, "Avellaneda")));
-		ls.add(new ArrayList<String>(Arrays.asList(GODOY, "Dorrego")));
-		ls.add(new ArrayList<String>(Arrays.asList(GODOY, "Pje Pizzorino")));
-		ls.add(new ArrayList<String>(Arrays.asList(GODOY, "Vélez Sársfield")));
-		ls.add(new ArrayList<String>(Arrays.asList(GODOY, "Laprida")));
-		ls.add(new ArrayList<String>(Arrays.asList(GODOY, "Piedras")));
-		ls.add(new ArrayList<String>(Arrays.asList(GODOY, "Av Almirante Brown")));
+		ls.add(new ArrayList<String>(Arrays.asList(R_GODOY, GRAL_PAZ)));
+		ls.add(new ArrayList<String>(Arrays.asList(R_GODOY, "Güemes")));
+		ls.add(new ArrayList<String>(Arrays.asList(R_GODOY, "Avellaneda")));
+		ls.add(new ArrayList<String>(Arrays.asList(R_GODOY, "Dorrego")));
+		ls.add(new ArrayList<String>(Arrays.asList(R_GODOY, "Pje Pizzorino")));
+		ls.add(new ArrayList<String>(Arrays.asList(R_GODOY, "Vélez Sársfield")));
+		ls.add(new ArrayList<String>(Arrays.asList(R_GODOY, "Laprida")));
+		ls.add(new ArrayList<String>(Arrays.asList(R_GODOY, "Piedras")));
+		ls.add(new ArrayList<String>(Arrays.asList(R_GODOY, "Av Almirante Brown")));
 		
 		//36
 		ls.add(new ArrayList<String>(Arrays.asList(HUERGO, GRAL_PAZ)));
@@ -198,44 +201,44 @@ public class Mapa {
 		
 		//80
 		ls.add(new ArrayList<String>(Arrays.asList(MOSQUERA, GRAL_PAZ)));
-		ls.add(new ArrayList<String>(Arrays.asList("Pedro de Vega", GRAL_PAZ)));
-		ls.add(new ArrayList<String>(Arrays.asList("Pedro de Vega", "Dorrego")));
-		ls.add(new ArrayList<String>(Arrays.asList("Pedro de Vega", "Pje Pizzorino")));
-		ls.add(new ArrayList<String>(Arrays.asList("Pedro de Vega", "Vélez Sársfield")));
+		ls.add(new ArrayList<String>(Arrays.asList(PEDRO_DE_VEGA, GRAL_PAZ)));
+		ls.add(new ArrayList<String>(Arrays.asList(PEDRO_DE_VEGA, "Dorrego")));
+		ls.add(new ArrayList<String>(Arrays.asList(PEDRO_DE_VEGA, "Pje Pizzorino")));
+		ls.add(new ArrayList<String>(Arrays.asList(PEDRO_DE_VEGA, "Vélez Sársfield")));
 		ls.add(new ArrayList<String>(Arrays.asList(ITURRI, "Tacuarí")));
 		ls.add(new ArrayList<String>(Arrays.asList(ITURRI, "Piedras")));
 		ls.add(new ArrayList<String>(Arrays.asList(ITURRI, "Antonia Godoy")));
-		ls.add(new ArrayList<String>(Arrays.asList("Pedro de Vega", "Tacuarí")));
-		ls.add(new ArrayList<String>(Arrays.asList("Pedro de Vega", "Piedras")));
-		ls.add(new ArrayList<String>(Arrays.asList("Pedro de Vega", "Antonia Godoy")));
-		ls.add(new ArrayList<String>(Arrays.asList("Pedro de Vega", "Patricio Cullen")));
-		ls.add(new ArrayList<String>(Arrays.asList("Pedro de Vega", "Echagüe")));
-		ls.add(new ArrayList<String>(Arrays.asList("Pedro de Vega", AV_BROWN)));
+		ls.add(new ArrayList<String>(Arrays.asList(PEDRO_DE_VEGA, "Tacuarí")));
+		ls.add(new ArrayList<String>(Arrays.asList(PEDRO_DE_VEGA, "Piedras")));
+		ls.add(new ArrayList<String>(Arrays.asList(PEDRO_DE_VEGA, "Antonia Godoy")));
+		ls.add(new ArrayList<String>(Arrays.asList(PEDRO_DE_VEGA, "Patricio Cullen")));
+		ls.add(new ArrayList<String>(Arrays.asList(PEDRO_DE_VEGA, "Echagüe")));
+		ls.add(new ArrayList<String>(Arrays.asList(PEDRO_DE_VEGA, AV_BROWN)));
 		
 		//94
-		ls.add(new ArrayList<String>(Arrays.asList("Ricardo Aldao", GRAL_PAZ)));
-		ls.add(new ArrayList<String>(Arrays.asList("Ricardo Aldao", "Dorrego")));
-		ls.add(new ArrayList<String>(Arrays.asList("Ricardo Aldao")));
-		ls.add(new ArrayList<String>(Arrays.asList("Ricardo Aldao", "Vélez Sársfield")));
-		ls.add(new ArrayList<String>(Arrays.asList("Ricardo Aldao", "Tacuarí")));
-		ls.add(new ArrayList<String>(Arrays.asList("Ricardo Aldao", "Piedras")));
-		ls.add(new ArrayList<String>(Arrays.asList("Ricardo Aldao", "Antonia Godoy")));
-		ls.add(new ArrayList<String>(Arrays.asList("Ricardo Aldao", "Patricio Cullen")));
-		ls.add(new ArrayList<String>(Arrays.asList("Ricardo Aldao", "Echagüe")));
-		ls.add(new ArrayList<String>(Arrays.asList("Ricardo Aldao", AV_BROWN)));
+		ls.add(new ArrayList<String>(Arrays.asList(ALDAO, GRAL_PAZ)));
+		ls.add(new ArrayList<String>(Arrays.asList(ALDAO, "Dorrego")));
+		ls.add(new ArrayList<String>(Arrays.asList(ALDAO)));
+		ls.add(new ArrayList<String>(Arrays.asList(ALDAO, "Vélez Sársfield")));
+		ls.add(new ArrayList<String>(Arrays.asList(ALDAO, "Tacuarí")));
+		ls.add(new ArrayList<String>(Arrays.asList(ALDAO, "Piedras")));
+		ls.add(new ArrayList<String>(Arrays.asList(ALDAO, "Antonia Godoy")));
+		ls.add(new ArrayList<String>(Arrays.asList(ALDAO, "Patricio Cullen")));
+		ls.add(new ArrayList<String>(Arrays.asList(ALDAO, "Echagüe")));
+		ls.add(new ArrayList<String>(Arrays.asList(ALDAO, AV_BROWN)));
 		
 		//104
-		ls.add(new ArrayList<String>(Arrays.asList(CASANELLO, GRAL_PAZ)));
-		ls.add(new ArrayList<String>(Arrays.asList(CASANELLO)));
+		ls.add(new ArrayList<String>(Arrays.asList(CASSANELLO, GRAL_PAZ)));
+		ls.add(new ArrayList<String>(Arrays.asList(CASSANELLO)));
 		ls.add(new ArrayList<String>(Arrays.asList(DORREGO)));
-		ls.add(new ArrayList<String>(Arrays.asList(CASANELLO, VELEZ)));
-		ls.add(new ArrayList<String>(Arrays.asList(CASANELLO, TACUARI)));
-		ls.add(new ArrayList<String>(Arrays.asList(CASANELLO, PIEDRAS)));
-		ls.add(new ArrayList<String>(Arrays.asList(CASANELLO, A_GODOY)));
-		ls.add(new ArrayList<String>(Arrays.asList(CASANELLO, CULLEN)));
-		ls.add(new ArrayList<String>(Arrays.asList(CASANELLO, ECHAGUE)));
-		ls.add(new ArrayList<String>(Arrays.asList(CASANELLO, TALCAHUANO)));
-		ls.add(new ArrayList<String>(Arrays.asList(CASANELLO, AV_BROWN)));
+		ls.add(new ArrayList<String>(Arrays.asList(CASSANELLO, VELEZ)));
+		ls.add(new ArrayList<String>(Arrays.asList(CASSANELLO, TACUARI)));
+		ls.add(new ArrayList<String>(Arrays.asList(CASSANELLO, PIEDRAS)));
+		ls.add(new ArrayList<String>(Arrays.asList(CASSANELLO, A_GODOY)));
+		ls.add(new ArrayList<String>(Arrays.asList(CASSANELLO, CULLEN)));
+		ls.add(new ArrayList<String>(Arrays.asList(CASSANELLO, ECHAGUE)));
+		ls.add(new ArrayList<String>(Arrays.asList(CASSANELLO, TALCAHUANO)));
+		ls.add(new ArrayList<String>(Arrays.asList(CASSANELLO, AV_BROWN)));
 		
 		//115
 		ls.add(new ArrayList<String>(Arrays.asList(LOPEZ, GRAL_PAZ)));
@@ -392,13 +395,13 @@ public class Mapa {
 		cargarSegmento(AV_BROWN, 5600, 5700, Segmento.CRECIENDO, 26, 35);
 		cargarSegmento(AV_BROWN, 5600, 5700, Segmento.DECRECIENDO, 35, 26);
 		
-		cargarSegmento(GODOY, 1300, 1400, Segmento.DECRECIENDO, 27, 28);
-		cargarSegmento(GODOY, 1200, 1300, Segmento.DECRECIENDO, 28, 29);
-		cargarSegmento(GODOY, 1100, 1200, Segmento.DECRECIENDO, 29, 30);
-		cargarSegmento(GODOY, 1000, 1100, Segmento.DECRECIENDO, 30, 31);
-		cargarSegmento(GODOY, 900, 1000, Segmento.DECRECIENDO, 32, 33);
-		cargarSegmento(GODOY, 800, 900, Segmento.DECRECIENDO, 33, 34);
-		cargarSegmento(GODOY, 780, 800, Segmento.DECRECIENDO, 34, 35);
+		cargarSegmento(R_GODOY, 1300, 1400, Segmento.DECRECIENDO, 27, 28);
+		cargarSegmento(R_GODOY, 1200, 1300, Segmento.DECRECIENDO, 28, 29);
+		cargarSegmento(R_GODOY, 1100, 1200, Segmento.DECRECIENDO, 29, 30);
+		cargarSegmento(R_GODOY, 1000, 1100, Segmento.DECRECIENDO, 30, 31);
+		cargarSegmento(R_GODOY, 900, 1000, Segmento.DECRECIENDO, 32, 33);
+		cargarSegmento(R_GODOY, 800, 900, Segmento.DECRECIENDO, 33, 34);
+		cargarSegmento(R_GODOY, 780, 800, Segmento.DECRECIENDO, 34, 35);
 		
 		cargarSegmento(GRAL_PAZ, 5700, 5800, Segmento.CRECIENDO, 27, 36);
 		cargarSegmento(GRAL_PAZ, 5700, 5800, Segmento.DECRECIENDO, 36, 27);
@@ -454,7 +457,7 @@ public class Mapa {
 		cargarSegmento(VELEZ, 5900, 5950, Segmento.CRECIENDO, 50, 61);
 		cargarSegmento(TACUARI, 5900, 5950, Segmento.DECRECIENDO, 62, 51);
 		cargarSegmento(PIEDRAS, 5900, 5950, Segmento.CRECIENDO, 52, 63);
-		cargarSegmento(GODOY, 5900, 5950, Segmento.DECRECIENDO, 64, 53);
+		cargarSegmento(R_GODOY, 5900, 5950, Segmento.DECRECIENDO, 64, 53);
 		cargarSegmento(AV_BROWN, 5900, 6000, Segmento.CRECIENDO, 54, 69);
 		cargarSegmento(AV_BROWN, 5900, 6000, Segmento.DECRECIENDO, 69, 54);
 		
@@ -465,7 +468,7 @@ public class Mapa {
 		cargarSegmento(VELEZ, 5950, 6000, Segmento.CRECIENDO, 61, 65);
 		cargarSegmento(TACUARI, 5950, 6000, Segmento.DECRECIENDO, 66, 62);
 		cargarSegmento(PIEDRAS, 5950, 6000, Segmento.CRECIENDO, 63, 67);
-		cargarSegmento(GODOY, 5950, 6000, Segmento.DECRECIENDO, 68, 64);
+		cargarSegmento(R_GODOY, 5950, 6000, Segmento.DECRECIENDO, 68, 64);
 		
 		cargarSegmento(LAVAISSE, 1250, 1300, Segmento.CRECIENDO, 56, 55);
 		cargarSegmento(LAVAISSE, 1200, 1250, Segmento.CRECIENDO, 57, 56);
@@ -494,7 +497,7 @@ public class Mapa {
 		cargarSegmento(VELEZ, 6000, 6100, Segmento.CRECIENDO, 65, 76);
 		cargarSegmento(TACUARI, 6000, 6100, Segmento.DECRECIENDO, 77, 66);
 		cargarSegmento(PIEDRAS, 6000, 6100, Segmento.CRECIENDO, 67, 78);
-		cargarSegmento(GODOY, 6000, 6100, Segmento.DECRECIENDO, 79, 68);
+		cargarSegmento(R_GODOY, 6000, 6100, Segmento.DECRECIENDO, 79, 68);
 		cargarSegmento(CULLEN, 6000, 6200, Segmento.CRECIENDO, 69, 91);
 		cargarSegmento(AV_BROWN, 6000, 6200, Segmento.CRECIENDO, 69, 93);
 		cargarSegmento(AV_BROWN, 6000, 6200, Segmento.DECRECIENDO, 93, 69);
@@ -505,7 +508,7 @@ public class Mapa {
 		cargarSegmento(GRAL_PAZ, 6150, 6200, Segmento.DECRECIENDO, 81, 80);
 		cargarSegmento(MOSQUERA, 1200, 1300, Segmento.CRECIENDO, 72, 80);
 		cargarSegmento(MOSQUERA, 1200, 1300, Segmento.DECRECIENDO, 80, 72);
-		cargarSegmento(GOROSTIAGA, 110, 1150, Segmento.DECRECIENDO, 72, 73);
+		cargarSegmento(GOROSTIAGA, 1100, 1150, Segmento.DECRECIENDO, 72, 73);
 		cargarSegmento(GOROSTIAGA, 1100, 1150, Segmento.CRECIENDO, 73, 72);
 		cargarSegmento(GOROSTIAGA, 1000, 1100, Segmento.DECRECIENDO, 73, 75);
 		cargarSegmento(GOROSTIAGA, 1000, 1100, Segmento.CRECIENDO, 75, 73);
@@ -520,12 +523,219 @@ public class Mapa {
 		cargarSegmento(VELEZ, 6100, 6200, Segmento.CRECIENDO, 76, 84);
 		cargarSegmento(TACUARI, 6100, 6150, Segmento.DECRECIENDO, 85, 77);
 		cargarSegmento(PIEDRAS, 6100, 6150, Segmento.CRECIENDO, 78, 86);
-		cargarSegmento(GODOY, 6100, 6150, Segmento.DECRECIENDO, 87, 79);
+		cargarSegmento(R_GODOY, 6100, 6150, Segmento.DECRECIENDO, 87, 79);
 		
 		cargarSegmento(ITURRI, 800, 900, Segmento.DECRECIENDO, 85, 86);
 		cargarSegmento(ITURRI, 700, 800, Segmento.DECRECIENDO, 86, 87);
 		cargarSegmento(TACUARI, 6150, 6200, Segmento.DECRECIENDO, 88, 85);
 		cargarSegmento(PIEDRAS, 6150, 6200, Segmento.CRECIENDO, 86, 89);
-		cargarSegmento(GODOY, 6150, 6200, Segmento.DECRECIENDO, 90, 87);
+		cargarSegmento(R_GODOY, 6150, 6200, Segmento.DECRECIENDO, 90, 87);
+		
+		cargarSegmento(PEDRO_DE_VEGA, 1100, 1200, Segmento.CRECIENDO, 82, 81);
+		cargarSegmento(PEDRO_DE_VEGA, 1020, 1100, Segmento.CRECIENDO, 83, 82);
+		cargarSegmento(PEDRO_DE_VEGA, 1000, 1020, Segmento.CRECIENDO, 84, 83);
+		cargarSegmento(PEDRO_DE_VEGA, 900, 1000, Segmento.CRECIENDO, 88, 84);
+		cargarSegmento(PEDRO_DE_VEGA, 800, 900, Segmento.CRECIENDO, 89, 88);
+		cargarSegmento(PEDRO_DE_VEGA, 700, 800, Segmento.CRECIENDO, 90, 89);
+		cargarSegmento(PEDRO_DE_VEGA, 600, 700, Segmento.CRECIENDO, 91, 90);
+		cargarSegmento(PEDRO_DE_VEGA, 500, 600, Segmento.CRECIENDO, 92, 91);
+		cargarSegmento(PEDRO_DE_VEGA, 480, 500, Segmento.CRECIENDO, 93, 92);
+		
+		cargarSegmento(GRAL_PAZ, 6200, 6300, Segmento.CRECIENDO, 81, 94);
+		cargarSegmento(GRAL_PAZ, 6200, 6300, Segmento.DECRECIENDO, 94, 81);
+		cargarSegmento(DORREGO, 6200, 6300, Segmento.DECRECIENDO, 95, 82);
+		cargarSegmento(DORREGO, 6200, 6300, Segmento.CRECIENDO, 82, 95);
+		cargarSegmento(VELEZ, 6200, 6300, Segmento.CRECIENDO, 84, 97);
+		cargarSegmento(TACUARI, 6200, 6300, Segmento.DECRECIENDO, 98, 88);
+		cargarSegmento(PIEDRAS, 6200, 6300, Segmento.CRECIENDO, 89, 99);
+		cargarSegmento(A_GODOY, 6200, 6300, Segmento.DECRECIENDO, 100, 90);
+		cargarSegmento(CULLEN, 6200, 6300, Segmento.CRECIENDO, 91, 101);
+		cargarSegmento(ECHAGUE, 6200, 6300, Segmento.DECRECIENDO, 102, 92);
+		cargarSegmento(AV_BROWN, 6200, 6300, Segmento.CRECIENDO, 93, 103);
+		cargarSegmento(AV_BROWN, 6200, 6300, Segmento.DECRECIENDO, 103, 93);
+		
+		cargarSegmento(ALDAO, 1100, 1200, Segmento.DECRECIENDO, 94, 95);
+		cargarSegmento(ALDAO, 1050, 1100, Segmento.DECRECIENDO, 95, 96);
+		cargarSegmento(ALDAO, 1000, 1050, Segmento.DECRECIENDO, 96, 97);
+		cargarSegmento(ALDAO, 900, 1000, Segmento.DECRECIENDO, 97, 98);
+		cargarSegmento(ALDAO, 800, 900, Segmento.DECRECIENDO, 98, 99);
+		cargarSegmento(ALDAO, 700, 800, Segmento.DECRECIENDO, 99, 100);
+		cargarSegmento(ALDAO, 600, 700, Segmento.DECRECIENDO, 100, 101);
+		cargarSegmento(ALDAO, 500, 600, Segmento.DECRECIENDO, 101, 102);
+		cargarSegmento(ALDAO, 400, 500, Segmento.DECRECIENDO, 102, 103);
+		
+		cargarSegmento(GRAL_PAZ, 6300, 6400, Segmento.CRECIENDO, 94, 104);
+		cargarSegmento(GRAL_PAZ, 6300, 6400, Segmento.DECRECIENDO, 104, 94);
+		cargarSegmento(DORREGO, 6300, 6380, Segmento.DECRECIENDO, 106, 95);
+		cargarSegmento(DORREGO, 6300, 6380, Segmento.CRECIENDO, 95, 106);
+		cargarSegmento(DORREGO, 6380, 6400, Segmento.DECRECIENDO, 105, 106);
+		cargarSegmento(DORREGO, 6380, 6400, Segmento.CRECIENDO, 106, 105);
+		cargarSegmento(VELEZ, 6300, 6400, Segmento.CRECIENDO, 97, 107);
+		cargarSegmento(TACUARI, 6300, 6400, Segmento.DECRECIENDO, 108, 98);
+		cargarSegmento(PIEDRAS, 6300, 6400, Segmento.CRECIENDO, 99, 109);
+		cargarSegmento(A_GODOY, 6300, 6400, Segmento.DECRECIENDO, 110, 100);
+		cargarSegmento(CULLEN, 6300, 6400, Segmento.CRECIENDO, 101, 111);
+		cargarSegmento(ECHAGUE, 6300, 6400, Segmento.DECRECIENDO, 112, 102);
+		cargarSegmento(AV_BROWN, 6300, 6400, Segmento.CRECIENDO, 103, 114);
+		cargarSegmento(AV_BROWN, 6300, 6400, Segmento.DECRECIENDO, 114, 103);
+		
+		cargarSegmento(CASSANELLO, 1100, 1150, Segmento.DECRECIENDO, 104, 105);
+		cargarSegmento(CASSANELLO, 1100, 1150, Segmento.CRECIENDO, 105, 104);
+		cargarSegmento(CASSANELLO, 1000, 1100, Segmento.DECRECIENDO, 105, 107);
+		cargarSegmento(CASSANELLO, 1000, 1100, Segmento.CRECIENDO, 107, 105);
+		cargarSegmento(CASSANELLO, 900, 1000, Segmento.DECRECIENDO, 107, 108);
+		cargarSegmento(CASSANELLO, 900, 1000, Segmento.CRECIENDO, 108, 107);
+		cargarSegmento(CASSANELLO, 800, 900, Segmento.DECRECIENDO, 108, 109);
+		cargarSegmento(CASSANELLO, 800, 900, Segmento.CRECIENDO, 109, 108);
+		cargarSegmento(CASSANELLO, 700, 800, Segmento.DECRECIENDO, 109, 110);
+		cargarSegmento(CASSANELLO, 700, 800, Segmento.CRECIENDO, 110, 109);
+		cargarSegmento(CASSANELLO, 600, 700, Segmento.DECRECIENDO, 110, 111);
+		cargarSegmento(CASSANELLO, 600, 700, Segmento.CRECIENDO, 111, 110);
+		cargarSegmento(CASSANELLO, 500, 600, Segmento.DECRECIENDO, 111, 112);
+		cargarSegmento(CASSANELLO, 500, 600, Segmento.CRECIENDO, 112, 111);
+		cargarSegmento(CASSANELLO, 400, 500, Segmento.DECRECIENDO, 112, 113);
+		cargarSegmento(CASSANELLO, 400, 500, Segmento.CRECIENDO, 113, 112);
+		cargarSegmento(CASSANELLO, 350, 400, Segmento.DECRECIENDO, 113, 114);
+		cargarSegmento(CASSANELLO, 350, 400, Segmento.CRECIENDO, 114, 113);
+		
+		cargarSegmento(GRAL_PAZ, 6400, 6500, Segmento.CRECIENDO, 104, 115);
+		cargarSegmento(GRAL_PAZ, 6400, 6500, Segmento.DECRECIENDO, 115, 104);
+		cargarSegmento(VELEZ, 6400, 6500, Segmento.CRECIENDO, 107, 118);
+		cargarSegmento(TACUARI, 6400, 6500, Segmento.DECRECIENDO, 119, 108);
+		cargarSegmento(PIEDRAS, 6400, 6500, Segmento.CRECIENDO, 109, 120);
+		cargarSegmento(A_GODOY, 6400, 6500, Segmento.DECRECIENDO, 121, 110);
+		cargarSegmento(CULLEN, 6400, 6500, Segmento.CRECIENDO, 111, 122);
+		cargarSegmento(ECHAGUE, 6400, 6500, Segmento.DECRECIENDO, 123, 112);
+		cargarSegmento(TALCAHUANO, 6400, 6500, Segmento.CRECIENDO, 113, 124);
+		cargarSegmento(AV_BROWN, 6400, 6500, Segmento.CRECIENDO, 114, 126);
+		cargarSegmento(AV_BROWN, 6400, 6500, Segmento.DECRECIENDO, 126, 114);
+		
+		cargarSegmento(LOPEZ, 1100, 1150, Segmento.DECRECIENDO, 115, 116);
+		cargarSegmento(LOPEZ, 1050, 1100, Segmento.DECRECIENDO, 116, 117);
+		cargarSegmento(LOPEZ, 1000, 1050, Segmento.DECRECIENDO, 117, 118);
+		cargarSegmento(LOPEZ, 900, 1000, Segmento.DECRECIENDO, 118, 119);
+		cargarSegmento(LOPEZ, 800, 900, Segmento.DECRECIENDO, 119, 120);
+		cargarSegmento(LOPEZ, 700, 800, Segmento.DECRECIENDO, 120, 121);
+		cargarSegmento(LOPEZ, 600, 700, Segmento.DECRECIENDO, 121, 122);
+		cargarSegmento(LOPEZ, 500, 600, Segmento.DECRECIENDO, 122, 123);
+		cargarSegmento(LOPEZ, 400, 500, Segmento.DECRECIENDO, 123, 124);
+		cargarSegmento(LOPEZ, 300, 400, Segmento.DECRECIENDO, 124, 125);
+		cargarSegmento(LOPEZ, 250, 300, Segmento.DECRECIENDO, 125, 126);
+		
+		cargarSegmento(GRAL_PAZ, 6500, 6600, Segmento.CRECIENDO, 115, 132);
+		cargarSegmento(GRAL_PAZ, 6500, 6600, Segmento.DECRECIENDO, 132, 115);
+		cargarSegmento(VELEZ, 6500, 6600, Segmento.CRECIENDO, 118, 133);
+		cargarSegmento(TACUARI, 6500, 6550, Segmento.DECRECIENDO, 127, 119);
+		cargarSegmento(PIEDRAS, 6500, 6550, Segmento.CRECIENDO, 120, 128);
+		cargarSegmento(A_GODOY, 6500, 6550, Segmento.DECRECIENDO, 129, 121);
+		cargarSegmento(CULLEN, 6500, 6550, Segmento.CRECIENDO, 122, 130);
+		cargarSegmento(ECHAGUE, 6500, 6550, Segmento.DECRECIENDO, 131, 123);
+		cargarSegmento(TALCAHUANO, 6500, 6600, Segmento.CRECIENDO, 124, 139);
+		cargarSegmento(DEFENSA, 6500, 6600, Segmento.DECRECIENDO, 140, 125);
+		cargarSegmento(AV_BROWN, 6500, 6600, Segmento.CRECIENDO, 126, 141);
+		cargarSegmento(AV_BROWN, 6500, 6600, Segmento.DECRECIENDO, 141, 126);
+		
+		cargarSegmento(PUJATO, 800, 900, Segmento.DECRECIENDO, 127, 128);
+		cargarSegmento(PUJATO, 800, 900, Segmento.CRECIENDO, 128, 127);
+		cargarSegmento(PUJATO, 600, 700, Segmento.DECRECIENDO, 129, 130);
+		cargarSegmento(PUJATO, 600, 700, Segmento.CRECIENDO, 130, 129);
+		cargarSegmento(PUJATO, 500, 600, Segmento.DECRECIENDO, 130, 131);
+		cargarSegmento(PUJATO, 500, 600, Segmento.CRECIENDO, 131, 130);
+
+		cargarSegmento(TACUARI, 6550, 6600, Segmento.DECRECIENDO, 134, 127);
+		cargarSegmento(PIEDRAS, 6550, 6600, Segmento.CRECIENDO, 128, 135);
+		cargarSegmento(A_GODOY, 6550, 6600, Segmento.DECRECIENDO, 136, 129);
+		cargarSegmento(CULLEN, 6550, 6600, Segmento.CRECIENDO, 130, 137);
+		cargarSegmento(ECHAGUE, 6550, 6600, Segmento.DECRECIENDO, 138, 131);
+		
+		cargarSegmento(HERNANDARIAS, 1000, 1100, Segmento.CRECIENDO, 133, 132);
+		cargarSegmento(HERNANDARIAS, 900, 1000, Segmento.CRECIENDO, 134, 133);
+		cargarSegmento(HERNANDARIAS, 800, 900, Segmento.CRECIENDO, 135, 134);
+		cargarSegmento(HERNANDARIAS, 700, 800, Segmento.CRECIENDO, 136, 135);
+		cargarSegmento(HERNANDARIAS, 600, 700, Segmento.CRECIENDO, 137, 136);
+		cargarSegmento(HERNANDARIAS, 500, 600, Segmento.CRECIENDO, 138, 137);
+		cargarSegmento(HERNANDARIAS, 400, 500, Segmento.CRECIENDO, 139, 138);
+		cargarSegmento(HERNANDARIAS, 300, 400, Segmento.CRECIENDO, 140, 139);
+		cargarSegmento(HERNANDARIAS, 200, 300, Segmento.CRECIENDO, 141, 140);
+		
+		cargarSegmento(GRAL_PAZ, 6600, 6700, Segmento.CRECIENDO, 132, 142);
+		cargarSegmento(GRAL_PAZ, 6600, 6700, Segmento.DECRECIENDO, 142, 132);
+		cargarSegmento(VELEZ, 6600, 6700, Segmento.CRECIENDO, 133, 143);
+		cargarSegmento(TACUARI, 6600, 6700, Segmento.DECRECIENDO, 144, 134);
+		cargarSegmento(PIEDRAS, 6600, 6700, Segmento.CRECIENDO, 135, 145);
+		cargarSegmento(A_GODOY, 6600, 6700, Segmento.DECRECIENDO, 146, 136);
+		cargarSegmento(CULLEN, 6600, 6700, Segmento.CRECIENDO, 137, 147);
+		cargarSegmento(ECHAGUE, 6600, 6700, Segmento.DECRECIENDO, 148, 138);
+		cargarSegmento(TALCAHUANO, 6600, 6700, Segmento.CRECIENDO, 139, 149);
+		cargarSegmento(DEFENSA, 6600, 6700, Segmento.DECRECIENDO, 150, 140);
+		cargarSegmento(RIOBAMBA, 6650, 6700, Segmento.CRECIENDO, 151, 152);
+		cargarSegmento(AV_BROWN, 6600, 6650, Segmento.CRECIENDO, 141, 151);
+		cargarSegmento(AV_BROWN, 6600, 6650, Segmento.DECRECIENDO, 151, 141);
+		cargarSegmento(AV_BROWN, 6650, 6700, Segmento.CRECIENDO, 151, 153);
+		cargarSegmento(AV_BROWN, 6650, 6700, Segmento.DECRECIENDO, 153, 151);
+		
+		cargarSegmento(CASTELLI, 1000, 1100, Segmento.DECRECIENDO, 142, 143);
+		cargarSegmento(CASTELLI, 900, 1000, Segmento.DECRECIENDO, 143, 144);
+		cargarSegmento(CASTELLI, 800, 900, Segmento.DECRECIENDO, 144, 145);
+		cargarSegmento(CASTELLI, 700, 800, Segmento.DECRECIENDO, 145, 146);
+		cargarSegmento(CASTELLI, 600, 700, Segmento.DECRECIENDO, 146, 147);
+		cargarSegmento(CASTELLI, 500, 600, Segmento.DECRECIENDO, 147, 148);
+		cargarSegmento(CASTELLI, 400, 500, Segmento.DECRECIENDO, 148, 149);
+		cargarSegmento(CASTELLI, 300, 400, Segmento.DECRECIENDO, 149, 150);
+		cargarSegmento(CASTELLI, 200, 300, Segmento.DECRECIENDO, 150, 152);
+		cargarSegmento(CASTELLI, 150, 200, Segmento.DECRECIENDO, 152, 153);
+		
+		cargarSegmento(GRAL_PAZ, 6700, 6800, Segmento.CRECIENDO, 142, 154);
+		cargarSegmento(GRAL_PAZ, 6700, 6800, Segmento.DECRECIENDO, 154, 142);
+		cargarSegmento(VELEZ, 6700, 6800, Segmento.CRECIENDO, 143, 155);
+		cargarSegmento(TACUARI, 6700, 6800, Segmento.DECRECIENDO, 156, 144);
+		cargarSegmento(PIEDRAS, 6700, 6800, Segmento.CRECIENDO, 145, 157);
+		cargarSegmento(A_GODOY, 6700, 6800, Segmento.DECRECIENDO, 158, 146);
+		cargarSegmento(CULLEN, 6700, 6800, Segmento.CRECIENDO, 147, 159);
+		cargarSegmento(ECHAGUE, 6700, 6800, Segmento.DECRECIENDO, 160, 148);
+		cargarSegmento(TALCAHUANO, 6700, 6800, Segmento.CRECIENDO, 149, 161);
+		cargarSegmento(DEFENSA, 6700, 6800, Segmento.DECRECIENDO, 162, 150);
+		cargarSegmento(RIOBAMBA, 6700, 6800, Segmento.CRECIENDO, 152, 163);
+		cargarSegmento(AV_BROWN, 6700, 6800, Segmento.CRECIENDO, 153, 164);
+		cargarSegmento(AV_BROWN, 6700, 6800, Segmento.DECRECIENDO, 164, 153);
+		
+		cargarSegmento(ZEBALLOS, 1000, 1050, Segmento.CRECIENDO, 142, 143);
+		cargarSegmento(ZEBALLOS, 900, 1000, Segmento.CRECIENDO, 143, 144);
+		cargarSegmento(ZEBALLOS, 800, 900, Segmento.CRECIENDO, 144, 145);
+		cargarSegmento(ZEBALLOS, 700, 800, Segmento.CRECIENDO, 145, 146);
+		cargarSegmento(ZEBALLOS, 600, 700, Segmento.CRECIENDO, 146, 147);
+		cargarSegmento(ZEBALLOS, 500, 600, Segmento.CRECIENDO, 147, 148);
+		cargarSegmento(ZEBALLOS, 400, 500, Segmento.CRECIENDO, 148, 149);
+		cargarSegmento(ZEBALLOS, 300, 400, Segmento.CRECIENDO, 149, 150);
+		cargarSegmento(ZEBALLOS, 200, 300, Segmento.CRECIENDO, 150, 152);
+		cargarSegmento(ZEBALLOS, 100, 200, Segmento.CRECIENDO, 152, 153);
+		
+		cargarSegmento(GRAL_PAZ, 6800, 6850, Segmento.CRECIENDO, 154, 165);
+		cargarSegmento(GRAL_PAZ, 6800, 6850, Segmento.DECRECIENDO, 165, 154);
+		cargarSegmento(GRAL_PAZ, 6850, 6900, Segmento.CRECIENDO, 165, 167);
+		cargarSegmento(GRAL_PAZ, 6850, 6900, Segmento.DECRECIENDO, 167, 165);
+		cargarSegmento(TACUARI, 6800, 6900, Segmento.DECRECIENDO, 168, 156);
+		cargarSegmento(PIEDRAS, 6800, 6900, Segmento.CRECIENDO, 157, 169);
+		cargarSegmento(A_GODOY, 6800, 6900, Segmento.DECRECIENDO, 170, 158);
+		cargarSegmento(CULLEN, 6800, 6900, Segmento.CRECIENDO, 159, 171);
+		cargarSegmento(ECHAGUE, 6800, 6900, Segmento.DECRECIENDO, 172, 160);
+		cargarSegmento(TALCAHUANO, 6800, 6900, Segmento.CRECIENDO, 161, 173);
+		cargarSegmento(DEFENSA, 6800, 6900, Segmento.DECRECIENDO, 174, 162);
+		cargarSegmento(RIOBAMBA, 6800, 6900, Segmento.CRECIENDO, 163, 175);
+		cargarSegmento(AV_BROWN, 6800, 6900, Segmento.CRECIENDO, 164, 176);
+		cargarSegmento(AV_BROWN, 6800, 6900, Segmento.DECRECIENDO, 176, 164);
+		
+		cargarSegmento(PASAJE, 1000, 1050, Segmento.DECRECIENDO, 165, 166);
+		cargarSegmento(PASAJE, 1000, 1050, Segmento.CRECIENDO, 166, 165);
+		cargarSegmento(BONEO, 900, 1050, Segmento.DECRECIENDO, 167, 168);
+		cargarSegmento(BONEO, 800, 900, Segmento.DECRECIENDO, 168, 169);
+		cargarSegmento(BONEO, 700, 800, Segmento.DECRECIENDO, 169, 170);
+		cargarSegmento(BONEO, 600, 700, Segmento.DECRECIENDO, 170, 171);
+		cargarSegmento(BONEO, 500, 600, Segmento.DECRECIENDO, 171, 172);
+		cargarSegmento(BONEO, 400, 500, Segmento.DECRECIENDO, 172, 173);
+		cargarSegmento(BONEO, 300, 400, Segmento.DECRECIENDO, 173, 174);
+		cargarSegmento(BONEO, 200, 300, Segmento.DECRECIENDO, 174, 175);
+		cargarSegmento(BONEO, 150, 200, Segmento.DECRECIENDO, 175, 176);
+		
 	}
 }
