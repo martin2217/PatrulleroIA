@@ -62,7 +62,32 @@ public class AmbienteEstado extends EnvironmentState {
 
         return str;
     }
-
+    
+    public Posicion getPosicionPatrullero(){
+    	return posicionPatrullero;
+    }
+    
+    public List<Posicion> getListaMarchas(){
+    	return listaMarchas;
+    
+    }
+    public List<Posicion> getListaAccidentesTransito(){
+    	return listaMarchas;
+    
+    }
+    public List<Posicion> getListaCongestionTransito(){
+    	return listaMarchas;
+    
+    }
+    public List<Posicion> getListaEventoSocial(){
+    	return listaMarchas;
+    
+    }
+    public List<Posicion> getListaPlanBacheo(){
+    	return listaMarchas;
+    
+    }
+    
 	//TODO: Complete this section with agent-specific methods
     // The following methods are agent-specific:
 	

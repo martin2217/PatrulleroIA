@@ -1,5 +1,8 @@
 package frsf.cidisi.exercise.patrullero.search;
 
+import java.util.List;
+
+import frsf.cidisi.exercise.patrullero.dominio.Posicion;
 import frsf.cidisi.faia.agent.Agent;
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.environment.Environment;
@@ -40,11 +43,62 @@ public class PatrulleroAgentePerception extends Perception {
     	
     	//TODO: Complete Method
         
-        //PatrulleroAgente agent = (PatrulleroAgente) agentIn;
-        //Ambiente environment = (Ambiente) environmentIn;
-        //AmbienteEstado environmentState =
-        //        environment.getEnvironmentState();
+        PatrulleroAgente agent = (PatrulleroAgente) agentIn;
+        Ambiente environment = (Ambiente) environmentIn;
+        AmbienteEstado environmentState = environment.getEnvironmentState();
        
+        Posicion pos = environmentState.getPosicionPatrullero();
+        boolean hayMarcha = environmentState.getListaMarchas().contains(pos);
+        boolean hayAccidente = environmentState.getListaAccidentesTransito().contains(pos);
+        boolean hayCongestion = environmentState.getListaCongestionTransito().contains(pos);
+        boolean hayEvento = environmentState.getListaEventoSocial().contains(pos);
+        boolean hayBacheo = environmentState.getListaPlanBacheo().contains(pos);
+        
+        //Marcha
+        if(hayMarcha){
+        	marcha = 1;
+        }
+        else
+        {
+        	marcha = 0;	
+        }
+        
+        //Accidente
+        if(hayAccidente){
+        	accidente_transito = 1;
+        }
+        else
+        {
+        	accidente_transito = 0;	
+        }
+        
+        //Congestoin
+        if(hayCongestion){
+        	congestion_transito = 1;
+        }
+        else
+        {
+        	congestion_transito = 0;	
+        }
+        
+        //Evento
+        if(hayEvento){
+        	evento_social = 1;
+        }
+        else
+        {
+        	evento_social = 0;	
+        }
+        
+        //Bacheo
+        if(hayBacheo){
+        	plan_bacheo = 1;
+        }
+        else
+        {
+        	plan_bacheo = 0;	
+        }
+               
         
     }
     
