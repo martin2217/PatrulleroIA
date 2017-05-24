@@ -91,7 +91,6 @@ public class AmbienteEstado extends EnvironmentState {
 	//TODO: Complete this section with agent-specific methods
     // The following methods are agent-specific:
 	
-     }	
 
 }
 
