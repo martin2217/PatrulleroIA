@@ -53,8 +53,8 @@ public class Mapa {
 		// Se conecta el segmento y los nodos
 		conectar(nodos.get(String.valueOf(nodoDesde)), nodos.get(String.valueOf(nodoHasta)), s);
 	}
-	private void posicionar(ArrayList<Pair<Double>> pos, int x, int y){
-		pos.add(new Pair<Double>((double)x,(double)y));
+	private void posicionar(ArrayList<Pair<Double>> pos, double x, double y){
+		pos.add(new Pair<Double>(x,y));
 	}
 	
 	private final String SALVADOR_DEL_CARRIL = "Salvador del Carril";
@@ -105,7 +105,9 @@ public class Mapa {
 		ArrayList< ArrayList<String >> ls = new ArrayList< ArrayList<String> >();
 		ArrayList<Pair<Double>> pos = new ArrayList<Pair<Double>>(167);
 		
-		//ArrayList<String> l = new ArrayList<String>();
+		
+		
+		// Carga de todos los nodos (esquinas)
 		
 		// 1
 		ls.add(new ArrayList<String>(Arrays.asList(SALVADOR_DEL_CARRIL, GRAL_PAZ)));
@@ -321,50 +323,186 @@ public class Mapa {
 		
 		
 		
+		
+		
 		// Carga de posiciones para visualización
-
-		posicionar(pos, 32, 825);
-		posicionar(pos, 95, 838);
-		posicionar(pos, 155, 850);
-		posicionar(pos, 213, 863);
-		posicionar(pos, 272, 875);
-		posicionar(pos, 321, 884);
-		posicionar(pos, 346, 889);
-		posicionar(pos, 403, 901);
-		posicionar(pos, 464, 916);
 		
-		// 10
-		posicionar(pos, 54, 790);
-		posicionar(pos, 105, 802);
-		posicionar(pos, 163, 816);
-		posicionar(pos, 221, 831);
-		posicionar(pos, 279, 845);
-		posicionar(pos, 325, 856);
-		posicionar(pos, 355, 851);
-		posicionar(pos, 412, 860);
-		
-		//18
-		posicionar(pos, 88, 737);
-		posicionar(pos, 120, 743);
-		posicionar(pos, 178, 761);
-		posicionar(pos, 236, 772);
-		posicionar(pos, 294, 786);
-		posicionar(pos, 343, 801);
-		posicionar(pos, 367, 805);
-		posicionar(pos, 422, 819);
-		posicionar(pos, 490, 835);
-		
-		//27
-		posicionar(pos, 129, 681);
-		posicionar(pos, 190, 698);
-		posicionar(pos, 252, 713);
-		posicionar(pos, 309, 728);
-		posicionar(pos, 355, 740);
-		posicionar(pos, 379, 745);
-		posicionar(pos, 439, 762);
-		posicionar(pos, 490, 774);
-		posicionar(pos, 514, 778);
-		
+		posicionar(pos, 72.12019348144531, 1207.9759521484375);
+		posicionar(pos, 158.44557189941406, 1227.14453125);
+		posicionar(pos, 242.7347869873047, 1245.3133544921875);
+		posicionar(pos, 326.95172119140625, 1265.2529296875);
+		posicionar(pos, 411.0120849609375, 1282.650634765625);
+		posicionar(pos, 479.67474365234375, 1297.433837890625);
+		posicionar(pos, 513.5422668457031, 1303.97607421875);
+		posicionar(pos, 594.83154296875, 1319.0601806640625);
+		posicionar(pos, 686.2894287109375, 1333.2891845703125);
+		posicionar(pos, 105.10818481445312, 1154.8553466796875);
+		posicionar(pos, 172.30101013183594, 1173.4095458984375);
+		posicionar(pos, 256.90350341796875, 1194.349365234375);
+		posicionar(pos, 339.5782775878906, 1215.51806640625);
+		posicionar(pos, 421.86749267578125, 1236.457763671875);
+		posicionar(pos, 489.8434753417969, 1254.783203125);
+		posicionar(pos, 528.325439453125, 1240.9156494140625);
+		posicionar(pos, 609.6146240234375, 1257.62646484375);
+		posicionar(pos, 148.74676513671875, 1078.7227783203125);
+		posicionar(pos, 194.24078369140625, 1090.891357421875);
+		posicionar(pos, 277.6866455078125, 1111.5902099609375);
+		posicionar(pos, 360.7469482421875, 1132.9998779296875);
+		posicionar(pos, 443.8072509765625, 1153.1685791015625);
+		posicionar(pos, 512.0844421386719, 1169.7108154296875);
+		posicionar(pos, 544.9519348144531, 1179.87939453125);
+		posicionar(pos, 623.0845336914062, 1200.048095703125);
+		posicionar(pos, 716.1448364257812, 1221.4456787109375);
+		posicionar(pos, 195.2845916748047, 1001.76318359375);
+		posicionar(pos, 297.92327880859375, 1028.2967529296875);
+		posicionar(pos, 381.7590026855469, 1048.9395751953125);
+		posicionar(pos, 464.20489501953125, 1069.3372802734375);
+		posicionar(pos, 531.7952880859375, 1087.8914794921875);
+		posicionar(pos, 566.5905151367188, 1095.5902099609375);
+		posicionar(pos, 646.2532348632812, 1116.4456787109375);
+		posicionar(pos, 729.638916015625, 1135.385498046875);
+		posicionar(pos, 755.5665893554688, 1144.3974609375);
+		posicionar(pos, 247.03194427490234, 924.9566535949707);
+		posicionar(pos, 318.1965866088867, 944.9096374511719);
+		posicionar(pos, 352.87462615966797, 953.157642364502);
+		posicionar(pos, 402.0964584350586, 964.8402214050293);
+		posicionar(pos, 485.6859436035156, 986.5621337890625);
+		posicionar(pos, 548.6055526733398, 1002.163703918457);
+		posicionar(pos, 585.2723388671875, 1012.3036499023438);
+		posicionar(pos, 662.6890182495117, 1032.7451057434082);
+		posicionar(pos, 745.6092300415039, 1053.5481452941895);
+		posicionar(pos, 806.3517379760742, 1069.8801155090332);
+		posicionar(pos, 299.5785140991211, 849.407154083252);
+		posicionar(pos, 372.72310638427734, 866.559741973877);
+		posicionar(pos, 424.72509002685547, 879.5060920715332);
+		posicionar(pos, 508.53002166748047, 901.0587043762207);
+		posicionar(pos, 605.9926071166992, 926.211353302002);
+		posicionar(pos, 682.3777389526367, 944.7608871459961);
+		posicionar(pos, 765.9034957885742, 964.637866973877);
+		posicionar(pos, 849.0264205932617, 986.2137336730957);
+		posicionar(pos, 878.6350326538086, 999.3977966308594);
+		posicionar(pos, 351.4780578613281, 773.156566619873);
+		posicionar(pos, 394.57757568359375, 784.3431282043457);
+		posicionar(pos, 444.87557220458984, 796.9091682434082);
+		posicionar(pos, 507.03096771240234, 813.8081550598145);
+		posicionar(pos, 521.635139465332, 845.1560516357422);
+		posicionar(pos, 528.631950378418, 819.1140632629395);
+		posicionar(pos, 618.0341186523438, 875.2046203613281);
+		posicionar(pos, 695.0477294921875, 894.9772033691406);
+		posicionar(pos, 779.2400665283203, 915.6705436706543);
+		posicionar(pos, 861.709587097168, 937.3896369934082);
+		posicionar(pos, 631.8895263671875, 827.31201171875);
+		posicionar(pos, 708.7785568237305, 844.7051277160645);
+		posicionar(pos, 790.4471130371094, 865.1500473022461);
+		posicionar(pos, 874.733024597168, 887.314136505127);
+		posicionar(pos, 958.9691772460938, 924.4694213867188);
+		posicionar(pos, 404.29430389404297, 696.3129768371582);
+		posicionar(pos, 459.4624938964844, 737.6136093139648);
+		posicionar(pos, 482.6099853515625, 719.9370727539062);
+		posicionar(pos, 547.380485534668, 734.1120491027832);
+		posicionar(pos, 533.6100540161133, 795.003490447998);
+		posicionar(pos, 611.4340133666992, 750.0674324035645);
+		posicionar(pos, 642.0667037963867, 773.8576545715332);
+		posicionar(pos, 719.8831100463867, 793.9185485839844);
+		posicionar(pos, 804.8434448242188, 815.5805053710938);
+		posicionar(pos, 886.7380599975586, 839.5234222412109);
+		posicionar(pos, 428.8134460449219, 658.3567352294922);
+		posicionar(pos, 451.6085205078125, 622.1116638183594);
+		posicionar(pos, 568.6083908081055, 653.9425354003906);
+		posicionar(pos, 636.9280319213867, 670.9645881652832);
+		posicionar(pos, 661.6349411010742, 676.0654792785645);
+		posicionar(pos, 732.3671112060547, 747.396125793457);
+		posicionar(pos, 816.4329986572266, 768.7340393066406);
+		posicionar(pos, 899.6975555419922, 788.286003112793);
+		posicionar(pos, 743.9580841064453, 695.1741180419922);
+		posicionar(pos, 827.988883972168, 716.2346687316895);
+		posicionar(pos, 912.2079963684082, 737.867523431778);
+		posicionar(pos, 994.0776214599609, 757.9356460571289);
+		posicionar(pos, 1077.8142395019531, 777.9719543457031);
+		posicionar(pos, 1109.2113571166992, 787.5391731262207);
+		posicionar(pos, 500.73333740234375, 546.7632904052734);
+		posicionar(pos, 589.8367233276367, 568.593433380127);
+		posicionar(pos, 636.6601486206055, 578.5161628723145);
+		posicionar(pos, 680.129997253418, 589.7100715637207);
+		posicionar(pos, 763.100025177002, 611.0600283145905);
+		posicionar(pos, 848.3833618164062, 632.3533935546875);
+		posicionar(pos, 930.666618347168, 654.4400520324707);
+		posicionar(pos, 1014.8767013549805, 674.7534599304199);
+		posicionar(pos, 1098.4765930175781, 695.5833015441895);
+		posicionar(pos, 1184.8701095581055, 718.0199813842773);
+		posicionar(pos, 553.583366394043, 470.41337966918945);
+		posicionar(pos, 610.3533554077148, 484.3667106628418);
+		posicionar(pos, 604.8500900268555, 505.0734443664551);
+		posicionar(pos, 699.696704864502, 506.629989862442);
+		posicionar(pos, 783.9334030151367, 527.5366706848145);
+		posicionar(pos, 868.1199264526367, 550.050220489502);
+		posicionar(pos, 950.5367965698242, 570.073413848877);
+		posicionar(pos, 1035.2334671020508, 592.1100082397461);
+		posicionar(pos, 1117.9767990112305, 613.9100227355957);
+		posicionar(pos, 1200.9533386230469, 634.1632995605469);
+		posicionar(pos, 1261.0234298706055, 649.7133674621582);
+		posicionar(pos, 605.3300704956055, 393.9101142883301);
+		posicionar(pos, 644.4033737182617, 402.4001350402832);
+		posicionar(pos, 675.9467086791992, 409.9301948547363);
+		posicionar(pos, 721.6965866088867, 421.3167915344238);
+		posicionar(pos, 803.8009567260742, 443.60393142700195);
+		posicionar(pos, 888.6710739135742, 464.74528884887695);
+		posicionar(pos, 970.5466003417969, 486.2733459472656);
+		posicionar(pos, 1055.183219909668, 508.21684646606445);
+		posicionar(pos, 1137.8400421142578, 528.3300552368164);
+		posicionar(pos, 1221.1067352294922, 549.5367202758789);
+		posicionar(pos, 1305.4000244140625, 570.7000274658203);
+		posicionar(pos, 1333.850086197257, 578.2800598144531);
+		posicionar(pos, 813.8559646606445, 399.8309631347656);
+		posicionar(pos, 897.990837097168, 420.1355171203613);
+		posicionar(pos, 980.5433654785156, 442.8433609008789);
+		posicionar(pos, 1065.580192565918, 463.1633186340332);
+		posicionar(pos, 1149.4702758789062, 483.6933288574219);
+		posicionar(pos, 659.7800140380859, 319.44003677368164);
+		posicionar(pos, 740.6133499145508, 341.7700500488281);
+		posicionar(pos, 823.8934631347656, 361.0433578491211);
+		posicionar(pos, 907.5499801635742, 382.0733833312988);
+		posicionar(pos, 990.5500259399414, 403.47999572753906);
+		posicionar(pos, 1076.2432861328125, 424.35333251953125);
+		posicionar(pos, 1157.4263191223145, 445.14996361732483);
+		posicionar(pos, 1241.8900680541992, 465.41008377075195);
+		posicionar(pos, 1325.1166305541992, 486.6201057434082);
+		posicionar(pos, 1403.9108963012695, 506.91930389404297);
+		posicionar(pos, 697.0632858276367, 239.91008377075195);
+		posicionar(pos, 761.3900680541992, 257.726749420166);
+		posicionar(pos, 842.420036315918, 278.45671463012695);
+		posicionar(pos, 926.8400192260742, 297.51347732543945);
+		posicionar(pos, 1010.3099250644445, 318.0666506290436);
+		posicionar(pos, 1095.1601257324219, 340.7799949645996);
+		posicionar(pos, 1177.0734405517578, 360.51671600341797);
+		posicionar(pos, 1261.4100875854492, 381.4700813293457);
+		posicionar(pos, 1344.5271301269531, 401.6567077636719);
+		posicionar(pos, 1416.997802734375, 491.9481506347656);
+		posicionar(pos, 1427.386833190918, 425.45341873168945);
+		posicionar(pos, 1470.1900634765625, 436.8633575439453);
+		posicionar(pos, 733.8899612426758, 161.40007400512695);
+		posicionar(pos, 782.1666793823242, 173.7867317199707);
+		posicionar(pos, 861.9801483154297, 193.56999588012695);
+		posicionar(pos, 946.5766525268555, 214.6100959777832);
+		posicionar(pos, 1028.9233322143555, 234.46998977661133);
+		posicionar(pos, 1114.2666549682617, 256.7600326538086);
+		posicionar(pos, 1196.5634994506836, 277.13335037231445);
+		posicionar(pos, 1280.7767639160156, 298.0400085449219);
+		posicionar(pos, 1362.9669723510742, 319.85344314575195);
+		posicionar(pos, 1447.263313293457, 341.5533676147461);
+		posicionar(pos, 1521.460075378418, 359.4533882141113);
+		posicionar(pos, 748.376823425293, 132.6833839416504);
+		posicionar(pos, 788.2867965698242, 141.79339981079102);
+		posicionar(pos, 771.3233108520508, 80.3766975402832);
+		posicionar(pos, 882.7000045776367, 108.67004776000977);
+		posicionar(pos, 966.3600997924805, 129.29332733154297);
+		posicionar(pos, 1048.8633346557617, 150.31337356567383);
+		posicionar(pos, 1134.1367111206055, 171.83337783813477);
+		posicionar(pos, 1216.3267135620117, 192.36348342895508);
+		posicionar(pos, 1299.2134323120117, 213.24684524536133);
+		posicionar(pos, 1382.9833297729492, 233.83673477172852);
+		posicionar(pos, 1466.1201705932617, 255.76013565063477);
+		posicionar(pos, 1552.4666748046875, 277.15003967285156);
 		
 		// TODO continuar
 		
@@ -382,8 +520,6 @@ public class Mapa {
 			}
 			cargarNodo(String.valueOf(i),ls.get(i-1), x, y);
 		}
-		
-		
 		
 		
 		
@@ -765,16 +901,16 @@ public class Mapa {
 		cargarSegmento(AV_BROWN, 6700, 6800, Segmento.CRECIENDO, 153, 164);
 		cargarSegmento(AV_BROWN, 6700, 6800, Segmento.DECRECIENDO, 164, 153);
 		
-		cargarSegmento(ZEBALLOS, 1000, 1050, Segmento.CRECIENDO, 142, 143);
-		cargarSegmento(ZEBALLOS, 900, 1000, Segmento.CRECIENDO, 143, 144);
-		cargarSegmento(ZEBALLOS, 800, 900, Segmento.CRECIENDO, 144, 145);
-		cargarSegmento(ZEBALLOS, 700, 800, Segmento.CRECIENDO, 145, 146);
-		cargarSegmento(ZEBALLOS, 600, 700, Segmento.CRECIENDO, 146, 147);
-		cargarSegmento(ZEBALLOS, 500, 600, Segmento.CRECIENDO, 147, 148);
-		cargarSegmento(ZEBALLOS, 400, 500, Segmento.CRECIENDO, 148, 149);
-		cargarSegmento(ZEBALLOS, 300, 400, Segmento.CRECIENDO, 149, 150);
-		cargarSegmento(ZEBALLOS, 200, 300, Segmento.CRECIENDO, 150, 152);
-		cargarSegmento(ZEBALLOS, 100, 200, Segmento.CRECIENDO, 152, 153);
+		cargarSegmento(ZEBALLOS, 1000, 1050, Segmento.CRECIENDO, 155, 154);
+		cargarSegmento(ZEBALLOS, 900, 1000, Segmento.CRECIENDO, 156, 155);
+		cargarSegmento(ZEBALLOS, 800, 900, Segmento.CRECIENDO, 157, 156);
+		cargarSegmento(ZEBALLOS, 700, 800, Segmento.CRECIENDO, 158, 157);
+		cargarSegmento(ZEBALLOS, 600, 700, Segmento.CRECIENDO, 159, 158);
+		cargarSegmento(ZEBALLOS, 500, 600, Segmento.CRECIENDO, 160, 159);
+		cargarSegmento(ZEBALLOS, 400, 500, Segmento.CRECIENDO, 161, 160);
+		cargarSegmento(ZEBALLOS, 300, 400, Segmento.CRECIENDO, 162, 161);
+		cargarSegmento(ZEBALLOS, 200, 300, Segmento.CRECIENDO, 163, 162);
+		cargarSegmento(ZEBALLOS, 100, 200, Segmento.CRECIENDO, 164, 163);
 		
 		cargarSegmento(GRAL_PAZ, 6800, 6850, Segmento.CRECIENDO, 154, 165);
 		cargarSegmento(GRAL_PAZ, 6800, 6850, Segmento.DECRECIENDO, 165, 154);

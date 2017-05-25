@@ -22,6 +22,7 @@ public class Segmento extends Posicion {
 		numeroDesde=numDesde;
 		numeroHasta=numHasta;
 		direccion=direcc;
+		demorado=1;
 	}
 	
 	public String getHash(){
@@ -79,7 +80,7 @@ public class Segmento extends Posicion {
 
 	@Override
 	public int getCosto() {
-		return costo;
+		return costo*demorado;
 	}
 
 	public void setCosto(int costo) {
@@ -101,4 +102,13 @@ public class Segmento extends Posicion {
 	public void setDireccion(int direccion) {
 		this.direccion = direccion;
 	}
+
+	public int getDemorado() {
+		return demorado;
+	}
+
+	public void setDemorado(int demorado) {
+		this.demorado = demorado;
+	}
+	
 }

@@ -24,8 +24,10 @@ public class Nodo extends Posicion{
 		costo = 1;
 		posX=0;
 		posY=0;
+		demorado=1;
 	}
 	public Nodo(String unNombre, ArrayList<String> call, double x, double y){
+		super();
 		segmentosConectados= new ArrayList<Segmento>();
 		nombres = new ArrayList<String>();
 		calles = new ArrayList<String>();
@@ -34,6 +36,7 @@ public class Nodo extends Posicion{
 		habilitado=true;
 		posX=x;
 		posY=y;
+		demorado=1;
 	}
 	
 	public String toString(){
@@ -100,6 +103,14 @@ public class Nodo extends Posicion{
 	}
 	public void setPosY(double posY) {
 		this.posY = posY;
+	}
+	@Override
+	public int getDemorado() {
+		return demorado;
+	}
+	@Override
+	public void setDemorado(int demora) {
+		demorado=demora;
 	}
 	
 }
