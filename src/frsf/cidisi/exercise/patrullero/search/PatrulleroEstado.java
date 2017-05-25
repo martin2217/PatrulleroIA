@@ -1,5 +1,6 @@
 package frsf.cidisi.exercise.patrullero.search;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -11,7 +12,6 @@ import frsf.cidisi.exercise.patrullero.dominio.Posicion;
 import frsf.cidisi.exercise.patrullero.dominio.Segmento;
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
-import frsf.cidisi.faia.agent.situationcalculus.KnowledgeBase;
 
 /**
  * Represent the internal state of the Agent.
@@ -28,7 +28,8 @@ public class PatrulleroEstado extends SearchBasedAgentState {
 	private List<Posicion> listaNodosVisitados;
 
     public PatrulleroEstado() {
-    
+       	
+    	
     	//TODO: Complete Method
     	/*
 			// DataStructureName = initData0;
@@ -56,6 +57,33 @@ public class PatrulleroEstado extends SearchBasedAgentState {
     public void updateState(Perception p) {
         
         //TODO: Complete Method
+    	PatrulleroAgentePerception percepcion = (PatrulleroAgentePerception)p;
+    	
+    	Posicion posActual = this.posicionActual;
+    	int marchaPercibida = percepcion.getmarcha();
+    	int accidentePercibido = percepcion.getaccidente_transito();
+    	int congestionPercibida = percepcion.getcongestion_transito();
+    	int eventoPercibido = percepcion.getevento_social();
+    	int bacheoPercibido = percepcion.getplan_bacheo();
+    	
+    	if(marchaPercibida ==1){
+    		addListaCortesTotales(getPosicionActual());
+    	}
+    	if(accidentePercibido ==1){
+    		addListaCortesParciales(getPosicionActual());
+    	}
+    	if(congestionPercibida ==1){
+    		addListaCortesParciales(getPosicionActual());
+    	}
+    	if(eventoPercibido ==1){
+    		addListaCortesTotales(getPosicionActual());
+    	}
+    	if(bacheoPercibido ==1){
+    		addListaCortesParciales(getPosicionActual());
+    	}
+    	
+    	
+    	
     }
 
     /**
@@ -65,7 +93,7 @@ public class PatrulleroEstado extends SearchBasedAgentState {
     public void initState() {
         
 	//TODO: Complete Method
-
+    	
     }
 
     /**
@@ -97,7 +125,7 @@ public class PatrulleroEstado extends SearchBasedAgentState {
     }
     
     public List<Posicion> getSucesores(){
-    	List<Posicion> lista = null;
+    	List<Posicion> lista = new ArrayList<Posicion>();
     	 
     	if(posicionActual.getClass().getName()=="Segmento"){
     		lista.add(((Segmento)posicionActual).getNodoHasta());
@@ -111,6 +139,14 @@ public class PatrulleroEstado extends SearchBasedAgentState {
     
     public void addPosicionVisitada(Posicion unaPosicion){
     	listaNodosVisitados.add(unaPosicion);
+    }
+    
+    public void addListaCortesParciales(Posicion unaPosicion){
+    	listaCortesParciales.add(unaPosicion);
+    }
+    
+    public void addListaCortesTotales(Posicion unaPosicion){
+    	listaCortesTotales.add(unaPosicion);
     }
     
     /**

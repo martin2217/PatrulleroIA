@@ -19,16 +19,17 @@ public class PatrulleroAgentePerception extends Perception {
 	private int accidente_transito;
 	private int evento_social;
 	private int plan_bacheo;
-	
+	//private Posicion destino;
  
 
-    public  PatrulleroAgentePerception() {
+    public  PatrulleroAgentePerception(/*Posicion unDestino*/) {
     	//TODO: Complete Method
     	congestion_transito=UNKNOWN_PERCEPTION;
     	marcha=UNKNOWN_PERCEPTION;
     	accidente_transito=UNKNOWN_PERCEPTION;
     	evento_social=UNKNOWN_PERCEPTION;
     	plan_bacheo=UNKNOWN_PERCEPTION;
+    	//destino = unDestino;
     }
 
     public PatrulleroAgentePerception(Agent agent, Environment environment) {
@@ -47,7 +48,7 @@ public class PatrulleroAgentePerception extends Perception {
         Ambiente environment = (Ambiente) environmentIn;
         AmbienteEstado environmentState = environment.getEnvironmentState();
        
-        Posicion pos = environmentState.getPosicionPatrullero();
+        Posicion pos = environmentState.getPosicionPatrullero(); //destino; 
         
         boolean hayMarcha = environmentState.getListaMarchas().contains(pos);
         boolean hayAccidente = environmentState.getListaAccidentesTransito().contains(pos);

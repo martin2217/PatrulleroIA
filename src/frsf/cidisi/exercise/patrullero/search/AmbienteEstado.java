@@ -49,6 +49,12 @@ public class AmbienteEstado extends EnvironmentState {
     public void initState() {
 
         //TODO: Complete Method
+    	mapa = new Mapa();
+    	posicionPatrullero = mapa.getNodos().get(1);
+    	posicionIncidente = mapa.getNodos().get(1);
+    	
+    	//Cargar listas...
+    	
     }
 
     /**
@@ -92,6 +98,26 @@ public class AmbienteEstado extends EnvironmentState {
     
     }
     
+    public void addListaMarchas(Posicion unaPosicion){
+    	listaMarchas.add(unaPosicion);
+    
+    }
+    public void addListaAccidentesTransito(Posicion unaPosicion){
+    	listaMarchas.add(unaPosicion);
+    
+    }
+    public void addListaCongestionTransito(Posicion unaPosicion){
+    	listaMarchas.add(unaPosicion);
+    
+    }
+    public void addListaEventoSocial(Posicion unaPosicion){
+    	listaMarchas.add(unaPosicion);
+    
+    }
+    public void addListaPlanBacheo(Posicion unaPosicion){
+    	listaMarchas.add(unaPosicion);
+    
+    }
 	//TODO: Complete this section with agent-specific methods
     // The following methods are agent-specific:
 	

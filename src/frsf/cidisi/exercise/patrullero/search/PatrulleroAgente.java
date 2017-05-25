@@ -13,13 +13,14 @@ import frsf.cidisi.faia.agent.Action;
 import frsf.cidisi.faia.solver.search.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
 public class PatrulleroAgente extends SearchBasedAgent {
 
     public PatrulleroAgente() {
-
+    	List<Posicion> adyacentes = new ArrayList<Posicion>();
         // The Agent Goal
         PatrulleroObjetivo agGoal = new PatrulleroObjetivo();
 
@@ -29,7 +30,7 @@ public class PatrulleroAgente extends SearchBasedAgent {
 
         // Create the operators
         Vector<SearchAction> operators = new Vector<SearchAction>();
-        List<Posicion> adyacentes = agState.getSucesores();
+        adyacentes = agState.getSucesores();
         
         for(int i = 0 ; i < adyacentes.size(); i++){
         operators.addElement(new IrA(adyacentes.get(i)));

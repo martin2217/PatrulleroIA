@@ -39,6 +39,7 @@ public class Ambiente extends Environment {
         //Marcha
         if(hayMarcha){
         	perception.setmarcha(1);
+        	
         }
         else
         {
