@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import frsf.cidisi.exercise.patrullero.dominio.Mapa;
+import frsf.cidisi.exercise.patrullero.dominio.Nodo;
 import frsf.cidisi.exercise.patrullero.dominio.Posicion;
 import frsf.cidisi.exercise.patrullero.dominio.Segmento;
 import frsf.cidisi.faia.agent.Perception;
@@ -94,10 +95,22 @@ public class PatrulleroEstado extends SearchBasedAgentState {
     public List<Posicion> getPosicionesVisitadas(){
     	return listaNodosVisitados;
     }
+    
     public List<Posicion> getSucesores(){
     	List<Posicion> lista = null;
     	 
+    	if(posicionActual.getClass().getName()=="Segmento"){
+    		lista.add(((Segmento)posicionActual).getNodoHasta());
+    	}
+    	else{
+    		lista.addAll(((Nodo)posicionActual).getSegmentosConectados());
+    	}
+    	
     	return lista;
+    }
+    
+    public void addPosicionVisitada(Posicion unaPosicion){
+    	listaNodosVisitados.add(unaPosicion);
     }
     
     /**

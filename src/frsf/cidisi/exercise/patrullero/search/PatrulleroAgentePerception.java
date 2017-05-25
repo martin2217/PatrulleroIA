@@ -48,6 +48,7 @@ public class PatrulleroAgentePerception extends Perception {
         AmbienteEstado environmentState = environment.getEnvironmentState();
        
         Posicion pos = environmentState.getPosicionPatrullero();
+        
         boolean hayMarcha = environmentState.getListaMarchas().contains(pos);
         boolean hayAccidente = environmentState.getListaAccidentesTransito().contains(pos);
         boolean hayCongestion = environmentState.getListaCongestionTransito().contains(pos);

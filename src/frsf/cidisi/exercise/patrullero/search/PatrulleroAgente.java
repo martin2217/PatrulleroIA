@@ -30,7 +30,8 @@ public class PatrulleroAgente extends SearchBasedAgent {
         // Create the operators
         Vector<SearchAction> operators = new Vector<SearchAction>();
         List<Posicion> adyacentes = agState.getSucesores();
-        for(int i=0 ; i < adyacentes.size(); i++){
+        
+        for(int i = 0 ; i < adyacentes.size(); i++){
         operators.addElement(new IrA(adyacentes.get(i)));
         }
         
