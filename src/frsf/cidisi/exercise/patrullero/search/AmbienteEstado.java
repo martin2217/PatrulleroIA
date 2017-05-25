@@ -67,6 +67,10 @@ public class AmbienteEstado extends EnvironmentState {
     	return posicionPatrullero;
     }
     
+    public void setPosicionPatrullero(Posicion nuevaPosicion){
+    	posicionPatrullero = nuevaPosicion;
+    }
+    
     public List<Posicion> getListaMarchas(){
     	return listaMarchas;
     

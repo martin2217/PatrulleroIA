@@ -1,5 +1,9 @@
 package frsf.cidisi.exercise.patrullero.search.actions;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import frsf.cidisi.exercise.patrullero.dominio.Posicion;
 import frsf.cidisi.exercise.patrullero.search.*;
 import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
@@ -12,14 +16,59 @@ public class Avanzar extends SearchAction {
      * This method updates a tree node state when the search process is running.
      * It does not updates the real world state.
      */
-    @Override
+    public SearchBasedAgentState execute(SearchBasedAgentState s, Posicion destino) {
+        PatrulleroEstado agState = (PatrulleroEstado) s;
+        
+        if (agState.getPosicionesVisitadas().contains(destino)) {
+            return null;
+        }
+        List<Posicion> sucesores = agState.getSucesores();
+        
+        if (sucesores != null) {
+            int index = sucesores.indexOf(destino);
+            if (index >= 0) {
+                agState.setPosicionActual(destino);
+
+                return agState;
+            }
+        } 
+        
+        return null;
+    }
+    
+    public EnvironmentState execute(AgentState ast, EnvironmentState est,Posicion destino) {
+        AmbienteEstado environmentState = (AmbienteEstado) est;
+        PatrulleroEstado agState = ((PatrulleroEstado) ast);
+        
+        int index = -1;
+        List<Posicion> sucesores = agState.getSucesores();
+        
+        if (sucesores != null) {
+            index = sucesores.indexOf(destino);
+        }
+        
+        if ((!agState.getPosicionesVisitadas().contains(destino)) && (index >= 0)) {
+            // Update the real world
+        	   environmentState.setPosicionPatrullero(destino);                
+                    	
+        	
+            // Update the agent state
+            agState.setPosicionActual(destino);
+            
+        	
+            return environmentState;
+        }
+
+        return null;
+    }
+    
+    
+	
+	@Override
     public SearchBasedAgentState execute(SearchBasedAgentState s) {
         PatrulleroEstado agState = (PatrulleroEstado) s;
         
-        // TODO: Use this conditions
-        // PreConditions: null
-        // PostConditions: null
-        
+                
         return null;
     }
 

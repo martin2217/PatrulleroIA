@@ -1,12 +1,16 @@
 package frsf.cidisi.exercise.patrullero.search;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import frsf.cidisi.exercise.patrullero.dominio.Mapa;
 import frsf.cidisi.exercise.patrullero.dominio.Posicion;
 import frsf.cidisi.exercise.patrullero.dominio.Segmento;
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
+import frsf.cidisi.faia.agent.situationcalculus.KnowledgeBase;
 
 /**
  * Represent the internal state of the Agent.
@@ -74,7 +78,28 @@ public class PatrulleroEstado extends SearchBasedAgentState {
 
         return str;
     }
+    
+    public Posicion getPosicionIncidente(){
+    	return posicionIncidente;
+    }
 
+    public Posicion getPosicionActual(){
+    	return posicionActual;
+    }
+    
+    public void setPosicionActual(Posicion nuevaPosicion){
+    	posicionActual = nuevaPosicion;
+    }
+    
+    public List<Posicion> getPosicionesVisitadas(){
+    	return listaNodosVisitados;
+    }
+    public List<Posicion> getSucesores(){
+    	List<Posicion> lista = null;
+    	 
+    	return lista;
+    }
+    
     /**
      * This method is used in the search process to verify if the node already
      * exists in the actual search.

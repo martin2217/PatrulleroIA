@@ -10,10 +10,12 @@ public class PatrulleroObjetivo extends GoalTest {
     @Override
     public boolean isGoalState (AgentState agentState) {
     
+    	PatrulleroEstado estado = (PatrulleroEstado) agentState;
+    	
     	// TODO: Complete Method
-        if  (true) //()
+        if  (estado.getPosicionActual().equals(estado.getPosicionIncidente())) //()
         	{
-            return true;
+              return true;
         	}
         return false;
 	}
