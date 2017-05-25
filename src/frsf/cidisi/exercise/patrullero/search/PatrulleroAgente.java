@@ -1,6 +1,7 @@
 package frsf.cidisi.exercise.patrullero.search;
 
-import frsf.cidisi.exercise.patrullero.search.actions.Avanzar;
+import frsf.cidisi.exercise.patrullero.dominio.Posicion;
+import frsf.cidisi.exercise.patrullero.search.actions.IrA;
 import frsf.cidisi.exercise.patrullero.search.actions.DoblarADerecha;
 import frsf.cidisi.exercise.patrullero.search.actions.DoblarAIzquierda;
 
@@ -12,6 +13,7 @@ import frsf.cidisi.faia.agent.Action;
 import frsf.cidisi.faia.solver.search.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.List;
 import java.util.Vector;
 
 public class PatrulleroAgente extends SearchBasedAgent {
@@ -27,9 +29,13 @@ public class PatrulleroAgente extends SearchBasedAgent {
 
         // Create the operators
         Vector<SearchAction> operators = new Vector<SearchAction>();
-        operators.addElement(new Avanzar());	
-        operators.addElement(new DoblarADerecha());	
-        operators.addElement(new DoblarAIzquierda());	
+        List<Posicion> adyacentes = agState.getSucesores();
+        for(int i=0 ; i < adyacentes.size(); i++){
+        operators.addElement(new IrA(adyacentes.get(i)));
+        }
+        
+        //operators.addElement(new DoblarADerecha());	
+        //operators.addElement(new DoblarAIzquierda());	
 
         // Create the Problem which the agent will resolve
         Problem problem = new Problem(agGoal, agState, operators);
