@@ -15,6 +15,7 @@ public class Segmento extends Posicion {
 	private int numeroDesde;
 	private int numeroHasta;	
 	private int direccion;
+	private String nombre=null;
 	
 	public Segmento(String nombCalle, int numDesde, int numHasta, int direcc){
 		super();
@@ -26,20 +27,26 @@ public class Segmento extends Posicion {
 		numeroHasta=numHasta;
 		direccion=direcc;
 		demorado=1;
+		getHash();
 	}
 	
 	public String getHash(){
-		String s=nombreCalle+" ";
-		if(direccion==CRECIENDO){
-			s+=numeroDesde+" -> "+numeroHasta;
+		if(nombre!=null){
+			String s=nombreCalle+" ";
+			if(direccion==CRECIENDO){
+				s+=numeroDesde+" -> "+numeroHasta;
+			}
+			else s+=numeroHasta+" -> "+numeroDesde;
+			//System.out.println("Segmento: "+s);
+			nombre=s;
+			return s;
 		}
-		else s+=numeroHasta+" -> "+numeroDesde;
-		return s;
+		return nombre;
 	}
 	
 	public String toString(){
-		//return getHash();
-		return nombreCalle+" al "+numeroDesde;
+		return getHash();
+		//return nombreCalle+" al "+numeroDesde;
 	}
 
 	public Nodo getNodoDesde() {
@@ -132,7 +139,7 @@ public class Segmento extends Posicion {
 		Nodo nodoDesde2;
 		Nodo nodoHasta2;
 		Segmento retorno = new Segmento(nombreCalle, numeroDesde, numeroHasta, direccion);
-		retorno.setNodoDesde(nodoDesde); // TODO mal?!
+		retorno.setNodoDesde(nodoDesde); 
 		retorno.setNodoHasta(nodoHasta);
 		return null;
 	}

@@ -243,7 +243,7 @@ public class PatrulleroEstado extends SearchBasedAgentState {
 	public List<String> getListaNodosVisitadosString(){
 		ArrayList<String> retorno = new ArrayList<String>();
 		for(Posicion p : listaNodosVisitados){
-			retorno.add(p.toString());
+			retorno.add(p.getHash());
 		}
 		return retorno;
 	}

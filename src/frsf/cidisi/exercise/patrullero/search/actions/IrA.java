@@ -37,6 +37,8 @@ public class IrA extends SearchAction {
         if (sucesores != null) {
             int index = sucesores.indexOf(destino.toString());
             
+            //TODO revisar
+            
             if (index >= 0) {
                 agState.setPosicionActual(agState.getMapa().getPosicion(destino.getHash()));
                 agState.addPosicionVisitada(agState.getMapa().getPosicion(destino.getHash()));
@@ -63,7 +65,7 @@ public class IrA extends SearchAction {
         	index = sucesores.indexOf(destino.toString());
         }
         
-        if ((!agState.getListaNodosVisitadosString().contains(destino.getHash())) && (index >= 0)) {
+        if (/*(!agState.getListaNodosVisitadosString().contains(destino.getHash())) && */(index >= 0)) {
             // Update the real world
         	environmentState.setPosicionPatrullero(agState.getMapa().getPosicion(destino.getHash()));
         	

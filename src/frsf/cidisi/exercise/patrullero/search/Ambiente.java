@@ -29,7 +29,7 @@ public class Ambiente extends Environment {
 		
 		//TODO : Set the perceptions sensors
         Posicion pos = getEnvironmentState().getPosicionPatrullero();
-        
+        /*
         boolean hayMarcha = getEnvironmentState().getListaMarchas().contains(pos);
         boolean hayAccidente = getEnvironmentState().getListaAccidentesTransito().contains(pos);
         boolean hayCongestion = getEnvironmentState().getListaCongestionTransito().contains(pos);
@@ -82,7 +82,7 @@ public class Ambiente extends Environment {
         	perception.setplan_bacheo(0);
         }
          
-         
+         */
          
         // Return the perception
         return perception;

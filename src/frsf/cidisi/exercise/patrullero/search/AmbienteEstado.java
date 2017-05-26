@@ -76,7 +76,6 @@ public class AmbienteEstado extends EnvironmentState {
     public String toString() {
         String str = "";
 
-        //TODO: Complete Method
         str+="Patrullero en "+posicionPatrullero.toString()+", incidente en "+posicionIncidente.toString()+".";
 
         return str;
