@@ -7,9 +7,9 @@ import frsf.cidisi.faia.environment.Environment;
 
 public class Ambiente extends Environment {
 
-    public Ambiente() {
+    public Ambiente(String posPatrullero, String posIncidente) {
         // Create the environment state
-        this.environmentState = new AmbienteEstado();
+        this.environmentState = new AmbienteEstado(posPatrullero, posIncidente);
     }
 
     public AmbienteEstado getEnvironmentState() {
@@ -99,7 +99,7 @@ public class Ambiente extends Environment {
         AmbienteEstado envState =
                 this.getEnvironmentState();
 
-        // TODO: Complete Method        
+        // TODO: Complete Method
 
         return false;
     }

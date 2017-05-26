@@ -11,32 +11,36 @@ import frsf.cidisi.faia.state.AgentState;
 import frsf.cidisi.faia.state.EnvironmentState;
 
 public class IrA extends SearchAction {
-  Posicion destino = null;
-	
-    	public IrA(Posicion unDestino){
-    		destino = unDestino;
-    	}
-	
-    /**
-     * This method updates a tree node state when the search process is running.
-     * It does not updates the real world state.
-     */
+
+	Posicion destino = null;
+	String dest;
+
+	public IrA(Posicion unDestino) {
+		destino = unDestino;
+		dest= unDestino.toString();
+	}
+
+	/**
+	 * This method updates a tree node state when the search process is running.
+	 * It does not updates the real world state.
+	 */
     	
 	@Override
     public SearchBasedAgentState execute(SearchBasedAgentState s) {
         PatrulleroEstado agState = (PatrulleroEstado) s;
                         
-        if (agState.getPosicionesVisitadas().contains(destino)) {
+        if (agState.getListaNodosVisitadosString().contains(destino.toString())) {
             return null;
         }
-        List<Posicion> sucesores = agState.getSucesores();
+        List<String> sucesores = agState.getSucesoresString();
         
         if (sucesores != null) {
-            int index = sucesores.indexOf(destino);
+            int index = sucesores.indexOf(destino.toString());
+            
             if (index >= 0) {
-                agState.setPosicionActual(destino);
-                agState.addPosicionVisitada(destino);
-                                
+                agState.setPosicionActual(agState.getMapa().getPosicion(destino.getHash()));
+                agState.addPosicionVisitada(agState.getMapa().getPosicion(destino.getHash()));
+                
                 return agState;
             }
         } 
@@ -53,20 +57,19 @@ public class IrA extends SearchAction {
         PatrulleroEstado agState = ((PatrulleroEstado) ast);
 
         int index = -1;
-        List<Posicion> sucesores = agState.getSucesores();
+        List<String> sucesores = agState.getSucesoresString();
         
         if (sucesores != null) {
-            index = sucesores.indexOf(destino);
+        	index = sucesores.indexOf(destino.toString());
         }
         
-        if ((!agState.getPosicionesVisitadas().contains(destino)) && (index >= 0)) {
+        if ((!agState.getListaNodosVisitadosString().contains(destino.getHash())) && (index >= 0)) {
             // Update the real world
-        	   environmentState.setPosicionPatrullero(destino);                
-                    	
+        	environmentState.setPosicionPatrullero(agState.getMapa().getPosicion(destino.getHash()));
         	
             // Update the agent state
-            agState.setPosicionActual(destino);
-            agState.addPosicionVisitada(destino);
+            agState.setPosicionActual(agState.getMapa().getPosicion(destino.getHash()));
+            agState.addPosicionVisitada(agState.getMapa().getPosicion(destino.getHash()));
         	
             return environmentState;
         }
@@ -88,6 +91,6 @@ public class IrA extends SearchAction {
      */
     @Override
     public String toString() {
-        return "IrA ";
+        return "Ir a "+dest+".";
     }
 }

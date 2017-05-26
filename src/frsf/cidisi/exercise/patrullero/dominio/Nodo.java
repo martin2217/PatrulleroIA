@@ -15,7 +15,7 @@ public class Nodo extends Posicion{
 	
 
 	public Nodo(String unNombre, ArrayList<String> call){
-		super();		
+		super();
 		segmentosConectados= new ArrayList<Segmento>();
 		nombres = new ArrayList<String>();
 		calles = new ArrayList<String>();
@@ -111,6 +111,24 @@ public class Nodo extends Posicion{
 	@Override
 	public void setDemorado(int demora) {
 		demorado=demora;
+	}
+	@Override
+	public List<Posicion> getSucesores() {
+		ArrayList<Posicion> retorno= new ArrayList<Posicion>();
+		retorno.addAll(segmentosConectados);
+		return retorno;
+	}
+	@Override
+	public boolean equals(Posicion p) {
+		return p.toString().equals(this.toString());
+	}
+	@Override
+	public Posicion clone() {
+		return null;
+	}
+	@Override
+	public String getHash() {
+		return codigo;
 	}
 	
 }

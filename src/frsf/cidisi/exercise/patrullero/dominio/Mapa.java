@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.uci.ics.jung.graph.util.Pair;
 
@@ -17,6 +18,15 @@ public class Mapa {
 		segmentos= new HashMap<String, Segmento>();
 		cargarMapa();
 	}
+	/*
+	public Posicion getPosicion(String codigo){
+		Posicion retorno;
+		if(pos.getClass().getName().equals("Segmento")){
+			retorno= segmentos.get(codigo);
+		}
+		else f
+		return retorno;
+	}*/
 	
 	public HashMap<String, Nodo> getNodos() {
 		return nodos;
@@ -32,6 +42,42 @@ public class Mapa {
 
 	public void setSegmentos(HashMap<String, Segmento> segmentos) {
 		this.segmentos = segmentos;
+	}
+	/*
+	 * Obtiene un nodo o segmento a partir del codigo hash dado
+	 */
+	public Posicion getPosicion(String s){
+		Nodo n1 = nodos.get(s);
+		Segmento s1 = segmentos.get(s);
+		if(n1!=null){
+			return n1;
+		}
+		else if(s1!=null){
+			return s1;
+		}
+		else return null;
+	}
+	
+	/*
+	 * Obtiene la Posicion pasandole el string de toString del segmento
+	 */
+	public Posicion getPosicionSegmento(String s){
+		for (Map.Entry<String, Segmento> entry : segmentos.entrySet()){
+            Segmento value = entry.getValue();
+            if (value.toString().equals(s)){
+            	return value;
+            }
+        }
+		return null;
+	}
+	public String segmentoToStringAHash(String s){
+		for (Map.Entry<String, Segmento> entry : segmentos.entrySet()){
+            Segmento value = entry.getValue();
+            if (value.toString().equals(s)){
+            	return value.getHash();
+            }
+        }
+		return null;
 	}
 	
 	private void conectar(Nodo n1, Nodo n2, Segmento s){
@@ -535,10 +581,10 @@ public class Mapa {
 		cargarSegmento(SALVADOR_DEL_CARRIL, 1200, 1300, Segmento.DECRECIENDO, 3, 4);
 		cargarSegmento(SALVADOR_DEL_CARRIL, 1100, 1200, Segmento.CRECIENDO, 5, 4);
 		cargarSegmento(SALVADOR_DEL_CARRIL, 1100, 1200, Segmento.DECRECIENDO, 4, 5);
-		cargarSegmento(SALVADOR_DEL_CARRIL, 1000, 1100, Segmento.CRECIENDO, 6, 5);
-		cargarSegmento(SALVADOR_DEL_CARRIL, 1000, 1100, Segmento.DECRECIENDO, 5, 6);
-		cargarSegmento(SALVADOR_DEL_CARRIL, 1000, 1000, Segmento.CRECIENDO, 7, 6);  // Ver qué Desde-Hasta ponemos
-		cargarSegmento(SALVADOR_DEL_CARRIL, 1000, 1000, Segmento.DECRECIENDO, 6, 7);  // Ver
+		cargarSegmento(SALVADOR_DEL_CARRIL, 1010, 1100, Segmento.CRECIENDO, 6, 5);
+		cargarSegmento(SALVADOR_DEL_CARRIL, 1010, 1100, Segmento.DECRECIENDO, 5, 6);
+		cargarSegmento(SALVADOR_DEL_CARRIL, 1000, 1010, Segmento.CRECIENDO, 7, 6);  // Ver qué Desde-Hasta ponemos
+		cargarSegmento(SALVADOR_DEL_CARRIL, 1000, 1010, Segmento.DECRECIENDO, 6, 7);  // Ver
 		cargarSegmento(SALVADOR_DEL_CARRIL, 900, 1000, Segmento.CRECIENDO, 8, 7);
 		cargarSegmento(SALVADOR_DEL_CARRIL, 900, 1000, Segmento.DECRECIENDO, 7, 8);
 		cargarSegmento(SALVADOR_DEL_CARRIL, 800, 900, Segmento.CRECIENDO, 9, 8);

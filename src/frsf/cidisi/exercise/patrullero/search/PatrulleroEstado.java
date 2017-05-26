@@ -18,6 +18,9 @@ import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
  */
 public class PatrulleroEstado extends SearchBasedAgentState {
 	
+	public final String SEGMENTO_CLASE="frsf.cidisi.exercise.patrullero.dominio.Segmento";
+	public final String NODO_CLASE="frsf.cidisi.exercise.patrullero.dominio.Nodo";
+	
 	//TODO: Setup Variables
     private Posicion posicionActual;
     private Posicion posicionIncidente;
@@ -26,15 +29,21 @@ public class PatrulleroEstado extends SearchBasedAgentState {
     private List<Posicion> listaCortesParciales;
     private List<Posicion> listaCortesTotales;
 	private List<Posicion> listaNodosVisitados;
+	private String posPatrullero;
+	private String posIncidente;
 
-    public PatrulleroEstado() {
+    public PatrulleroEstado(String posP, String posI) {
        	
-    	
     	//TODO: Complete Method
-    	/*
-			// DataStructureName = initData0;
-        */
-        this.initState();
+    	posPatrullero=posP;
+    	posIncidente=posI;
+    	listaCortesParciales= new ArrayList<Posicion>();
+    	listaCortesTotales= new ArrayList<Posicion>();
+    	listaNodosVisitados= new ArrayList<Posicion>();
+    	
+		this.initState();
+	}
+    public PatrulleroEstado() {
     }
 
     /**
@@ -43,13 +52,52 @@ public class PatrulleroEstado extends SearchBasedAgentState {
      */
     @Override
     public SearchBasedAgentState clone() {
-        
-		//TODO: Complete Method
+		PatrulleroEstado nuevo = new PatrulleroEstado();
+		Mapa map = mapa;
+		nuevo.setMapa(mapa);
+		nuevo.setListaCortesParciales(new ArrayList<Posicion>()); // TODO: completar con los cortes parciales y cortes totales dados
+		nuevo.setListaCortesTotales(new ArrayList<Posicion>());
 		
-        return null;
+		// Se cargan todas las posiciones visitados al nuevo estado
+		ArrayList<Posicion> nodosVisitados2 = new ArrayList<Posicion>();
+		for(Posicion nodoV : listaNodosVisitados){
+			if(nodoV.getClass().getName().equals(SEGMENTO_CLASE)){
+				nodosVisitados2.add(map.getSegmentos().get(nodoV.getHash()));
+			}
+			else if(nodoV.getClass().getName().equals(NODO_CLASE)){
+				nodosVisitados2.add(map.getNodos().get(nodoV.getHash()));
+			}
+		}
+		nuevo.setListaNodosVisitados(listaNodosVisitados);
+		
+		// Se carga la posicion actual
+		if(posicionActual.getClass().getName().equals(SEGMENTO_CLASE)){
+			nuevo.setPosicionActual(map.getSegmentos().get(posicionActual.getHash()));
+		}
+		else if(posicionActual.getClass().getName().equals(NODO_CLASE)){
+			nuevo.setPosicionActual(map.getNodos().get(posicionActual.getHash())); //TODO revisar si está bien que entre tantas veces
+		}
+		else{
+			nuevo=nuevo; // ERRORR
+		}
+		
+		// se carga la posicioin del incidente
+		if(posicionIncidente.getClass().getName().equals(SEGMENTO_CLASE)){
+			nuevo.setPosicionIncidente(map.getSegmentos().get(posicionIncidente.getHash()));
+		}
+		else /*if(posicionActual.getClass().getName().equals("Nodo"))*/{
+			nuevo.setPosicionIncidente(map.getNodos().get(posicionIncidente.getHash()));
+		}
+		
+		//Se carga el ultimo segmento
+		if (ultimoSegmento!= null){
+			nuevo.setUltimoSegmento(map.getSegmentos().get(ultimoSegmento.getHash()));
+		}
+		
+        return nuevo;
     }
 
-    /**
+	/**
      * This method is used to update the Agent State when a Perception is
      * received by the Simulator.
      */
@@ -57,7 +105,7 @@ public class PatrulleroEstado extends SearchBasedAgentState {
     public void updateState(Perception p) {
         
         //TODO: Complete Method
-    	PatrulleroAgentePerception percepcion = (PatrulleroAgentePerception)p;
+    	/*PatrulleroAgentePerception percepcion = (PatrulleroAgentePerception)p;
     	
     	Posicion posActual = this.posicionActual;
     	int marchaPercibida = percepcion.getmarcha();
@@ -80,7 +128,7 @@ public class PatrulleroEstado extends SearchBasedAgentState {
     	}
     	if(bacheoPercibido ==1){
     		addListaCortesParciales(getPosicionActual());
-    	}
+    	}*/
     	
     	
     	
@@ -93,7 +141,9 @@ public class PatrulleroEstado extends SearchBasedAgentState {
     public void initState() {
         
 	//TODO: Complete Method
-    	
+    	mapa= new Mapa();
+    	posicionActual = mapa.getPosicion(posPatrullero);
+    	posicionIncidente = mapa.getPosicion(posIncidente);
     }
 
     /**
@@ -102,9 +152,7 @@ public class PatrulleroEstado extends SearchBasedAgentState {
     @Override
     public String toString() {
         String str = "";
-
-        //TODO: Complete Method
-
+        str+="Patrullero en "+posicionActual.toString()+", incidente en "+posicionIncidente.toString()+".";
         return str;
     }
     
@@ -125,16 +173,14 @@ public class PatrulleroEstado extends SearchBasedAgentState {
     }
     
     public List<Posicion> getSucesores(){
-    	List<Posicion> lista = new ArrayList<Posicion>();
-    	 
-    	if(posicionActual.getClass().getName()=="Segmento"){
-    		lista.add(((Segmento)posicionActual).getNodoHasta());
-    	}
-    	else{
-    		lista.addAll(((Nodo)posicionActual).getSegmentosConectados());
-    	}
-    	
-    	return lista;
+    	return posicionActual.getSucesores();
+    }
+    public List<String> getSucesoresString(){
+    	ArrayList<String> retorno = new ArrayList<String>();
+		for(Posicion p : posicionActual.getSucesores()){
+			retorno.add(p.toString());
+		}
+		return retorno;
     }
     
     public void addPosicionVisitada(Posicion unaPosicion){
@@ -149,16 +195,89 @@ public class PatrulleroEstado extends SearchBasedAgentState {
     	listaCortesTotales.add(unaPosicion);
     }
     
-    /**
+    public Mapa getMapa(){
+    	return mapa;
+    }
+
+    private void setMapa(Mapa map) {
+		mapa=map;
+	}
+    public Segmento getUltimoSegmento() {
+		return ultimoSegmento;
+	}
+    public String getUltimoSegmentoString() {
+		return ultimoSegmento.toString();
+	}
+	public void setUltimoSegmento(Segmento ultimoSegmento) {
+		this.ultimoSegmento = ultimoSegmento;
+	}
+	public List<Posicion> getListaCortesParciales() {
+		return listaCortesParciales;
+	}
+	public List<String> getListaCortesParcialesString(){
+		ArrayList<String> retorno = new ArrayList<String>();
+		for(Posicion p : listaCortesParciales){
+			retorno.add(p.toString());
+		}
+		return retorno;
+	}
+	public void setListaCortesParciales(List<Posicion> listaCortesParciales) {
+		this.listaCortesParciales = listaCortesParciales;
+	}
+	public List<Posicion> getListaCortesTotales() {
+		return listaCortesTotales;
+	}
+	public List<String> getListaCortesTotalesString(){
+		ArrayList<String> retorno = new ArrayList<String>();
+		for(Posicion p : listaCortesTotales){
+			retorno.add(p.toString());
+		}
+		return retorno;
+	}
+	public void setListaCortesTotales(List<Posicion> listaCortesTotales) {
+		this.listaCortesTotales = listaCortesTotales;
+	}
+	public List<Posicion> getListaNodosVisitados() {
+		return listaNodosVisitados;
+	}
+	public List<String> getListaNodosVisitadosString(){
+		ArrayList<String> retorno = new ArrayList<String>();
+		for(Posicion p : listaNodosVisitados){
+			retorno.add(p.toString());
+		}
+		return retorno;
+	}
+	public void setListaNodosVisitados(List<Posicion> listaNodosVisitados) {
+		this.listaNodosVisitados = listaNodosVisitados;
+	}
+	public String getPosPatrullero() {
+		return posPatrullero;
+	}
+	public void setPosPatrullero(String posPatrullero) {
+		this.posPatrullero = posPatrullero;
+	}
+	public String getPosIncidente() {
+		return posIncidente;
+	}
+	public void setPosIncidente(String posIncidente) {
+		this.posIncidente = posIncidente;
+	}
+	public void setPosicionIncidente(Posicion posicionIncidente) {
+		this.posicionIncidente = posicionIncidente;
+	}
+	
+	/**
      * This method is used in the search process to verify if the node already
      * exists in the actual search.
      */
     @Override
     public boolean equals(Object obj) {
-       
-       //TODO: Complete Method
-        
-        return true;
+    	// TODO: revisar si se debe incluir las posiciones visitadas
+    	PatrulleroEstado otroPatrullero=(PatrulleroEstado) obj;
+    	if(otroPatrullero.getPosicionActual().toString().equals(posicionActual.toString())){
+    		return true;
+    	}
+    	else return false;
     }
 
     //TODO: Complete this section with agent-specific methods

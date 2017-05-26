@@ -25,20 +25,33 @@ public class AmbienteEstado extends EnvironmentState {
     private Posicion posicionPatrullero;
     private Posicion posicionIncidente;
     private Mapa mapa;
+    private String posPatrullero;
+    private String posIncidente;
 	
+    /*
+     * Incidente y posición del patrullero predefinidas
+     */
     public AmbienteEstado() {
         
-        //TODO: Complete Method
-    	
+        //TODO: Setup variables estado del ambiente
+    	posPatrullero="1";
+    	posIncidente="55";
     	listaMarchas = new ArrayList<Posicion>();
     	listaAccidentesTransito= new ArrayList<Posicion>();
         listaCongestionTransito= new ArrayList<Posicion>();
         listaEventoSocial= new ArrayList<Posicion>();
         listaPlanBacheo= new ArrayList<Posicion>();
-    	//posicionPatrullero = new Posicion();        
-        //posicionIncidente = new Posicion();
-        //mapa = new Mapa();
-    	
+        this.initState();
+    }
+    
+    public AmbienteEstado(String posP, String posI) {
+    	posPatrullero= posP;
+    	posIncidente= posI;
+    	listaMarchas = new ArrayList<Posicion>();
+    	listaAccidentesTransito= new ArrayList<Posicion>();
+        listaCongestionTransito= new ArrayList<Posicion>();
+        listaEventoSocial= new ArrayList<Posicion>();
+        listaPlanBacheo= new ArrayList<Posicion>();
         this.initState();
     }
 
@@ -48,12 +61,11 @@ public class AmbienteEstado extends EnvironmentState {
     @Override
     public void initState() {
 
-        //TODO: Complete Method
     	mapa = new Mapa();
-    	posicionPatrullero = mapa.getNodos().get(1);
-    	posicionIncidente = mapa.getNodos().get(1);
+    	posicionPatrullero = mapa.getPosicion(posPatrullero);
+    	posicionIncidente = mapa.getPosicion(posIncidente);
     	
-    	//Cargar listas...
+    	//Cargar listas... (..?)
     	
     }
 
@@ -65,6 +77,7 @@ public class AmbienteEstado extends EnvironmentState {
         String str = "";
 
         //TODO: Complete Method
+        str+="Patrullero en "+posicionPatrullero.toString()+", incidente en "+posicionIncidente.toString()+".";
 
         return str;
     }

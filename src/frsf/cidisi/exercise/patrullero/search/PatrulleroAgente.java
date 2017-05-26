@@ -1,9 +1,9 @@
 package frsf.cidisi.exercise.patrullero.search;
 
+import frsf.cidisi.exercise.patrullero.dominio.Nodo;
 import frsf.cidisi.exercise.patrullero.dominio.Posicion;
+import frsf.cidisi.exercise.patrullero.dominio.Segmento;
 import frsf.cidisi.exercise.patrullero.search.actions.IrA;
-import frsf.cidisi.exercise.patrullero.search.actions.DoblarADerecha;
-import frsf.cidisi.exercise.patrullero.search.actions.DoblarAIzquierda;
 
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.agent.search.Problem;
@@ -14,30 +14,36 @@ import frsf.cidisi.faia.solver.search.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 public class PatrulleroAgente extends SearchBasedAgent {
 
-    public PatrulleroAgente() {
+    public PatrulleroAgente(String posPatrullero, String posIncidente) {
     	List<Posicion> adyacentes = new ArrayList<Posicion>();
         // The Agent Goal
         PatrulleroObjetivo agGoal = new PatrulleroObjetivo();
 
         // The Agent State
-        PatrulleroEstado agState = new PatrulleroEstado();
+        PatrulleroEstado agState = new PatrulleroEstado(posPatrullero, posIncidente);
         this.setAgentState(agState);
 
         // Create the operators
         Vector<SearchAction> operators = new Vector<SearchAction>();
-        adyacentes = agState.getSucesores();
         
-        for(int i = 0 ; i < adyacentes.size(); i++){
-        operators.addElement(new IrA(adyacentes.get(i)));
+        HashMap<String, Segmento> segmentos= agState.getMapa().getSegmentos();
+        for(Map.Entry<String, Segmento> entry : segmentos.entrySet()){
+        	Posicion value = entry.getValue();
+            operators.addElement(new IrA(value));
         }
         
-        //operators.addElement(new DoblarADerecha());	
-        //operators.addElement(new DoblarAIzquierda());	
+        HashMap<String, Nodo> nodos= agState.getMapa().getNodos();
+        for (Map.Entry<String, Nodo> entry : nodos.entrySet()){
+            Posicion value = entry.getValue();
+            operators.addElement(new IrA(value));
+        }
 
         // Create the Problem which the agent will resolve
         Problem problem = new Problem(agGoal, agState, operators);

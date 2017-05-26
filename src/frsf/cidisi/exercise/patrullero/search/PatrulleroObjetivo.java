@@ -13,8 +13,7 @@ public class PatrulleroObjetivo extends GoalTest {
     	PatrulleroEstado estado = (PatrulleroEstado) agentState;
     	
     	// TODO: Complete Method
-        if  (estado.getPosicionActual().equals(estado.getPosicionIncidente())) //()
-        	{
+        if  (estado.getPosicionActual().toString().equals(estado.getPosicionIncidente().toString())) {
               return true;
         	}
         return false;

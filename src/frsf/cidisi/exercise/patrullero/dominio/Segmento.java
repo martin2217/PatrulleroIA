@@ -1,5 +1,8 @@
 package frsf.cidisi.exercise.patrullero.dominio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Segmento extends Posicion {
 	
 	// Usado para la dirección del segmento/patrullero
@@ -35,6 +38,7 @@ public class Segmento extends Posicion {
 	}
 	
 	public String toString(){
+		//return getHash();
 		return nombreCalle+" al "+numeroDesde;
 	}
 
@@ -109,6 +113,28 @@ public class Segmento extends Posicion {
 
 	public void setDemorado(int demorado) {
 		this.demorado = demorado;
+	}
+
+	@Override
+	public List<Posicion> getSucesores() {
+		ArrayList<Posicion> retorno= new ArrayList<Posicion>();
+		retorno.add(nodoHasta);
+		return retorno;
+	}
+
+	@Override
+	public boolean equals(Posicion p) {
+		return p.toString().equals(this.toString());
+	}
+
+	@Override
+	public Posicion clone() {
+		Nodo nodoDesde2;
+		Nodo nodoHasta2;
+		Segmento retorno = new Segmento(nombreCalle, numeroDesde, numeroHasta, direccion);
+		retorno.setNodoDesde(nodoDesde); // TODO mal?!
+		retorno.setNodoHasta(nodoHasta);
+		return null;
 	}
 	
 }
