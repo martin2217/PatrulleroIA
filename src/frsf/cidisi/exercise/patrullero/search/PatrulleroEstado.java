@@ -68,7 +68,7 @@ public class PatrulleroEstado extends SearchBasedAgentState {
 				nodosVisitados2.add(map.getNodos().get(nodoV.getHash()));
 			}
 		}
-		nuevo.setListaNodosVisitados(listaNodosVisitados);
+		nuevo.setListaNodosVisitados(nodosVisitados2);
 		
 		// Se carga la posicion actual
 		if(posicionActual.getClass().getName().equals(SEGMENTO_CLASE)){
