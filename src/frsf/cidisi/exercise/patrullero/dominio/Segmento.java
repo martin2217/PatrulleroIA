@@ -15,7 +15,7 @@ public class Segmento extends Posicion {
 	private int numeroDesde;
 	private int numeroHasta;	
 	private int direccion;
-	private String nombre=null;
+	private String nombre;
 	
 	public Segmento(String nombCalle, int numDesde, int numHasta, int direcc){
 		super();
@@ -27,9 +27,15 @@ public class Segmento extends Posicion {
 		numeroHasta=numHasta;
 		direccion=direcc;
 		demorado=1;
-		getHash();
+		String s=nombreCalle+" ";
+		if(direccion==CRECIENDO){
+			s+=numeroDesde+" -> "+numeroHasta;
+		}
+		else s+=numeroHasta+" -> "+numeroDesde;
+		//System.out.println("Segmento: "+s);
+		nombre=s;
 	}
-	
+	@Override
 	public String getHash(){
 		if(nombre!=null){
 			String s=nombreCalle+" ";
