@@ -105,32 +105,7 @@ public class PatrulleroEstado extends SearchBasedAgentState {
     public void updateState(Perception p) {
         
         //TODO: Complete Method
-    	/*PatrulleroAgentePerception percepcion = (PatrulleroAgentePerception)p;
-    	
-    	Posicion posActual = this.posicionActual;
-    	int marchaPercibida = percepcion.getmarcha();
-    	int accidentePercibido = percepcion.getaccidente_transito();
-    	int congestionPercibida = percepcion.getcongestion_transito();
-    	int eventoPercibido = percepcion.getevento_social();
-    	int bacheoPercibido = percepcion.getplan_bacheo();
-    	
-    	if(marchaPercibida ==1){
-    		addListaCortesTotales(getPosicionActual());
-    	}
-    	if(accidentePercibido ==1){
-    		addListaCortesParciales(getPosicionActual());
-    	}
-    	if(congestionPercibida ==1){
-    		addListaCortesParciales(getPosicionActual());
-    	}
-    	if(eventoPercibido ==1){
-    		addListaCortesTotales(getPosicionActual());
-    	}
-    	if(bacheoPercibido ==1){
-    		addListaCortesParciales(getPosicionActual());
-    	}*/
-    	
-    	
+    	//PatrulleroAgentePerception percepcion = (PatrulleroAgentePerception)p;
     	
     }
 

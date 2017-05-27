@@ -6,6 +6,8 @@ public abstract class Posicion {
 	protected int costo;
 	protected boolean habilitado;
 	protected int demorado; // Multiplicador de costo
+	protected double posX;
+	protected double posY;
 	
 	
 	public Posicion(){
@@ -23,6 +25,8 @@ public abstract class Posicion {
 	public abstract Posicion clone();
 	public abstract String getHash();
 	public abstract double getX();
+	public abstract void setX(double x);
+	public abstract void setY(double y);
 	public abstract double getY();
 	
 }

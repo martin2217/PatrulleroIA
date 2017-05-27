@@ -61,20 +61,33 @@ import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import frsf.cidisi.exercise.patrullero.dominio.Mapa;
 import frsf.cidisi.exercise.patrullero.dominio.Nodo;
+import frsf.cidisi.exercise.patrullero.dominio.Posicion;
 import frsf.cidisi.exercise.patrullero.dominio.Segmento;
+import frsf.cidisi.exercise.patrullero.search.PatrulleroEstado;
 
 public class PruebaJung {
 	
 	private static HashMap<String, Nodo> nodos;
 	private static HashMap<String, Segmento> segmentos;
 	private static DirectedGraph<Nodo, Segmento> grafo;
+	private static Posicion patrullero;
+	private static PatrulleroEstado patrulleroEstado;
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 
 		Mapa mapa = new Mapa();
+		patrullero=mapa.getSegmentos().get("Salvador del Carril 1500 -> 1400");
+		graficar(mapa);
+		
+	}
+	*/
+	
+	public PruebaJung(Mapa mapa, PatrulleroEstado patrulleroEst){
+		//patrullero=patrulleroEst.getPosicionActual();
+		patrulleroEstado=patrulleroEst;
 		graficar(mapa);
 	}
 	
@@ -110,11 +123,15 @@ public class PruebaJung {
 		frame.setVisible(true);
 		
 		// Prueba para verificación gráfica de los modificadores
-		nodos.get("104").setHabilitado(false);
-		panelMapa.repaint();
+		//nodos.get("104").setHabilitado(false);
+		//panelMapa.repaint();
 		
 		//Usado para imprimir la posicion de los nodos (en caso de necesitar reposicionarlos)
 		//obtenerPosiciones(layout);
+		
+		// Prueba para verificación del movimiento del patrullero
+		//patrullero.setX(patrullero.getX()+20);
+		//panelMapa.repaint();
 	}
 	
 	
@@ -227,11 +244,11 @@ public class PruebaJung {
 		
 		// Seteando la imagen de fondo
 		ImageIcon mapIcon = null;
-		String imageLocation = "resources/mapa2.png";
+		String mapImageLocation = "resources/mapa2.png";
 		try {
-			mapIcon = new ImageIcon(imageLocation);
+			mapIcon = new ImageIcon(mapImageLocation);
 		} catch (Exception ex) {
-			System.err.println("Can't load \"" + imageLocation + "\"");
+			System.err.println("Can't load \"" + mapImageLocation + "\"");
 		}
 		final ImageIcon icon = mapIcon;
 
@@ -256,8 +273,40 @@ public class PruebaJung {
 				public boolean useTransform() { return false; }
 			});
 		}
+		
 
-
+		// Cargar posicion del patrullero?
+		ImageIcon patrulleroIcon = null;
+		String patrulleroImageLocation = "resources/patrullero.png";
+		try {
+			patrulleroIcon = new ImageIcon(patrulleroImageLocation);
+		} catch (Exception ex) {
+			System.err.println("Can't load \"" + patrulleroImageLocation + "\"");
+		}
+		final ImageIcon icon2 = patrulleroIcon;
+		VisualizationViewer.Paintable patrulleroImagen = new VisualizationViewer.Paintable(){
+			public void paint(Graphics g) {
+				Graphics2D g2d = (Graphics2D)g;
+				AffineTransform oldXform = g2d.getTransform();
+				AffineTransform lat = 
+					vv.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).getTransform();
+				AffineTransform vat = 
+					vv.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.VIEW).getTransform();
+				AffineTransform at = new AffineTransform();
+				at.concatenate(g2d.getTransform());
+				at.concatenate(vat);
+				at.concatenate(lat);
+				g2d.setTransform(at);
+				
+				g.drawImage(icon2.getImage(), new Double(patrulleroEstado.getPosicionActual().getX()).intValue()-icon2.getIconWidth()/2,
+						new Double(patrulleroEstado.getPosicionActual().getY()).intValue()-icon2.getIconHeight()/2,
+						icon2.getIconWidth(),icon2.getIconHeight(),vv);
+				g2d.setTransform(oldXform);
+			}
+			public boolean useTransform() { return false; }
+		};
+		vv.addPostRenderPaintable(patrulleroImagen);
+		
 		vv.setLayout(new BorderLayout());
 		//vv.add(BorderLayout.CENTER, scrollPane);
 		

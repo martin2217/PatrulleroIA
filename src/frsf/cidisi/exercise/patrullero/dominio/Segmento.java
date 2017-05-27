@@ -27,6 +27,8 @@ public class Segmento extends Posicion {
 		numeroHasta=numHasta;
 		direccion=direcc;
 		demorado=1;
+		
+		// Seteo del nombre
 		String s=nombreCalle+" ";
 		if(direccion==CRECIENDO){
 			s+=numeroDesde+" -> "+numeroHasta;
@@ -34,6 +36,10 @@ public class Segmento extends Posicion {
 		else s+=numeroHasta+" -> "+numeroDesde;
 		//System.out.println("Segmento: "+s);
 		nombre=s;
+		
+		posX=-100;
+		posY=-100;
+		
 	}
 	@Override
 	public String getHash(){
@@ -152,11 +158,26 @@ public class Segmento extends Posicion {
 	
 	@Override
 	public double getX(){
-		return nodoDesde.getX();
+		// seteo de la posición
+		if(posX==-100){
+			posX=(nodoDesde.getX()+nodoHasta.getX())/2.0;
+		}
+		return posX;
 	}
 	@Override
 	public double getY(){
-		return nodoDesde.getY();
+		if(posY==-100){
+			posY=(nodoDesde.getY()+nodoHasta.getY())/2.0;
+		}
+		return posY;
+	}
+	@Override
+	public void setX(double x) {
+		posX=x;
+	}
+	@Override
+	public void setY(double y) {
+		posY=y;
 	}
 	
 }

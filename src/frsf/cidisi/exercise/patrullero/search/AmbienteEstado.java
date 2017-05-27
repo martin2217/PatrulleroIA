@@ -18,9 +18,9 @@ public class AmbienteEstado extends EnvironmentState {
 	
 	//TODO: Setup Variables
     private List<Posicion> listaMarchas;                //Corte Total
+    private List<Posicion> listaEventoSocial;           //Corte Total
     private List<Posicion> listaAccidentesTransito;     //Corte Parcial
     private List<Posicion> listaCongestionTransito;     //Corte Parcial
-    private List<Posicion> listaEventoSocial;           //Corte Total
     private List<Posicion> listaPlanBacheo;             //Corte Parcial
     private Posicion posicionPatrullero;
     private Posicion posicionIncidente;
@@ -30,8 +30,9 @@ public class AmbienteEstado extends EnvironmentState {
 	
     /*
      * Incidente y posición del patrullero predefinidas
+     * -No usado-
      */
-    public AmbienteEstado() {
+    /*public AmbienteEstado() {
         
         //TODO: Setup variables estado del ambiente
     	posPatrullero="1";
@@ -42,7 +43,7 @@ public class AmbienteEstado extends EnvironmentState {
         listaEventoSocial= new ArrayList<Posicion>();
         listaPlanBacheo= new ArrayList<Posicion>();
         this.initState();
-    }
+    }*/
     
     public AmbienteEstado(String posP, String posI) {
     	posPatrullero= posP;
@@ -65,7 +66,7 @@ public class AmbienteEstado extends EnvironmentState {
     	posicionPatrullero = mapa.getPosicion(posPatrullero);
     	posicionIncidente = mapa.getPosicion(posIncidente);
     	
-    	//Cargar listas... (..?)
+    	// TODO: Cargar listas de percepciones al mapa
     	
     }
 
@@ -76,7 +77,7 @@ public class AmbienteEstado extends EnvironmentState {
     public String toString() {
         String str = "";
 
-        str+="Patrullero en "+posicionPatrullero.toString()+", incidente en "+posicionIncidente.toString()+".";
+        str+="Ambiente: Patrullero en "+posicionPatrullero.toString()+", incidente en "+posicionIncidente.toString()+".";
 
         return str;
     }

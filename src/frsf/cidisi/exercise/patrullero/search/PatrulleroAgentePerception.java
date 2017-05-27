@@ -14,22 +14,25 @@ public class PatrulleroAgentePerception extends Perception {
 	
 	
 	//TODO: Setup Sensors
-	private int congestion_transito;
-	private int marcha;
-	private int accidente_transito;
-	private int evento_social;
-	private int plan_bacheo;
+	private List<Posicion> congestion_transito;
+	private List<Posicion> marcha;
+	private List<Posicion> accidente_transito;
+	private List<Posicion> evento_social;
+	private List<Posicion> plan_bacheo;
 	//private Posicion destino;
- 
-
+	
+	/*
+	 *  LEER
+	 *  La percepción es una lista de cortes que le tiene que dar el ambiente
+	 *  (en un principio hacer que EL AMBIENTE le pase todos, y desp modificamos para que calcule los mas cercanos)
+	 *  AmbienteEstado.getPosicionesCercanas() por ej, REVISAR si no se debe implementar en un método predefinido
+	 */
+	
+	
     public  PatrulleroAgentePerception(/*Posicion unDestino*/) {
     	//TODO: Complete Method
-    	congestion_transito=UNKNOWN_PERCEPTION;
-    	marcha=UNKNOWN_PERCEPTION;
-    	accidente_transito=UNKNOWN_PERCEPTION;
-    	evento_social=UNKNOWN_PERCEPTION;
-    	plan_bacheo=UNKNOWN_PERCEPTION;
     	//destino = unDestino;
+    	//initPerception();
     }
 
     public PatrulleroAgentePerception(Agent agent, Environment environment) {
@@ -48,59 +51,9 @@ public class PatrulleroAgentePerception extends Perception {
         Ambiente environment = (Ambiente) environmentIn;
         AmbienteEstado environmentState = environment.getEnvironmentState();
        
-        Posicion pos = environmentState.getPosicionPatrullero(); //destino; 
+        Posicion pos = environmentState.getPosicionPatrullero();
         
-        boolean hayMarcha = environmentState.getListaMarchas().contains(pos);
-        boolean hayAccidente = environmentState.getListaAccidentesTransito().contains(pos);
-        boolean hayCongestion = environmentState.getListaCongestionTransito().contains(pos);
-        boolean hayEvento = environmentState.getListaEventoSocial().contains(pos);
-        boolean hayBacheo = environmentState.getListaPlanBacheo().contains(pos);
-        
-        //Marcha
-        if(hayMarcha){
-        	marcha = 1;
-        }
-        else
-        {
-        	marcha = 0;	
-        }
-        
-        //Accidente
-        if(hayAccidente){
-        	accidente_transito = 1;
-        }
-        else
-        {
-        	accidente_transito = 0;	
-        }
-        
-        //Congestoin
-        if(hayCongestion){
-        	congestion_transito = 1;
-        }
-        else
-        {
-        	congestion_transito = 0;	
-        }
-        
-        //Evento
-        if(hayEvento){
-        	evento_social = 1;
-        }
-        else
-        {
-        	evento_social = 0;	
-        }
-        
-        //Bacheo
-        if(hayBacheo){
-        	plan_bacheo = 1;
-        }
-        else
-        {
-        	plan_bacheo = 0;	
-        }
-               
+        marcha = environmentState.getListaMarchas();
         
     }
     
@@ -116,36 +69,6 @@ public class PatrulleroAgentePerception extends Perception {
     // The following methods are agent-specific:
     //TODO: Complete this section with the agent-specific methods
 	
-     public int getcongestion_transito(){
-        return congestion_transito;
-     }
-     public void setcongestion_transito(int arg){
-        this.congestion_transito = arg;
-     }
-     public int getmarcha(){
-        return marcha;
-     }
-     public void setmarcha(int arg){
-        this.marcha = arg;
-     }
-     public int getaccidente_transito(){
-        return accidente_transito;
-     }
-     public void setaccidente_transito(int arg){
-        this.accidente_transito = arg;
-     }
-     public int getevento_social(){
-        return evento_social;
-     }
-     public void setevento_social(int arg){
-        this.evento_social = arg;
-     }
-     public int getplan_bacheo(){
-        return plan_bacheo;
-     }
-     public void setplan_bacheo(int arg){
-        this.plan_bacheo = arg;
-     }
 	
    
 }

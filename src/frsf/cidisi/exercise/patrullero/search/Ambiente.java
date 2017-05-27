@@ -25,64 +25,11 @@ public class Ambiente extends Environment {
     @Override
     public  PatrulleroAgentePerception getPercept() {
         // Create a new perception to return
-         PatrulleroAgentePerception perception = new PatrulleroAgentePerception();
+        PatrulleroAgentePerception perception = new PatrulleroAgentePerception();
 		
 		//TODO : Set the perceptions sensors
         Posicion pos = getEnvironmentState().getPosicionPatrullero();
-        /*
-        boolean hayMarcha = getEnvironmentState().getListaMarchas().contains(pos);
-        boolean hayAccidente = getEnvironmentState().getListaAccidentesTransito().contains(pos);
-        boolean hayCongestion = getEnvironmentState().getListaCongestionTransito().contains(pos);
-        boolean hayEvento = getEnvironmentState().getListaEventoSocial().contains(pos);
-        boolean hayBacheo = getEnvironmentState().getListaPlanBacheo().contains(pos);
         
-        //Marcha
-        if(hayMarcha){
-        	perception.setmarcha(1);
-        	
-        }
-        else
-        {
-        	perception.setmarcha(0);
-        }
-        
-        //Accidente
-        if(hayAccidente){
-        	perception.setaccidente_transito(1);
-        }
-        else
-        {
-        	perception.setaccidente_transito(0);	
-        }
-        
-        //Congestoin
-        if(hayCongestion){
-        	perception.setcongestion_transito(1);
-        }
-        else
-        {
-        	perception.setcongestion_transito(0);	
-        }
-        
-        //Evento
-        if(hayEvento){
-        	perception.setevento_social(1);
-        }
-        else
-        {
-        	perception.setevento_social(0);	
-        }
-        
-        //Bacheo
-        if(hayBacheo){
-        	perception.setplan_bacheo(1);
-        }
-        else
-        {
-        	perception.setplan_bacheo(0);
-        }
-         
-         */
          
         // Return the perception
         return perception;

@@ -10,8 +10,6 @@ public class Nodo extends Posicion{
 	private List<String> calles;
 	private String codigo;
 	private int costo=1;
-	private double posX;
-	private double posY;
 	
 
 	public Nodo(String unNombre, ArrayList<String> call){
@@ -138,4 +136,13 @@ public class Nodo extends Posicion{
 	public double getY(){
 		return posY;
 	}
+	@Override
+	public void setX(double x) {
+		posX=x;
+	}
+	@Override
+	public void setY(double y) {
+		posY=y;
+	}
+	
 }
