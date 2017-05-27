@@ -150,4 +150,13 @@ public class Segmento extends Posicion {
 		return null;
 	}
 	
+	@Override
+	public double getX(){
+		return nodoDesde.getX();
+	}
+	@Override
+	public double getY(){
+		return nodoDesde.getY();
+	}
+	
 }

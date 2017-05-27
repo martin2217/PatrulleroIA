@@ -1,6 +1,7 @@
-package frsf.cidisi.exercise.patrullero.dominio;
+package frsf.cidisi.exercise.patrullero.visualizacion;
 
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -21,9 +22,17 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
 import org.apache.commons.collections15.Transformer;
 
@@ -50,28 +59,71 @@ import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
+import frsf.cidisi.exercise.patrullero.dominio.Mapa;
+import frsf.cidisi.exercise.patrullero.dominio.Nodo;
+import frsf.cidisi.exercise.patrullero.dominio.Segmento;
 
 public class PruebaJung {
 	
 	private static HashMap<String, Nodo> nodos;
 	private static HashMap<String, Segmento> segmentos;
-	private static DirectedGraph<Nodo, Segmento> grafo ;
+	private static DirectedGraph<Nodo, Segmento> grafo;
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		prueba();
+
+		Mapa mapa = new Mapa();
+		graficar(mapa);
 	}
 	
-	public static void prueba(){
-		Mapa mapa = new Mapa();
-		nodos = mapa.getNodos();;
-		segmentos = mapa.getSegmentos();
-		grafo = new DirectedSparseGraph<Nodo, Segmento>();
-		cargarGrafo();
+	public static void graficar(Mapa mapa){
 		
-		System.out.println("El grafo -> " + grafo.toString());
+		nodos = mapa.getNodos();
+		segmentos = mapa.getSegmentos();
+		
+		JPanel panelMapa = generarPanelMapa(nodos, segmentos);
+		
+		JPanel panelControl = generarPanelControl();
+		
+		
+		JFrame frame = new JFrame("Patrullero");
+		frame.setLayout(new BorderLayout());
+		frame.setMinimumSize(new Dimension(800, 600));
+		frame.setPreferredSize(new Dimension(1000, 800));
+		frame.setSize(new Dimension(1000, 800));
+	    //frame.setLayout(new FlowLayout()); ??
+		
+		// Creación y adición de la barra de scroll - NO USADO
+		//final GraphZoomScrollPane zoomScroll = new GraphZoomScrollPane(vv);
+		//frame.add(zoomScroll);
+		
+		
+		
+		frame.getContentPane().add(panelMapa, BorderLayout.CENTER);
+		frame.add(panelControl, BorderLayout.EAST);
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		
+		// Prueba para verificación gráfica de los modificadores
+		nodos.get("104").setHabilitado(false);
+		panelMapa.repaint();
+		
+		//Usado para imprimir la posicion de los nodos (en caso de necesitar reposicionarlos)
+		//obtenerPosiciones(layout);
+	}
+	
+	
+	private static JPanel generarPanelMapa(HashMap<String, Nodo> nodos, HashMap<String, Segmento> segmentos){
+		
+		grafo = new DirectedSparseGraph<Nodo, Segmento>();
+		cargarGrafo(nodos, segmentos);
+		
+		//System.out.println("El grafo -> " + grafo.toString());
 		
 		// Transformer que toma la posición de los nodos y los setea
 		Transformer<Nodo, Point2D> locationTransformer = new Transformer<Nodo, Point2D>() {
@@ -85,14 +137,15 @@ public class PruebaJung {
             }
         };
         
-		
 		AbstractLayout<Nodo, Segmento> layout = new StaticLayout<Nodo, Segmento>(grafo, locationTransformer);
-		layout.setSize(new Dimension(1000,1000));
+		
+		layout.setSize(new Dimension(1000, 800));
+		//layout.setMinimumSize(new Dimension(600, 500));
 		
 		// VisualizationViewer<V,E> Parametrizado con los vertices y arcos dados
 		final VisualizationViewer<Nodo,Segmento> vv =
 		new VisualizationViewer<Nodo,Segmento>(layout);
-		vv.setPreferredSize(new Dimension(1000,1000)); //Sets the viewing area size
+		vv.setPreferredSize(new Dimension(1000, 800)); //Sets the viewing area size
 		
 		// Seteando el transformer de forma de nodo
 		vv.getRenderContext().setVertexShapeTransformer(new Transformer<Nodo, Shape>() {
@@ -173,27 +226,6 @@ public class PruebaJung {
 		
 		
 		// Seteando la imagen de fondo
-		
-		/* BORRAR
-		vv.addPreRenderPaintable(new VisualizationViewer.Paintable(){
-            public void paint(Graphics g) {
-            	BufferedImage img = null;
-        		try {
-        		    img = ImageIO.read(new File("resources/mapa2.png"));//ImageIO.read(new File("C:\\Users\\marti\\Desktop\\Facu\\mapa2.png"));
-        		    
-        		} catch (IOException e) {
-        		}
-            	Graphics g2d = (Graphics2D) g;
-            	Dimension d = vv.getSize();
-            	g.drawImage(img, 0, 0, vv);
-            	
-            }
-			@Override
-			public boolean useTransform() {
-				return true;
-			}
-		});*/
-		
 		ImageIcon mapIcon = null;
 		String imageLocation = "resources/mapa2.png";
 		try {
@@ -230,7 +262,6 @@ public class PruebaJung {
 		//vv.add(BorderLayout.CENTER, scrollPane);
 		
 		// Create a graph mouse and add it to the visualization component
-		
 		/*EditingModalGraphMouse<Nodo, Segmento> gm =
 			new EditingModalGraphMouse<Nodo, Segmento>(vv.getRenderContext(),
 			 sgv.vertexFactory, grafo.); */
@@ -239,47 +270,81 @@ public class PruebaJung {
 		ScalingControl scaler = new CrossoverScalingControl();
 		scaler.scale(vv, (float)1, vv.getCenter());
 		
-
-		
-		
-		JFrame frame = new JFrame("Vista del grafo");
-		/*frame.setLayout(new BorderLayout());
-	    frame.setLayout(new FlowLayout());
-	    */
-		
-		
 		// Creación y adición del control de mouse
-		final GraphZoomScrollPane panel = new GraphZoomScrollPane(vv);
-		frame.add(panel);
 		final AbstractModalGraphMouse graphMouse = new DefaultModalGraphMouse<Nodo, Segmento>();
 		vv.setGraphMouse(graphMouse);
 
 		vv.addKeyListener(graphMouse.getModeKeyListener());
 		vv.setToolTipText("<html><center>Presionar 'p' para modo editar<p>Presionar 't' para modo transformar");
-
-		//final ScalingControl scaler2 = new CrossoverScalingControl();
 		
-		// create the graph mouse
-		//GraphZoomScrollPane scrollPane = new GraphZoomScrollPane(vv);
-		//vv.set(scrollPane);
+		// Creación del panel para posicionar el mapa
+		JPanel panelMapa = new JPanel();
+		panelMapa.setLayout(new BorderLayout());
+		panelMapa.add(vv, BorderLayout.CENTER);
+		panelMapa.setSize(new Dimension(800, 800));
+		panelMapa.setPreferredSize(new Dimension(800, 800));
+		panelMapa.setMinimumSize(new Dimension(600, 500));
 		
-		//scaler = new AbsoluteCrossoverScalingControl();
-		
-		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(vv);
-		frame.pack();
-		frame.setVisible(true);
-		
-		
-		//Usado para imprimir la posicion de los nodos
-		//obtenerPosiciones(layout);
+		return panelMapa;
 	}
 	
+	private static JPanel generarPanelControl(){
+		
+		// Creación del panel con las configuraciones necesarias
+		JPanel panelControl= new JPanel();
+		panelControl.setLayout(new BoxLayout(panelControl, BoxLayout.PAGE_AXIS));
+		panelControl.setSize(new Dimension(200, 700));
+		panelControl.setPreferredSize(new Dimension(200, 700));
+		panelControl.setMinimumSize(new Dimension(200, 500));
+		panelControl.setMaximumSize(new Dimension(200, 1000));
+		panelControl.setBounds(20, 20, 10, 10);
+		panelControl.setBounds(61, 50, 81, 140);
+		//panelControl.setBorder(new TitledBorder(new LineBorder(Color.LIGHT_GRAY, 3), "Controles"));
+		panelControl.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createCompoundBorder(
+				new EmptyBorder(10, 5, 10, 5), new TitledBorder(new LineBorder(Color.LIGHT_GRAY, 3), "Controles")),
+				new EmptyBorder(20, 10, 10, 10)));
+		
+
+		// Creación de los botones
+		
+		JButton btnIniciar= new JButton("Iniciar");
+		
+		JButton btnVolver= new JButton("Volver");
+		
+		JButton btnPausar= new JButton("Pausar");
+		
+		JButton btnDeshabilitar= new JButton("Deshabilitar");
+		
+		JButton btnHabilitar= new JButton("Habilitar");
+		
+		JButton btnDemorar= new JButton("Demorar");
+		
+		JButton btnNormalizar= new JButton("Normalizar");
+		
+		// Botón 
+	    panelControl.add(btnIniciar);
+		panelControl.add(Box.createRigidArea(new Dimension(10,20)));
+		panelControl.add(btnVolver);
+		panelControl.add(Box.createRigidArea(new Dimension(10,20)));
+		panelControl.add(btnPausar);
+		panelControl.add(Box.createRigidArea(new Dimension(10,20)));
+		panelControl.add(btnDeshabilitar);
+		panelControl.add(Box.createRigidArea(new Dimension(10,20)));
+		panelControl.add(btnHabilitar);
+		panelControl.add(Box.createRigidArea(new Dimension(10,20)));
+		panelControl.add(btnDemorar);
+		panelControl.add(Box.createRigidArea(new Dimension(10,20)));
+		panelControl.add(btnNormalizar);
+		panelControl.add(Box.createRigidArea(new Dimension(5,20)));
+		
+		
+		return panelControl;
+	}
 	/*
 	 * Carga en la estructura de grafo JUNG, el grafo generado en el mapa
 	 */
-	private static void cargarGrafo(){
+	private static void cargarGrafo(HashMap<String, Nodo> nodos, HashMap<String, Segmento> segmentos){
 		for (Nodo value : nodos.values()) {
 		    grafo.addVertex(value);
 		}

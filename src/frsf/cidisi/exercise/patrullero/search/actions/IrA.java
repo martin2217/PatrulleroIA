@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import frsf.cidisi.exercise.patrullero.dominio.Posicion;
+import frsf.cidisi.exercise.patrullero.dominio.Segmento;
 import frsf.cidisi.exercise.patrullero.search.*;
 import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
@@ -29,16 +30,16 @@ public class IrA extends SearchAction {
     public SearchBasedAgentState execute(SearchBasedAgentState s) {
         PatrulleroEstado agState = (PatrulleroEstado) s;
                         
-        if (agState.getListaNodosVisitadosString().contains(destino.toString())) {
+        if (agState.getListaNodosVisitadosString().contains(destino.toString()) || !destino.isHabilitado()) {
             return null;
         }
+        
         List<String> sucesores = agState.getSucesoresString();
         
         if (sucesores != null) {
             int index = sucesores.indexOf(destino.toString());
             
-            //TODO revisar
-            
+            // Si la posición del operador IrA coincide con algun sucesor
             if (index >= 0) {
                 agState.setPosicionActual(agState.getMapa().getPosicion(destino.getHash()));
                 agState.addPosicionVisitada(agState.getMapa().getPosicion(destino.getHash()));

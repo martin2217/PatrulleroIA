@@ -130,6 +130,23 @@ public class AmbienteEstado extends EnvironmentState {
     	listaMarchas.add(unaPosicion);
     
     }
+	public Posicion getPosicionIncidente() {
+		return posicionIncidente;
+	}
+
+	public void setPosicionIncidente(Posicion posicionIncidente) {
+		this.posicionIncidente = posicionIncidente;
+	}
+
+	public Mapa getMapa() {
+		return mapa;
+	}
+
+	public void setMapa(Mapa mapa) {
+		this.mapa = mapa;
+	}
+    
+    
 	//TODO: Complete this section with agent-specific methods
     // The following methods are agent-specific:
 	

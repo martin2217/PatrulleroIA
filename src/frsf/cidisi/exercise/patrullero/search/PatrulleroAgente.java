@@ -56,8 +56,13 @@ public class PatrulleroAgente extends SearchBasedAgent {
     @Override
     public Action selectAction() {
 
-        // Create the search strategy
-    	BreathFirstSearch strategy = new BreathFirstSearch();          
+    	Strategy strategy;
+    	
+        // Estrategia en amplitud
+    	strategy = new BreathFirstSearch();
+    	
+    	// Estrategia por heurística
+        //strategy = new GreedySearch(new Heuristic());
 
         // Create a Search object with the strategy
         Search searchSolver = new Search(strategy);

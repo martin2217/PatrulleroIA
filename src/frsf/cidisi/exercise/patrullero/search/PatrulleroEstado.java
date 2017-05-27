@@ -61,20 +61,20 @@ public class PatrulleroEstado extends SearchBasedAgentState {
 		// Se cargan todas las posiciones visitados al nuevo estado
 		ArrayList<Posicion> nodosVisitados2 = new ArrayList<Posicion>();
 		for(Posicion nodoV : listaNodosVisitados){
-			if(nodoV.getClass().getName().equals(SEGMENTO_CLASE)){
+			if(nodoV.getClass().equals(Segmento.class)){
 				nodosVisitados2.add(map.getSegmentos().get(nodoV.getHash()));
 			}
-			else if(nodoV.getClass().getName().equals(NODO_CLASE)){
+			else if(nodoV.getClass().equals(Nodo.class)){
 				nodosVisitados2.add(map.getNodos().get(nodoV.getHash()));
 			}
 		}
 		nuevo.setListaNodosVisitados(nodosVisitados2);
 		
 		// Se carga la posicion actual
-		if(posicionActual.getClass().getName().equals(SEGMENTO_CLASE)){
+		if(posicionActual.getClass().equals(Segmento.class)){
 			nuevo.setPosicionActual(map.getSegmentos().get(posicionActual.getHash()));
 		}
-		else if(posicionActual.getClass().getName().equals(NODO_CLASE)){
+		else if(posicionActual.getClass().equals(Nodo.class)){
 			nuevo.setPosicionActual(map.getNodos().get(posicionActual.getHash())); //TODO revisar si está bien que entre tantas veces
 		}
 		else{
@@ -82,7 +82,7 @@ public class PatrulleroEstado extends SearchBasedAgentState {
 		}
 		
 		// se carga la posicioin del incidente
-		if(posicionIncidente.getClass().getName().equals(SEGMENTO_CLASE)){
+		if(posicionIncidente.getClass().equals(Segmento.class)){
 			nuevo.setPosicionIncidente(map.getSegmentos().get(posicionIncidente.getHash()));
 		}
 		else /*if(posicionActual.getClass().getName().equals("Nodo"))*/{

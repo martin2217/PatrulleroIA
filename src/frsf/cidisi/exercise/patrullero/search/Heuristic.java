@@ -15,9 +15,15 @@ public class Heuristic implements IEstimatedCostFunction {
     @Override
     public double getEstimatedCost(NTree node) {
         PatrulleroEstado agState = (PatrulleroEstado) node.getAgentState();
-	
+        
 		//Method: Complete Method
+        
+        // Heurística usando la distancia entre el punto actual y el punto del incidente (según los pixeles de posicionamiento)
+        
+        double dx= agState.getPosicionActual().getX() - agState.getPosicionIncidente().getX();
+        double dy= agState.getPosicionActual().getY() - agState.getPosicionIncidente().getY();
+        
 		
-        return 0;
+        return Math.sqrt(dx*dx+dy*dy);
     }
 }

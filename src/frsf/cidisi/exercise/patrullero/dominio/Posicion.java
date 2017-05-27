@@ -22,6 +22,7 @@ public abstract class Posicion {
 	public abstract boolean equals(Posicion p);
 	public abstract Posicion clone();
 	public abstract String getHash();
-	
+	public abstract double getX();
+	public abstract double getY();
 	
 }

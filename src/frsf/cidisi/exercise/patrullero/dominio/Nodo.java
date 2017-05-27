@@ -130,5 +130,12 @@ public class Nodo extends Posicion{
 	public String getHash() {
 		return codigo;
 	}
-	
+	@Override
+	public double getX(){
+		return posX;
+	}
+	@Override
+	public double getY(){
+		return posY;
+	}
 }
