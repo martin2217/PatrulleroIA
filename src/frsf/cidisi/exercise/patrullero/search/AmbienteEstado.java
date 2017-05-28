@@ -28,22 +28,6 @@ public class AmbienteEstado extends EnvironmentState {
     private String posPatrullero;
     private String posIncidente;
 	
-    /*
-     * Incidente y posición del patrullero predefinidas
-     * -No usado-
-     */
-    /*public AmbienteEstado() {
-        
-        //TODO: Setup variables estado del ambiente
-    	posPatrullero="1";
-    	posIncidente="55";
-    	listaMarchas = new ArrayList<Posicion>();
-    	listaAccidentesTransito= new ArrayList<Posicion>();
-        listaCongestionTransito= new ArrayList<Posicion>();
-        listaEventoSocial= new ArrayList<Posicion>();
-        listaPlanBacheo= new ArrayList<Posicion>();
-        this.initState();
-    }*/
     
     public AmbienteEstado(String posP, String posI) {
     	posPatrullero= posP;

@@ -11,6 +11,8 @@ import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgent;
 import frsf.cidisi.faia.agent.Action;
 import frsf.cidisi.faia.solver.search.*;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
@@ -20,9 +22,22 @@ import java.util.Map;
 import java.util.Vector;
 
 public class PatrulleroAgente extends SearchBasedAgent {
+	
+	public AtomicBoolean pausado;
+	public int tipoBusqueda;
+	
+	public static final int AMPLITUD=1;
+	public static final int PROFUNDIDAD=2;
+	public static final int HEURISTICA=3;
+	public static final int COSTO=4;
+	public static final int A_ESTRELLA=5;
+	
 
-    public PatrulleroAgente(String posPatrullero, String posIncidente) {
-    	List<Posicion> adyacentes = new ArrayList<Posicion>();
+    public PatrulleroAgente(String posPatrullero, String posIncidente, AtomicBoolean pausad, int tipoBusq) {
+    	
+    	pausado=pausad;
+    	tipoBusqueda=tipoBusq;
+    	
         // The Agent Goal
         PatrulleroObjetivo agGoal = new PatrulleroObjetivo();
 
@@ -56,20 +71,46 @@ public class PatrulleroAgente extends SearchBasedAgent {
     @Override
     public Action selectAction() {
 
-    	Strategy strategy;
+    	Strategy strategy= new BreathFirstSearch();
     	
-        // Estrategia en amplitud
-    	strategy = new BreathFirstSearch();
+		switch (tipoBusqueda) {
+
+		// Estrategia en amplitud
+		case AMPLITUD:
+			strategy = new BreathFirstSearch();
+			break;
+
+		// Estrategia por heurística
+		case PROFUNDIDAD:
+			strategy = new DepthFirstSearch();
+			break;
+
+		// Estrategia por heurística
+		case HEURISTICA:
+			strategy = new GreedySearch(new Heuristic());
+			break;
+
+		// Estrategia por costo
+		case COSTO:
+			strategy = new UniformCostSearch(new CostFunction());
+			break;
+
+		// Estrategia A*
+		case A_ESTRELLA:
+			strategy = new AStarSearch(new CostFunction(), new Heuristic());
+			break;
+			
+		default:
+			strategy = new BreathFirstSearch();
+		}
     	
-    	// Estrategia por heurística
-        //strategy = new GreedySearch(new Heuristic());
 
         // Create a Search object with the strategy
         Search searchSolver = new Search(strategy);
 
         /* Generate an XML file with the search tree. It can also be generated
          * in other formats like PDF with PDF_TREE */
-        searchSolver.setVisibleTree(Search.EFAIA_TREE);
+        searchSolver.setVisibleTree(Search.PDF_TREE);
 
         // Set the Search searchSolver.
         this.setSolver(searchSolver);

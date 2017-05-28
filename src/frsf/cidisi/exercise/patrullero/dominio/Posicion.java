@@ -14,7 +14,6 @@ public abstract class Posicion {
 		habilitado = true;
 	}
 	
-	public abstract int getCosto();
 	public abstract boolean isHabilitado();
 	public abstract void setHabilitado(boolean habilitado);
 	public abstract int getDemorado();
@@ -28,5 +27,11 @@ public abstract class Posicion {
 	public abstract void setX(double x);
 	public abstract void setY(double y);
 	public abstract double getY();
-	
+
+	public int getCosto() {
+		return costo*demorado;
+	}
+	public void setCosto(int costo) {
+		this.costo = costo;
+	}
 }

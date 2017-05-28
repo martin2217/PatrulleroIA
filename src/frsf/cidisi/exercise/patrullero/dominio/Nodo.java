@@ -9,7 +9,7 @@ public class Nodo extends Posicion{
 	private List<String> nombres; //Sin usar
 	private List<String> calles;
 	private String codigo;
-	private int costo=1;
+	private int costo=5; // Costo de nodo = 10
 	
 
 	public Nodo(String unNombre, ArrayList<String> call){
@@ -19,7 +19,6 @@ public class Nodo extends Posicion{
 		calles = new ArrayList<String>();
 		calles = call;
 		codigo=unNombre;
-		costo = 1;
 		posX=0;
 		posY=0;
 		demorado=1;
@@ -82,14 +81,6 @@ public class Nodo extends Posicion{
 		this.codigo = codigo;
 	}
 	
-	@Override
-	public int getCosto() {
-		return costo;
-	}
-
-	public void setCosto(int costo) {
-		this.costo = costo;
-	}
 	public double getPosX() {
 		return posX;
 	}

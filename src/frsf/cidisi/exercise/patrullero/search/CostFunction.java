@@ -15,8 +15,16 @@ public class CostFunction implements IStepCostFunction {
     @Override
     public double calculateCost(NTree node) {
         
-        //TODO: Complete Method
+        PatrulleroEstado auxPatrulleroEstado;// = ((PatrulleroEstado) node.getAgentState());
+        double costoTotal=0;
         
-        return 0;
+        NTree nodoAux=node;
+        do{
+        	auxPatrulleroEstado=((PatrulleroEstado) nodoAux.getAgentState());
+        	costoTotal+=auxPatrulleroEstado.getPosicionActual().getCosto();
+        	
+        } while((nodoAux=nodoAux.getParent())!=null);
+        
+        return costoTotal;
     }
 }

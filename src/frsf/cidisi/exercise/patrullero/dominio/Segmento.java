@@ -21,7 +21,10 @@ public class Segmento extends Posicion {
 		super();
 		nodoDesde=null;
 		nodoHasta=null;
-		costo=1; // TODO Usar los numeros desde-hasta para dar costo (1 metro = 1 punto de costo)
+		costo=numHasta-numDesde; //(1 metro = 1 punto de costo)
+		if(costo<10){ // Costo mínimo de 10
+			costo=10; 
+		}
 		nombreCalle=nombCalle;
 		numeroDesde=numDesde;
 		numeroHasta=numHasta;
@@ -99,15 +102,6 @@ public class Segmento extends Posicion {
 
 	public void setNumeroHasta(int numeroHasta) {
 		this.numeroHasta = numeroHasta;
-	}
-
-	@Override
-	public int getCosto() {
-		return costo*demorado;
-	}
-
-	public void setCosto(int costo) {
-		this.costo = costo;
 	}
 
 	public boolean isHabilitado() {

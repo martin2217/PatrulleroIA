@@ -9,6 +9,9 @@ import frsf.cidisi.faia.solver.search.NTree;
  */
 public class Heuristic implements IEstimatedCostFunction {
 
+	// Factor de relación de pixeles a metros
+	double RelacionPixelMetro=1.2; 
+	
     /**
      * It returns the estimated cost to reach the goal from a NTree node.
      */
@@ -24,6 +27,6 @@ public class Heuristic implements IEstimatedCostFunction {
         double dy= agState.getPosicionActual().getY() - agState.getPosicionIncidente().getY();
         
 		
-        return Math.sqrt(dx*dx+dy*dy);
+        return Math.sqrt(dx*dx+dy*dy)*RelacionPixelMetro;
     }
 }

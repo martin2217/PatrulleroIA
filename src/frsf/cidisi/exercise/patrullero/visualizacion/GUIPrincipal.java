@@ -1,34 +1,27 @@
 package frsf.cidisi.exercise.patrullero.visualizacion;
 
 import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Shape;
-import java.awt.event.MouseWheelEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -37,41 +30,48 @@ import javax.swing.border.TitledBorder;
 import org.apache.commons.collections15.Transformer;
 
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
-import edu.uci.ics.jung.algorithms.layout.CircleLayout;
-import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
-import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.graph.SparseMultigraph;
-import edu.uci.ics.jung.visualization.BasicVisualizationServer;
-import edu.uci.ics.jung.visualization.GraphZoomScrollPane;
 import edu.uci.ics.jung.visualization.Layer;
-import edu.uci.ics.jung.visualization.VisualizationServer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
-import edu.uci.ics.jung.visualization.control.AbsoluteCrossoverScalingControl;
 import edu.uci.ics.jung.visualization.control.AbstractModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.CrossoverScalingControl;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
-import edu.uci.ics.jung.visualization.control.EditingModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ScalingControl;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
-import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
+import edu.uci.ics.jung.visualization.transform.MutableTransformer;
 import frsf.cidisi.exercise.patrullero.dominio.Mapa;
 import frsf.cidisi.exercise.patrullero.dominio.Nodo;
-import frsf.cidisi.exercise.patrullero.dominio.Posicion;
 import frsf.cidisi.exercise.patrullero.dominio.Segmento;
 import frsf.cidisi.exercise.patrullero.search.PatrulleroEstado;
+import frsf.cidisi.faia.simulator.SearchBasedAgentSimulator;
 
-public class PruebaJung {
+public class GUIPrincipal {
 	
 	private static HashMap<String, Nodo> nodos;
 	private static HashMap<String, Segmento> segmentos;
 	private static DirectedGraph<Nodo, Segmento> grafo;
-	private static Posicion patrullero;
 	private static PatrulleroEstado patrulleroEstado;
+	
+	private static JFrame frame;
+	private static JPanel panelMapa;
+	private static JPanel panelControl;
+	private static AtomicBoolean pausado;
+	private static boolean iniciado;
+	private static boolean iniciado2;
+	
+	private static JButton btnPausar;
+	private static JButton btnHabilitar;
+	private static JButton btnDeshabilitar;
+	private static JButton btnIniciar;
+	private static JButton btnDemorar;
+	private static JButton btnNormalizar;
+	
+	
+	private static Thread threadSimulador;
 
 	/**
 	 * @param args
@@ -84,11 +84,22 @@ public class PruebaJung {
 		
 	}
 	*/
+	static private SearchBasedAgentSimulator simulador;
+	static private JFrame menuFrame;
 	
-	public PruebaJung(Mapa mapa, PatrulleroEstado patrulleroEst){
+	public GUIPrincipal(SearchBasedAgentSimulator simul, Mapa mapa, PatrulleroEstado patrulleroEst, AtomicBoolean pausa, JFrame m){
 		//patrullero=patrulleroEst.getPosicionActual();
+		simulador=simul;
+		pausado=pausa;
 		patrulleroEstado=patrulleroEst;
+		iniciado=false;
+		iniciado2=false;
+		menuFrame=m;
 		graficar(mapa);
+	}
+	
+	public static void actualizar(){
+		frame.repaint();
 	}
 	
 	public static void graficar(Mapa mapa){
@@ -96,12 +107,12 @@ public class PruebaJung {
 		nodos = mapa.getNodos();
 		segmentos = mapa.getSegmentos();
 		
-		JPanel panelMapa = generarPanelMapa(nodos, segmentos);
+		panelMapa = generarPanelMapa(nodos, segmentos);
 		
-		JPanel panelControl = generarPanelControl();
+		panelControl = generarPanelControl();
 		
 		
-		JFrame frame = new JFrame("Patrullero");
+		frame = new JFrame("Patrullero");
 		frame.setLayout(new BorderLayout());
 		frame.setMinimumSize(new Dimension(800, 600));
 		frame.setPreferredSize(new Dimension(1000, 800));
@@ -121,6 +132,16 @@ public class PruebaJung {
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		    	windowEvent.getWindow().dispose();
+		    	menuFrame.setVisible(true);
+		    	threadSimulador.stop();
+				System.out.println("Simulación detenida.");
+		    }
+		});
 		
 		// Prueba para verificación gráfica de los modificadores
 		//nodos.get("104").setHabilitado(false);
@@ -275,7 +296,46 @@ public class PruebaJung {
 		}
 		
 
-		// Cargar posicion del patrullero?
+		
+		// POSICIONES DEL INCIDENTE Y PATRULLERO (dibujadas en el mapa)
+		
+		
+		// Cargar posicion del incidente
+		
+		ImageIcon incidenteIcon = null;
+		String incidenteImageLocation = "resources/incidente.png";
+		try {
+			incidenteIcon = new ImageIcon(incidenteImageLocation);
+		} catch (Exception ex) {
+			System.err.println("Can't load \"" + incidenteImageLocation + "\"");
+		}
+		final ImageIcon iconI = incidenteIcon;
+		VisualizationViewer.Paintable incidenteImagen = new VisualizationViewer.Paintable(){
+			public void paint(Graphics g) {
+				Graphics2D g2d = (Graphics2D)g;
+				AffineTransform oldXform = g2d.getTransform();
+				AffineTransform lat = 
+					vv.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).getTransform();
+				AffineTransform vat = 
+					vv.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.VIEW).getTransform();
+				AffineTransform at = new AffineTransform();
+				at.concatenate(g2d.getTransform());
+				at.concatenate(vat);
+				at.concatenate(lat);
+				g2d.setTransform(at);
+				
+				g.drawImage(iconI.getImage(), new Double(patrulleroEstado.getPosicionIncidente().getX()).intValue()-iconI.getIconWidth()/2,
+						new Double(patrulleroEstado.getPosicionIncidente().getY()).intValue()-iconI.getIconHeight()/2,
+						iconI.getIconWidth(),iconI.getIconHeight(),vv);
+				g2d.setTransform(oldXform);
+			}
+			public boolean useTransform() { return false; }
+		};
+		vv.addPostRenderPaintable(incidenteImagen);
+		
+		
+		// Cargar posicion del patrullero
+		
 		ImageIcon patrulleroIcon = null;
 		String patrulleroImageLocation = "resources/patrullero.png";
 		try {
@@ -307,6 +367,8 @@ public class PruebaJung {
 		};
 		vv.addPostRenderPaintable(patrulleroImagen);
 		
+		
+		
 		vv.setLayout(new BorderLayout());
 		//vv.add(BorderLayout.CENTER, scrollPane);
 		
@@ -317,7 +379,7 @@ public class PruebaJung {
 		
 		// Usado para cambiar el tamaño inicial del zoom
 		ScalingControl scaler = new CrossoverScalingControl();
-		scaler.scale(vv, (float)1, vv.getCenter());
+		scaler.scale(vv, (float)0.9, vv.getCenter());
 		
 		// Creación y adición del control de mouse
 		final AbstractModalGraphMouse graphMouse = new DefaultModalGraphMouse<Nodo, Segmento>();
@@ -326,6 +388,19 @@ public class PruebaJung {
 		vv.addKeyListener(graphMouse.getModeKeyListener());
 		vv.setToolTipText("<html><center>Presionar 'p' para modo editar<p>Presionar 't' para modo transformar");
 		
+		
+		// Centrado inicial en el patrullero
+		MutableTransformer view = vv.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.VIEW);
+        MutableTransformer mover = vv.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT);
+        Point2D ctr = vv.getCenter(); 
+        Point2D pnt = view.inverseTransform(ctr);
+        double scale = vv.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.VIEW).getScale();
+        double deltaX = (ctr.getX() - patrulleroEstado.getPosicionActual().getX())*1/scale;
+        double deltaY = (ctr.getY() - patrulleroEstado.getPosicionActual().getY())*1/scale;
+        //Point2D delta = new Point2D.Double(deltaX-200, deltaY);
+        mover.translate(deltaX-80, deltaY);
+        
+        
 		// Creación del panel para posicionar el mapa
 		JPanel panelMapa = new JPanel();
 		panelMapa.setLayout(new BorderLayout());
@@ -357,24 +432,88 @@ public class PruebaJung {
 
 		// Creación de los botones
 		
-		JButton btnIniciar= new JButton("Iniciar");
+		btnIniciar = new JButton("Iniciar");
+		btnIniciar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				if (!iniciado) {
+					btnIniciar.setText("Ejecutando...");
+					pausado.set(false);
+					iniciado = true;
+					btnIniciar.setEnabled(false);
+					btnPausar.setEnabled(true);
+					/*
+					 * 
+					 * HILO PARA LA EJECUCION DEL SIMULADOR
+					 */
+					Runnable runnable = new Runnable() {
+						@Override
+						public void run() {
+							//while (true) {  // No iría?
+								if (!iniciado2) {
+									simulador.start();
+									iniciado2 = true;
+								}
+								if (pausado.get()) {
+									synchronized (threadSimulador) {
+										// Pause
+										try {
+											threadSimulador.wait();
+										} catch (InterruptedException e) {
+										}
+									}
+								}
+								/*
+								 * // Sleep try { Thread.sleep(500); } catch
+								 * (InterruptedException e) { }
+								 */
+							//}
+						}};
+					threadSimulador = new Thread(runnable);
+					threadSimulador.start();
+				}
+			}
+		});
+
+		btnPausar = new JButton("Pausar");
+		btnPausar.setEnabled(false);
+		btnPausar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (pausado.get()) {
+					synchronized (threadSimulador) {
+						// Reanudar
+						threadSimulador.notify();
+					}
+					btnPausar.setText("Pausar");
+					pausado.set(false);
+				}
+				else {
+					synchronized (threadSimulador) {
+						// Pausar
+						try {
+							threadSimulador.wait();
+						} catch (InterruptedException ex) {
+							System.out.println("Excepcion en thread.wait: "+ex.toString());
+						}
+					}
+					btnPausar.setText("Reanudar");
+					pausado.set(true);
+				}
+			}
+		});
+
+		btnDeshabilitar= new JButton("Deshabilitar");
 		
-		JButton btnVolver= new JButton("Volver");
+		btnHabilitar= new JButton("Habilitar");
 		
-		JButton btnPausar= new JButton("Pausar");
+		btnDemorar= new JButton("Demorar");
 		
-		JButton btnDeshabilitar= new JButton("Deshabilitar");
-		
-		JButton btnHabilitar= new JButton("Habilitar");
-		
-		JButton btnDemorar= new JButton("Demorar");
-		
-		JButton btnNormalizar= new JButton("Normalizar");
+		btnNormalizar= new JButton("Normalizar");
 		
 		// Botón 
 	    panelControl.add(btnIniciar);
-		panelControl.add(Box.createRigidArea(new Dimension(10,20)));
-		panelControl.add(btnVolver);
 		panelControl.add(Box.createRigidArea(new Dimension(10,20)));
 		panelControl.add(btnPausar);
 		panelControl.add(Box.createRigidArea(new Dimension(10,20)));
@@ -398,7 +537,7 @@ public class PruebaJung {
 		    grafo.addVertex(value);
 		}
 		for (Map.Entry<String, Segmento> entry : segmentos.entrySet()) {
-		    String key = entry.getKey();
+		    //String key = entry.getKey();
 		    Segmento value = entry.getValue();
 		    grafo.addEdge(value, value.getNodoDesde(), value.getNodoHasta());
 		}
@@ -414,6 +553,28 @@ public class PruebaJung {
 			System.out.println("posicionar(pos, "+x+", "+y+");");
 		}
 	}
-	
-	
+	/*
+	class ButtonListener implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent evt) 
+        {
+            if(!paused.get())
+            {
+                button.setText("Start");
+                paused.set(true);
+            }
+            else
+            {
+                button.setText("Pause");
+                paused.set(false);
+
+                // Resume
+                synchronized(threadObject)
+                {
+                    threadObject.notify();
+                }
+            }
+        }
+    }*/
 }

@@ -374,6 +374,17 @@ public class Mapa {
 		// Carga de posiciones para visualización
 		
 		posicionar(pos, 72.12019348144531, 1207.9759521484375);
+		/*
+		 * Para verificar relación entre pixeles y distancia en metros
+		double f=1.0;
+		double x1=242.7347869873047;
+		double x2=326.95172119140625;
+		double y1=1245.3133544921875;
+		double y2=1265.2529296875;
+		double xx= x1-x2;
+		double yy= y1-y2;
+		double res = Math.sqrt(xx*xx+yy*yy)*f;
+		*/
 		posicionar(pos, 158.44557189941406, 1227.14453125);
 		posicionar(pos, 242.7347869873047, 1245.3133544921875);
 		posicionar(pos, 326.95172119140625, 1265.2529296875);
