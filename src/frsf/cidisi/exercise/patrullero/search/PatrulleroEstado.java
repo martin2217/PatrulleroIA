@@ -105,7 +105,12 @@ public class PatrulleroEstado extends SearchBasedAgentState {
     public void updateState(Perception p) {
         
         //TODO: Complete Method
-    	//PatrulleroAgentePerception percepcion = (PatrulleroAgentePerception)p;
+    	
+    	// Primero limpiar todos los segmentos y nodos (habilitado=true, demorado=1)
+    	
+    	//addCorteParcial();
+    	//addCorteTotal();
+    	PatrulleroAgentePerception percepcion = (PatrulleroAgentePerception)p;
     	
     }
 

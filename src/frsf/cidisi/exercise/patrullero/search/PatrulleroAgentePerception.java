@@ -14,11 +14,11 @@ public class PatrulleroAgentePerception extends Perception {
 	
 	
 	//TODO: Setup Sensors
-	private List<Posicion> congestion_transito;
-	private List<Posicion> marcha;
-	private List<Posicion> accidente_transito;
-	private List<Posicion> evento_social;
-	private List<Posicion> plan_bacheo;
+	private List<Posicion> listaCongestionTransito;
+	private List<Posicion> listaMarcha;
+	private List<Posicion> listaAccidenteTransito;
+	private List<Posicion> listaEventoSocial;
+	private List<Posicion> listaPlanBacheo;
 	//private Posicion destino;
 	
 	/*
@@ -52,23 +52,67 @@ public class PatrulleroAgentePerception extends Perception {
         AmbienteEstado environmentState = environment.getEnvironmentState();
        
         Posicion pos = environmentState.getPosicionPatrullero();
-        
-        marcha = environmentState.getListaMarchas();
+        /* NO
+        listaMarcha = environmentState.getListaMarchasPatrullero();
+        private List<Posicion> listaCongestionTransito;
+    	private List<Posicion> listaMarcha;
+    	private List<Posicion> listaAccidenteTransito;
+    	private List<Posicion> listaEventoSocial;
+    	private List<Posicion> listaPlanBacheo;*/
         
     }
     
     @Override
     public String toString() {
         StringBuffer str = new StringBuffer();
-
         //TODO: Complete Method
-
         return str.toString();
     }
 
+    
     // The following methods are agent-specific:
     //TODO: Complete this section with the agent-specific methods
 	
+
+	public List<Posicion> getListaCongestionTransito() {
+		return listaCongestionTransito;
+	}
+
+	public void setListaCongestionTransito(List<Posicion> listaCongestionTransito) {
+		this.listaCongestionTransito = listaCongestionTransito;
+	}
+
+	public List<Posicion> getListaMarcha() {
+		return listaMarcha;
+	}
+
+	public void setListaMarcha(List<Posicion> listaMarcha) {
+		this.listaMarcha = listaMarcha;
+	}
+
+	public List<Posicion> getListaAccidenteTransito() {
+		return listaAccidenteTransito;
+	}
+
+	public void setListaAccidenteTransito(List<Posicion> listaAccidenteTransito) {
+		this.listaAccidenteTransito = listaAccidenteTransito;
+	}
+
+	public List<Posicion> getListaEventoSocial() {
+		return listaEventoSocial;
+	}
+
+	public void setListaEventoSocial(List<Posicion> listaEventoSocial) {
+		this.listaEventoSocial = listaEventoSocial;
+	}
+
+	public List<Posicion> getListaPlanBacheo() {
+		return listaPlanBacheo;
+	}
+
+	public void setListaPlanBacheo(List<Posicion> listaPlanBacheo) {
+		this.listaPlanBacheo = listaPlanBacheo;
+	}
 	
    
 }

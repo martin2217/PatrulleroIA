@@ -30,6 +30,11 @@ public class Ambiente extends Environment {
 		//TODO : Set the perceptions sensors
         Posicion pos = getEnvironmentState().getPosicionPatrullero();
         
+        perception.setListaAccidenteTransito(getEnvironmentState().getListaAccidenteTransitoPatrullero());
+        perception.setListaCongestionTransito(getEnvironmentState().getListaCongestionTransitoPatrullero());
+        perception.setListaEventoSocial(getEnvironmentState().getListaEventoSocialPatrullero());
+        perception.setListaMarcha(getEnvironmentState().getListaMarchaPatrullero());
+        perception.setListaPlanBacheo(getEnvironmentState().getListaPlanBacheoPatrullero());
          
         // Return the perception
         return perception;

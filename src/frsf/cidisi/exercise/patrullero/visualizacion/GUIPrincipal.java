@@ -46,6 +46,8 @@ import edu.uci.ics.jung.visualization.transform.MutableTransformer;
 import frsf.cidisi.exercise.patrullero.dominio.Mapa;
 import frsf.cidisi.exercise.patrullero.dominio.Nodo;
 import frsf.cidisi.exercise.patrullero.dominio.Segmento;
+import frsf.cidisi.exercise.patrullero.search.Ambiente;
+import frsf.cidisi.exercise.patrullero.search.AmbienteEstado;
 import frsf.cidisi.exercise.patrullero.search.PatrulleroEstado;
 import frsf.cidisi.faia.simulator.SearchBasedAgentSimulator;
 
@@ -55,7 +57,8 @@ public class GUIPrincipal {
 	private static HashMap<String, Segmento> segmentos;
 	private static DirectedGraph<Nodo, Segmento> grafo;
 	private static PatrulleroEstado patrulleroEstado;
-	
+
+	static private JFrame menuFrame;
 	private static JFrame frame;
 	private static JPanel panelMapa;
 	private static JPanel panelControl;
@@ -85,21 +88,72 @@ public class GUIPrincipal {
 	}
 	*/
 	static private SearchBasedAgentSimulator simulador;
-	static private JFrame menuFrame;
+	static private AmbienteEstado ambienteEstado;
 	
 	public GUIPrincipal(SearchBasedAgentSimulator simul, Mapa mapa, PatrulleroEstado patrulleroEst, AtomicBoolean pausa, JFrame m){
 		//patrullero=patrulleroEst.getPosicionActual();
 		simulador=simul;
+		ambienteEstado=(AmbienteEstado)(simul.getEnvironment()).getEnvironmentState();
 		pausado=pausa;
 		patrulleroEstado=patrulleroEst;
 		iniciado=false;
 		iniciado2=false;
 		menuFrame=m;
+		
 		graficar(mapa);
+		
+		/*
+		 * 
+		 * HILO PARA LA EJECUCION DEL SIMULADOR
+		 */
+		Runnable runnable = new Runnable() {
+			@Override
+			public void run() {
+				//while (true) {  // No iría?
+					if (!iniciado2) {
+						simulador.start();
+						iniciado2 = true;
+					}
+					if (pausado.get()) {
+						synchronized (threadSimulador) {
+							// Pause
+							try {
+								threadSimulador.wait();
+							} catch (InterruptedException e) {
+							}
+						}
+					}
+					/*
+					 * // Sleep try { Thread.sleep(500); } catch
+					 * (InterruptedException e) { }
+					 */
+				//}
+			}};
+		threadSimulador = new Thread(runnable);
+		
 	}
 	
 	public static void actualizar(){
 		frame.repaint();
+	}
+	
+	private static void percepcionesIniciales(){
+		ambienteEstado.addListaAccidentesTransito(nodos.get("15"));
+		ambienteEstado.addListaAccidentesTransito(nodos.get("19"));
+		ambienteEstado.addListaAccidentesTransito(nodos.get("7"));
+		ambienteEstado.addListaAccidentesTransito(nodos.get("33"));
+		ambienteEstado.addListaAccidentesTransito(nodos.get("33"));
+		
+		ambienteEstado.addListaCongestionTransito(nodos.get("40"));
+		ambienteEstado.addListaCongestionTransito(nodos.get("22"));
+		
+		ambienteEstado.addListaEventoSocial(nodos.get("27"));
+		ambienteEstado.addListaEventoSocial(nodos.get("45"));
+		
+		ambienteEstado.addListaPlanBacheo(nodos.get("50"));
+		
+		ambienteEstado.addListaMarchas(nodos.get("55"));
+		
 	}
 	
 	public static void graficar(Mapa mapa){
@@ -111,6 +165,7 @@ public class GUIPrincipal {
 		
 		panelControl = generarPanelControl();
 		
+		percepcionesIniciales();
 		
 		frame = new JFrame("Patrullero");
 		frame.setLayout(new BorderLayout());
@@ -138,8 +193,11 @@ public class GUIPrincipal {
 		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 		    	windowEvent.getWindow().dispose();
 		    	menuFrame.setVisible(true);
-		    	threadSimulador.stop();
-				System.out.println("Simulación detenida.");
+		    	if(threadSimulador.isAlive()){
+		    		threadSimulador.stop();
+			    	//threadSimulador.destroy();
+					System.out.println("Simulación detenida.");
+		    	}
 		    }
 		});
 		
@@ -358,6 +416,8 @@ public class GUIPrincipal {
 				at.concatenate(lat);
 				g2d.setTransform(at);
 				
+				// TODO dibujar cirulo de percepciones
+				
 				g.drawImage(icon2.getImage(), new Double(patrulleroEstado.getPosicionActual().getX()).intValue()-icon2.getIconWidth()/2,
 						new Double(patrulleroEstado.getPosicionActual().getY()).intValue()-icon2.getIconHeight()/2,
 						icon2.getIconWidth(),icon2.getIconHeight(),vv);
@@ -443,34 +503,7 @@ public class GUIPrincipal {
 					iniciado = true;
 					btnIniciar.setEnabled(false);
 					btnPausar.setEnabled(true);
-					/*
-					 * 
-					 * HILO PARA LA EJECUCION DEL SIMULADOR
-					 */
-					Runnable runnable = new Runnable() {
-						@Override
-						public void run() {
-							//while (true) {  // No iría?
-								if (!iniciado2) {
-									simulador.start();
-									iniciado2 = true;
-								}
-								if (pausado.get()) {
-									synchronized (threadSimulador) {
-										// Pause
-										try {
-											threadSimulador.wait();
-										} catch (InterruptedException e) {
-										}
-									}
-								}
-								/*
-								 * // Sleep try { Thread.sleep(500); } catch
-								 * (InterruptedException e) { }
-								 */
-							//}
-						}};
-					threadSimulador = new Thread(runnable);
+					
 					threadSimulador.start();
 				}
 			}
@@ -481,25 +514,27 @@ public class GUIPrincipal {
 		btnPausar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (pausado.get()) {
-					synchronized (threadSimulador) {
-						// Reanudar
-						threadSimulador.notify();
-					}
-					btnPausar.setText("Pausar");
-					pausado.set(false);
-				}
-				else {
-					synchronized (threadSimulador) {
-						// Pausar
-						try {
-							threadSimulador.wait();
-						} catch (InterruptedException ex) {
-							System.out.println("Excepcion en thread.wait: "+ex.toString());
+				if (threadSimulador.isAlive()) {
+					if (pausado.get()) {
+						synchronized (threadSimulador) {
+							// Reanudar
+							threadSimulador.notify();
 						}
+						btnPausar.setText("Pausar");
+						pausado.set(false);
+					} else {
+						synchronized (threadSimulador) {
+							// Pausar
+							try {
+								threadSimulador.wait();
+							} catch (InterruptedException ex) {
+								System.out.println("Excepcion en thread wait: "
+										+ ex.toString());
+							}
+						}
+						btnPausar.setText("Reanudar");
+						pausado.set(true);
 					}
-					btnPausar.setText("Reanudar");
-					pausado.set(true);
 				}
 			}
 		});

@@ -50,8 +50,7 @@ public class AmbienteEstado extends EnvironmentState {
     	posicionPatrullero = mapa.getPosicion(posPatrullero);
     	posicionIncidente = mapa.getPosicion(posIncidente);
     	
-    	// TODO: Cargar listas de percepciones al mapa
-    	
+    	// TODO: Inicializar y cargar listas de percepciones al mapa
     }
 
     /**
@@ -74,51 +73,74 @@ public class AmbienteEstado extends EnvironmentState {
     	posicionPatrullero = nuevaPosicion;
     }
     
-    public List<Posicion> getListaMarchas(){
+    // TODO completar para que solo devuelva a cierta distancia
+    public List<Posicion> getListaMarcha(){
     	return listaMarchas;
-    
     }
-    public List<Posicion> getListaAccidentesTransito(){
+    public List<Posicion> getListaMarchaPatrullero(){
     	return listaMarchas;
-    
     }
+    
+    public List<Posicion> getListaAccidenteTransito(){
+    	return listaMarchas;
+    }
+    public List<Posicion> getListaAccidenteTransitoPatrullero(){
+    	return listaMarchas;
+    }
+    
     public List<Posicion> getListaCongestionTransito(){
     	return listaMarchas;
-    
     }
+    public List<Posicion> getListaCongestionTransitoPatrullero(){
+    	return listaMarchas;
+    }
+    
     public List<Posicion> getListaEventoSocial(){
     	return listaMarchas;
-    
     }
+    public List<Posicion> getListaEventoSocialPatrullero(){
+    	return listaMarchas;
+    }
+    
     public List<Posicion> getListaPlanBacheo(){
     	return listaMarchas;
-    
+    }
+    public List<Posicion> getListaPlanBacheoPatrullero(){
+    	return listaMarchas;
     }
     
+    //Corte Total
     public void addListaMarchas(Posicion unaPosicion){
     	listaMarchas.add(unaPosicion);
-    
+    	unaPosicion.setHabilitado(false);
     }
+    // Corte Parcial
     public void addListaAccidentesTransito(Posicion unaPosicion){
     	listaMarchas.add(unaPosicion);
-    
+    	unaPosicion.setDemorado(3);
     }
+    
+    // Corte Parcial
     public void addListaCongestionTransito(Posicion unaPosicion){
     	listaMarchas.add(unaPosicion);
-    
+    	unaPosicion.setDemorado(3);
     }
+    
+    // Corte Total
     public void addListaEventoSocial(Posicion unaPosicion){
     	listaMarchas.add(unaPosicion);
-    
+    	unaPosicion.setHabilitado(false);
     }
+    
+    // Corte Parcial
     public void addListaPlanBacheo(Posicion unaPosicion){
     	listaMarchas.add(unaPosicion);
-    
+    	unaPosicion.setDemorado(3);
     }
+    
 	public Posicion getPosicionIncidente() {
 		return posicionIncidente;
 	}
-
 	public void setPosicionIncidente(Posicion posicionIncidente) {
 		this.posicionIncidente = posicionIncidente;
 	}

@@ -96,4 +96,20 @@ public class IrA extends SearchAction {
     public String toString() {
         return "Ir a "+dest+".";
     }
+
+	public Posicion getDestino() {
+		return destino;
+	}
+
+	public void setDestino(Posicion destino) {
+		this.destino = destino;
+	}
+
+	public String getDest() {
+		return dest;
+	}
+
+	public void setDest(String dest) {
+		this.dest = dest;
+	}
 }
