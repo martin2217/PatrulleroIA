@@ -34,4 +34,7 @@ public abstract class Posicion {
 	public void setCosto(int costo) {
 		this.costo = costo;
 	}
+	public void cortarParcialmente(){
+		demorado=3;
+	}
 }

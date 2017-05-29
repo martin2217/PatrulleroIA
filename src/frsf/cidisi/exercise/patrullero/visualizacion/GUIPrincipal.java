@@ -2,6 +2,7 @@ package frsf.cidisi.exercise.patrullero.visualizacion;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -12,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -19,8 +22,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -65,13 +70,17 @@ public class GUIPrincipal {
 	private static AtomicBoolean pausado;
 	private static boolean iniciado;
 	private static boolean iniciado2;
-	
-	private static JButton btnPausar;
-	private static JButton btnHabilitar;
-	private static JButton btnDeshabilitar;
+
 	private static JButton btnIniciar;
-	private static JButton btnDemorar;
-	private static JButton btnNormalizar;
+	private static JButton btnPausar;
+	private static JButton btnHabilitarSegmento;
+	private static JButton btnDeshabilitarSegmento;
+	private static JButton btnDemorarSegmento;
+	private static JButton btnNormalizarSegmento;
+	private static JButton btnHabilitarNodo;
+	private static JButton btnDeshabilitarNodo;
+	private static JButton btnDemorarNodo;
+	private static JButton btnNormalizarNodo;
 	
 	
 	private static Thread threadSimulador;
@@ -96,11 +105,15 @@ public class GUIPrincipal {
 		ambienteEstado=(AmbienteEstado)(simul.getEnvironment()).getEnvironmentState();
 		pausado=pausa;
 		patrulleroEstado=patrulleroEst;
+		patrulleroEst.setPausado(pausado); // Borrar
 		iniciado=false;
 		iniciado2=false;
 		menuFrame=m;
 		
-		graficar(mapa);
+		
+		
+		
+		graficar(patrulleroEst.getMapa());
 		
 		/*
 		 * 
@@ -133,28 +146,10 @@ public class GUIPrincipal {
 		
 	}
 	
-	public static void actualizar(){
+	public static void actualizar(){ // No usado
 		frame.repaint();
 	}
 	
-	private static void percepcionesIniciales(){
-		ambienteEstado.addListaAccidentesTransito(nodos.get("15"));
-		ambienteEstado.addListaAccidentesTransito(nodos.get("19"));
-		ambienteEstado.addListaAccidentesTransito(nodos.get("7"));
-		ambienteEstado.addListaAccidentesTransito(nodos.get("33"));
-		ambienteEstado.addListaAccidentesTransito(nodos.get("33"));
-		
-		ambienteEstado.addListaCongestionTransito(nodos.get("40"));
-		ambienteEstado.addListaCongestionTransito(nodos.get("22"));
-		
-		ambienteEstado.addListaEventoSocial(nodos.get("27"));
-		ambienteEstado.addListaEventoSocial(nodos.get("45"));
-		
-		ambienteEstado.addListaPlanBacheo(nodos.get("50"));
-		
-		ambienteEstado.addListaMarchas(nodos.get("55"));
-		
-	}
 	
 	public static void graficar(Mapa mapa){
 		
@@ -165,19 +160,12 @@ public class GUIPrincipal {
 		
 		panelControl = generarPanelControl();
 		
-		percepcionesIniciales();
-		
 		frame = new JFrame("Patrullero");
 		frame.setLayout(new BorderLayout());
 		frame.setMinimumSize(new Dimension(800, 600));
 		frame.setPreferredSize(new Dimension(1000, 800));
 		frame.setSize(new Dimension(1000, 800));
 	    //frame.setLayout(new FlowLayout()); ??
-		
-		// Creación y adición de la barra de scroll - NO USADO
-		//final GraphZoomScrollPane zoomScroll = new GraphZoomScrollPane(vv);
-		//frame.add(zoomScroll);
-		
 		
 		
 		frame.getContentPane().add(panelMapa, BorderLayout.CENTER);
@@ -200,6 +188,9 @@ public class GUIPrincipal {
 		    	}
 		    }
 		});
+		
+		// Seteado para el repaint interno
+		patrulleroEstado.setJFrame(frame);
 		
 		// Prueba para verificación gráfica de los modificadores
 		//nodos.get("104").setHabilitado(false);
@@ -493,6 +484,8 @@ public class GUIPrincipal {
 		// Creación de los botones
 		
 		btnIniciar = new JButton("Iniciar");
+		btnIniciar.setSize(new Dimension(100,40));
+		btnIniciar.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnIniciar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -510,27 +503,28 @@ public class GUIPrincipal {
 		});
 
 		btnPausar = new JButton("Pausar");
+		btnPausar.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnPausar.setEnabled(false);
 		btnPausar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (threadSimulador.isAlive()) {
 					if (pausado.get()) {
-						synchronized (threadSimulador) {
+						/*synchronized (threadSimulador) {
 							// Reanudar
 							threadSimulador.notify();
-						}
+						}*/
 						btnPausar.setText("Pausar");
 						pausado.set(false);
 					} else {
 						synchronized (threadSimulador) {
-							// Pausar
+							/*// Pausar
 							try {
 								threadSimulador.wait();
 							} catch (InterruptedException ex) {
 								System.out.println("Excepcion en thread wait: "
 										+ ex.toString());
-							}
+							}*/
 						}
 						btnPausar.setText("Reanudar");
 						pausado.set(true);
@@ -538,28 +532,153 @@ public class GUIPrincipal {
 				}
 			}
 		});
+		
+		// Creación del panel para mostrar los segmentos
+		
+		JPanel panelSegmentos= new JPanel();
+		panelSegmentos.setLayout(new BoxLayout(panelSegmentos, BoxLayout.PAGE_AXIS));
+		//panelControl.setBorder(new TitledBorder(new LineBorder(Color.LIGHT_GRAY, 3), "Controles"));
+		panelSegmentos.setBorder(BorderFactory.createCompoundBorder(new TitledBorder(new LineBorder(Color.LIGHT_GRAY, 1), "Segmentos"),
+						new EmptyBorder(10, 5, 5, 5)));
+		//panelControl.add(panelSegmentos);
+		
+		final JComboBox comboSegmentos=new JComboBox();
+		comboSegmentos.setSize(new Dimension(200, 30));
+		comboSegmentos.setPreferredSize(new Dimension(200, 30));
+		comboSegmentos.setMaximumSize(new Dimension(250, 30));
+		String[] segmentosString= {""};
+		segmentosString = ambienteEstado.getMapa().getSegmentos().keySet().toArray(segmentosString);
+		Arrays.sort(segmentosString);
+		comboSegmentos.setModel(new DefaultComboBoxModel(segmentosString));
+		panelSegmentos.add(comboSegmentos);
 
-		btnDeshabilitar= new JButton("Deshabilitar");
 		
-		btnHabilitar= new JButton("Habilitar");
+		btnDeshabilitarSegmento= new JButton("Deshabilitar");
+		btnDeshabilitarSegmento.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnDeshabilitarSegmento.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ambienteEstado.addMarcha(comboSegmentos.getSelectedItem().toString());
+			}
+		});
 		
-		btnDemorar= new JButton("Demorar");
+		btnHabilitarSegmento= new JButton("Habilitar");
+		btnHabilitarSegmento.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnHabilitarSegmento.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ambienteEstado.habilitar(comboSegmentos.getSelectedItem().toString());
+			}
+		});
+		btnHabilitarSegmento.setEnabled(false);
 		
-		btnNormalizar= new JButton("Normalizar");
+		btnDemorarSegmento= new JButton("Demorar");
+		btnDemorarSegmento.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnDemorarSegmento.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ambienteEstado.addPlanBacheo(comboSegmentos.getSelectedItem().toString());
+			}
+		});
 		
-		// Botón 
+		btnNormalizarSegmento= new JButton("Normalizar");
+		btnNormalizarSegmento.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnNormalizarSegmento.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ambienteEstado.normalizar(comboSegmentos.getSelectedItem().toString());
+			}
+		});
+		btnNormalizarSegmento.setEnabled(false);
+		
+
+		panelSegmentos.add(Box.createRigidArea(new Dimension(5,15)));
+		panelSegmentos.add(btnDeshabilitarSegmento);
+		panelSegmentos.add(Box.createRigidArea(new Dimension(5,5)));
+		panelSegmentos.add(btnHabilitarSegmento);
+		panelSegmentos.add(Box.createRigidArea(new Dimension(5,15)));
+		panelSegmentos.add(btnDemorarSegmento);
+		panelSegmentos.add(Box.createRigidArea(new Dimension(5,5)));
+		panelSegmentos.add(btnNormalizarSegmento);
+		
+		
+		// Creación del panel para mostrar los NODOS
+		
+		JPanel panelNodos= new JPanel();
+		panelNodos.setLayout(new BoxLayout(panelNodos, BoxLayout.PAGE_AXIS));
+		//panelControl.setBorder(new TitledBorder(new LineBorder(Color.LIGHT_GRAY, 3), "Controles"));
+		panelNodos.setBorder(BorderFactory.createCompoundBorder(new TitledBorder(new LineBorder(Color.LIGHT_GRAY, 1), "Nodos"),
+						new EmptyBorder(10, 5, 5, 5)));
+		
+		final JComboBox comboNodos=new JComboBox();
+		comboNodos.setSize(new Dimension(200, 30));
+		comboNodos.setPreferredSize(new Dimension(200, 30));
+		comboNodos.setMaximumSize(new Dimension(250, 30));
+		ArrayList<String> nodosString= new ArrayList<String>();
+		for(int i=1; i<=176; i++){
+			nodosString.add(String.valueOf(i));
+		}
+		comboNodos.setModel(new DefaultComboBoxModel(nodosString.toArray()));
+		panelNodos.add(comboNodos);
+
+		
+		btnDeshabilitarNodo= new JButton("Deshabilitar");
+		btnDeshabilitarNodo.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnDeshabilitarNodo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ambienteEstado.addMarcha(comboNodos.getSelectedItem().toString());
+			}
+		});
+		
+		btnHabilitarNodo= new JButton("Habilitar");
+		btnHabilitarNodo.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnHabilitarNodo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ambienteEstado.habilitar(comboNodos.getSelectedItem().toString());
+			}
+		});
+		btnHabilitarNodo.setEnabled(false);
+		
+		btnDemorarNodo= new JButton("Demorar");
+		btnDemorarNodo.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnDemorarNodo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ambienteEstado.addPlanBacheo(comboNodos.getSelectedItem().toString());
+			}
+		});
+		
+		btnNormalizarNodo= new JButton("Normalizar");
+		btnNormalizarNodo.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnNormalizarNodo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ambienteEstado.normalizar(comboNodos.getSelectedItem().toString());
+			}
+		});
+		btnNormalizarNodo.setEnabled(false);
+		
+
+		panelNodos.add(Box.createRigidArea(new Dimension(5,15)));
+		panelNodos.add(btnDeshabilitarNodo);
+		panelNodos.add(Box.createRigidArea(new Dimension(5,5)));
+		panelNodos.add(btnHabilitarNodo);
+		panelNodos.add(Box.createRigidArea(new Dimension(5,15)));
+		panelNodos.add(btnDemorarNodo);
+		panelNodos.add(Box.createRigidArea(new Dimension(5,5)));
+		panelNodos.add(btnNormalizarNodo);
+		
+		
 	    panelControl.add(btnIniciar);
 		panelControl.add(Box.createRigidArea(new Dimension(10,20)));
 		panelControl.add(btnPausar);
 		panelControl.add(Box.createRigidArea(new Dimension(10,20)));
-		panelControl.add(btnDeshabilitar);
+		panelControl.add(panelSegmentos);
 		panelControl.add(Box.createRigidArea(new Dimension(10,20)));
-		panelControl.add(btnHabilitar);
+		panelControl.add(panelNodos);
 		panelControl.add(Box.createRigidArea(new Dimension(10,20)));
-		panelControl.add(btnDemorar);
-		panelControl.add(Box.createRigidArea(new Dimension(10,20)));
-		panelControl.add(btnNormalizar);
-		panelControl.add(Box.createRigidArea(new Dimension(5,20)));
 		
 		
 		return panelControl;
@@ -588,28 +707,4 @@ public class GUIPrincipal {
 			System.out.println("posicionar(pos, "+x+", "+y+");");
 		}
 	}
-	/*
-	class ButtonListener implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent evt) 
-        {
-            if(!paused.get())
-            {
-                button.setText("Start");
-                paused.set(true);
-            }
-            else
-            {
-                button.setText("Pause");
-                paused.set(false);
-
-                // Resume
-                synchronized(threadObject)
-                {
-                    threadObject.notify();
-                }
-            }
-        }
-    }*/
 }

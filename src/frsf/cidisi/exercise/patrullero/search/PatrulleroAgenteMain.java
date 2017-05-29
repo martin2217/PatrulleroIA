@@ -108,7 +108,7 @@ public class PatrulleroAgenteMain {
 				if (!textPatrullero.getText().trim().equals("")
 						|| !textIncidente.getText().trim().equals("")) {
 					menuFrame.setVisible(false);
-					ejecutar(textPatrullero.getText().toString(), textIncidente.getText().toString(),
+					ejecutar(textPatrullero.getText().toString().trim(), textIncidente.getText().toString().trim(),
 							comboEstrategias.getSelectedIndex() + 1);
 				}
 			}
@@ -140,18 +140,14 @@ public class PatrulleroAgenteMain {
 		 */
         
         SearchBasedAgentSimulator simulator =
-                new SearchBasedAgentSimulator(environment, agent);
+                new SearchBasedAgentSimulator(environment, agent, pausado);
         
 
 		Mapa mapa = environment.getEnvironmentState().getMapa();
 		patrullero=((PatrulleroEstado) agent.getAgentState()).getPosicionActual();
 		
 		
-		
-		
 		gui = new GUIPrincipal(simulator, mapa, (PatrulleroEstado)agent.getAgentState(), pausado, menuFrame);
-        
-        //simulator.start();
     	
     }
 

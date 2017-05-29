@@ -103,6 +103,24 @@ public class Mapa {
 		pos.add(new Pair<Double>(x,y));
 	}
 	
+	public void cortarParcialmente(Posicion corte){
+		if(corte.getClass()==Nodo.class){
+			nodos.get(corte.getHash()).cortarParcialmente();
+		}
+		else{
+			segmentos.get(corte.getHash()).cortarParcialmente();
+		}
+	}
+	
+	public void cortarTotalmente(Posicion corte){
+		if(corte.getClass()==Nodo.class){
+			nodos.get(corte.getHash()).setHabilitado(false);
+		}
+		else{
+			segmentos.get(corte.getHash()).setHabilitado(false);
+		}
+	}
+	
 	private final String SALVADOR_DEL_CARRIL = "Salvador del Carril";
 	private final String GRAL_PAZ = "Av Gral Paz";
 	private final String LAVALLE = "Lavalle";
@@ -134,7 +152,7 @@ public class Mapa {
 	private final String CASSANELLO = "Ángel Cassanello";
 	private final String CULLEN = "Patricio Cullen";
 	private final String TALCAHUANO = "Talcahuano";
-	private final String LOPEZ = "J P LOPEZ";
+	private final String LOPEZ = "J P Lopez";
 	private final String HERNANDARIAS = "Hernandarias";
 	private final String PUJATO = "Pje Pujato";
 	private final String DEFENSA = "Defensa";

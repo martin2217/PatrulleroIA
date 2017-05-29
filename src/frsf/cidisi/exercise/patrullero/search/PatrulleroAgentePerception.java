@@ -29,18 +29,17 @@ public class PatrulleroAgentePerception extends Perception {
 	 */
 	
 	
-    public  PatrulleroAgentePerception(/*Posicion unDestino*/) {
-    	//TODO: Complete Method
-    	//destino = unDestino;
+    public  PatrulleroAgentePerception() {
     	//initPerception();
     }
 
+    // Usar este??
     public PatrulleroAgentePerception(Agent agent, Environment environment) {
         super(agent, environment);
     }
 
     /**
-     * This method is used to setup the perception.
+     * This method is used to setup the perception.  - NO USADO
      */
     @Override
     public void initPerception(Agent agentIn, Environment environmentIn) {
@@ -52,13 +51,6 @@ public class PatrulleroAgentePerception extends Perception {
         AmbienteEstado environmentState = environment.getEnvironmentState();
        
         Posicion pos = environmentState.getPosicionPatrullero();
-        /* NO
-        listaMarcha = environmentState.getListaMarchasPatrullero();
-        private List<Posicion> listaCongestionTransito;
-    	private List<Posicion> listaMarcha;
-    	private List<Posicion> listaAccidenteTransito;
-    	private List<Posicion> listaEventoSocial;
-    	private List<Posicion> listaPlanBacheo;*/
         
     }
     

@@ -17,9 +17,9 @@ import frsf.cidisi.faia.state.EnvironmentState;
 public class AmbienteEstado extends EnvironmentState {
 	
 	//TODO: Setup Variables
-    private List<Posicion> listaMarchas;                //Corte Total
+    private List<Posicion> listaMarcha;                //Corte Total
     private List<Posicion> listaEventoSocial;           //Corte Total
-    private List<Posicion> listaAccidentesTransito;     //Corte Parcial
+    private List<Posicion> listaAccidenteTransito;     //Corte Parcial
     private List<Posicion> listaCongestionTransito;     //Corte Parcial
     private List<Posicion> listaPlanBacheo;             //Corte Parcial
     private Posicion posicionPatrullero;
@@ -27,13 +27,15 @@ public class AmbienteEstado extends EnvironmentState {
     private Mapa mapa;
     private String posPatrullero;
     private String posIncidente;
+    
+    public final static double DISTANCIA_VISION=300;
 	
     
     public AmbienteEstado(String posP, String posI) {
     	posPatrullero= posP;
     	posIncidente= posI;
-    	listaMarchas = new ArrayList<Posicion>();
-    	listaAccidentesTransito= new ArrayList<Posicion>();
+    	listaMarcha = new ArrayList<Posicion>();
+    	listaAccidenteTransito= new ArrayList<Posicion>();
         listaCongestionTransito= new ArrayList<Posicion>();
         listaEventoSocial= new ArrayList<Posicion>();
         listaPlanBacheo= new ArrayList<Posicion>();
@@ -51,6 +53,8 @@ public class AmbienteEstado extends EnvironmentState {
     	posicionIncidente = mapa.getPosicion(posIncidente);
     	
     	// TODO: Inicializar y cargar listas de percepciones al mapa
+    	percepcionesIniciales();
+    	
     }
 
     /**
@@ -65,6 +69,64 @@ public class AmbienteEstado extends EnvironmentState {
         return str;
     }
     
+	//TODO: Complete this section with agent-specific methods
+    // The following methods are agent-specific:
+    
+    private void percepcionesIniciales(){
+		addAccidenteTransito(mapa.getNodos().get("15"));
+		addAccidenteTransito(mapa.getNodos().get("19"));
+		addAccidenteTransito(mapa.getNodos().get("7"));
+		addAccidenteTransito(mapa.getNodos().get("33"));
+		addAccidenteTransito(mapa.getNodos().get("33"));
+		
+		addCongestionTransito(mapa.getNodos().get("40"));
+		addCongestionTransito(mapa.getNodos().get("22"));
+		addCongestionTransito(mapa.getNodos().get("70"));
+		addCongestionTransito(mapa.getNodos().get("78"));
+		
+		addEventoSocial(mapa.getNodos().get("45"));
+		addEventoSocial(mapa.getNodos().get("66"));
+		addEventoSocial(mapa.getNodos().get("81"));
+		addEventoSocial(mapa.getNodos().get("87"));
+		
+		addPlanBacheo(mapa.getNodos().get("50"));		
+		addPlanBacheo(mapa.getNodos().get("90"));		
+		addPlanBacheo(mapa.getNodos().get("107"));		
+		addPlanBacheo(mapa.getNodos().get("111"));
+		addPlanBacheo(mapa.getSegmentos().get("Salvador del Carril 1500 -> 1400"));	
+		addPlanBacheo(mapa.getNodos().get("119"));	
+		addPlanBacheo(mapa.getNodos().get("139"));
+		
+		addMarcha(mapa.getNodos().get("55"));
+		addMarcha(mapa.getNodos().get("13"));
+		addMarcha(mapa.getNodos().get("102"));
+		addMarcha(mapa.getNodos().get("133"));
+		addMarcha(mapa.getNodos().get("122"));
+		addMarcha(mapa.getNodos().get("146"));
+		addMarcha(mapa.getNodos().get("150"));
+		
+	}
+    
+    public double distanciaEntre(Posicion p1, Posicion p2){
+    	double retorno;
+    	double xx, yy;
+    	xx= p1.getX()-p2.getX();
+    	yy= p1.getY()-p2.getY();
+    	retorno= Math.sqrt(xx*xx+yy*yy);
+    	return retorno;
+    }
+    
+    private List<Posicion> obtenerPercepcionesCercanas(List<Posicion> listaEventos){
+    	List<Posicion> aux = new ArrayList<Posicion>();
+    	for(Posicion pos : listaEventos){
+    		if(distanciaEntre(pos, posicionPatrullero) < DISTANCIA_VISION){
+    			aux.add(pos);
+    		}
+    	}
+    	return aux;
+    }
+    
+    
     public Posicion getPosicionPatrullero(){
     	return posicionPatrullero;
     }
@@ -73,70 +135,157 @@ public class AmbienteEstado extends EnvironmentState {
     	posicionPatrullero = nuevaPosicion;
     }
     
-    // TODO completar para que solo devuelva a cierta distancia
     public List<Posicion> getListaMarcha(){
-    	return listaMarchas;
+    	return listaMarcha;
     }
     public List<Posicion> getListaMarchaPatrullero(){
-    	return listaMarchas;
+    	return obtenerPercepcionesCercanas(listaMarcha);
     }
     
     public List<Posicion> getListaAccidenteTransito(){
-    	return listaMarchas;
+    	return listaAccidenteTransito;
     }
     public List<Posicion> getListaAccidenteTransitoPatrullero(){
-    	return listaMarchas;
+    	return obtenerPercepcionesCercanas(listaAccidenteTransito);
     }
     
     public List<Posicion> getListaCongestionTransito(){
-    	return listaMarchas;
+    	return listaCongestionTransito;
     }
     public List<Posicion> getListaCongestionTransitoPatrullero(){
-    	return listaMarchas;
+    	return obtenerPercepcionesCercanas(listaCongestionTransito);
     }
     
     public List<Posicion> getListaEventoSocial(){
-    	return listaMarchas;
+    	return listaEventoSocial;
     }
     public List<Posicion> getListaEventoSocialPatrullero(){
-    	return listaMarchas;
+    	return obtenerPercepcionesCercanas(listaEventoSocial);
     }
     
     public List<Posicion> getListaPlanBacheo(){
-    	return listaMarchas;
+    	return listaPlanBacheo;
     }
     public List<Posicion> getListaPlanBacheoPatrullero(){
-    	return listaMarchas;
+    	return obtenerPercepcionesCercanas(listaPlanBacheo);
     }
     
-    //Corte Total
-    public void addListaMarchas(Posicion unaPosicion){
-    	listaMarchas.add(unaPosicion);
-    	unaPosicion.setHabilitado(false);
+    
+    // Corte Total
+    public void addMarcha(Posicion unaPosicion){
+    	if(!listaMarcha.contains(unaPosicion)){
+			listaMarcha.add(unaPosicion);
+			unaPosicion.setHabilitado(false);
+    	}
     }
-    // Corte Parcial
-    public void addListaAccidentesTransito(Posicion unaPosicion){
-    	listaMarchas.add(unaPosicion);
-    	unaPosicion.setDemorado(3);
+    public void addMarcha(String unaPosicion){
+    	addMarcha(mapa.getPosicion(unaPosicion));
+    }
+    
+	// Corte Parcial
+	public void addAccidenteTransito(Posicion unaPosicion){
+    	if(!listaAccidenteTransito.contains(unaPosicion)){
+    		listaAccidenteTransito.add(unaPosicion);
+    		unaPosicion.setDemorado(3);
+    	}
+    }
+    public void addAccidenteTransito(String unaPosicion){
+    	addAccidenteTransito(mapa.getPosicion(unaPosicion));
     }
     
     // Corte Parcial
-    public void addListaCongestionTransito(Posicion unaPosicion){
-    	listaMarchas.add(unaPosicion);
-    	unaPosicion.setDemorado(3);
+    public void addCongestionTransito(Posicion unaPosicion){
+    	if(!listaCongestionTransito.contains(unaPosicion)){
+        	listaCongestionTransito.add(unaPosicion);
+        	unaPosicion.setDemorado(3);
+    	}
+    }
+    public void addCongestionTransito(String unaPosicion){
+    	addCongestionTransito(mapa.getPosicion(unaPosicion));
     }
     
     // Corte Total
-    public void addListaEventoSocial(Posicion unaPosicion){
-    	listaMarchas.add(unaPosicion);
-    	unaPosicion.setHabilitado(false);
+    public void addEventoSocial(Posicion unaPosicion){
+    	if(!listaEventoSocial.contains(unaPosicion)){
+        	listaEventoSocial.add(unaPosicion);
+        	unaPosicion.setHabilitado(false);
+    	}
+    }
+    public void addEventoSocial(String unaPosicion){
+    	addEventoSocial(mapa.getPosicion(unaPosicion));
     }
     
     // Corte Parcial
-    public void addListaPlanBacheo(Posicion unaPosicion){
-    	listaMarchas.add(unaPosicion);
-    	unaPosicion.setDemorado(3);
+    public void addPlanBacheo(Posicion unaPosicion){
+    	if(!listaPlanBacheo.contains(unaPosicion)){
+        	listaPlanBacheo.add(unaPosicion);
+        	unaPosicion.setDemorado(3);
+    	}
     }
+    public void addPlanBacheo(String unaPosicion){
+    	addPlanBacheo(mapa.getPosicion(unaPosicion));
+    }
+    
+    
+    // Habilitar un nodo genérico
+    public void habilitar(String unaPosicion){
+    	habilitar(mapa.getPosicion(unaPosicion));
+    }
+    public void habilitar(Posicion unaPosicion){
+    	if(listaEventoSocial.contains(unaPosicion)){
+    		eliminarEventoSocial(unaPosicion);
+    	}
+    	if(listaMarcha.contains(unaPosicion)){
+    		eliminarMarcha(unaPosicion);
+    	}
+    }
+    
+    // Normalizar las demoras de un nodo
+    public void normalizar(String unaPosicion){
+    	normalizar(mapa.getPosicion(unaPosicion));
+    }
+    public void normalizar(Posicion unaPosicion){
+    	if(listaCongestionTransito.contains(unaPosicion)){
+    		eliminarCongestionTransito(unaPosicion);
+    	}
+    	if(listaPlanBacheo.contains(unaPosicion)){
+    		eliminarPlanBacheo(unaPosicion);
+    	}
+    	if (listaAccidenteTransito.contains(unaPosicion)){
+    		eliminarAccidenteTransito(unaPosicion);
+    	}
+    }
+    
+    // Corte Total
+    public void eliminarMarcha(Posicion unaPosicion){
+    	listaMarcha.remove(unaPosicion);
+    	unaPosicion.setHabilitado(true);
+    }
+    
+    // Corte Parcial
+    public void eliminarAccidenteTransito(Posicion unaPosicion){
+    	listaAccidenteTransito.remove(unaPosicion);
+    	unaPosicion.setDemorado(1);
+    }
+    
+    // Corte Parcial
+    public void eliminarCongestionTransito(Posicion unaPosicion){
+    	listaCongestionTransito.remove(unaPosicion);
+    	unaPosicion.setDemorado(1);
+    }
+    
+    // Corte Total
+    public void eliminarEventoSocial(Posicion unaPosicion){
+    	listaEventoSocial.remove(unaPosicion);
+    	unaPosicion.setHabilitado(true);
+    }
+    
+    // Corte Parcial
+    public void eliminarPlanBacheo(Posicion unaPosicion){
+    	listaPlanBacheo.remove(unaPosicion);
+    	unaPosicion.setDemorado(1);
+    }
+    
     
 	public Posicion getPosicionIncidente() {
 		return posicionIncidente;
@@ -153,9 +302,6 @@ public class AmbienteEstado extends EnvironmentState {
 		this.mapa = mapa;
 	}
     
-    
-	//TODO: Complete this section with agent-specific methods
-    // The following methods are agent-specific:
 	
 
 }

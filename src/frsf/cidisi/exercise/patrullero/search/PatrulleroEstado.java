@@ -5,6 +5,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import javax.swing.JFrame;
 
 import frsf.cidisi.exercise.patrullero.dominio.Mapa;
 import frsf.cidisi.exercise.patrullero.dominio.Nodo;
@@ -25,13 +28,21 @@ public class PatrulleroEstado extends SearchBasedAgentState {
     private Posicion posicionActual;
     private Posicion posicionIncidente;
     private Mapa mapa;
-    private Segmento ultimoSegmento;
+    private Segmento ultimoSegmento; // No usado
+    // listaMarchas - 				Corte Total
+    // listaEventoSocial - 			Corte Total
+    // listaAccidentesTransito -	Corte Parcial
+    // listaCongestionTransito -	Corte Parcial
+    // listaPlanBacheo -			Corte Parcial
     private List<Posicion> listaCortesParciales;
     private List<Posicion> listaCortesTotales;
 	private List<Posicion> listaNodosVisitados;
 	private String posPatrullero;
 	private String posIncidente;
 
+	public AtomicBoolean pausado;
+	public JFrame jFrame;
+	
     public PatrulleroEstado(String posP, String posI) {
        	
     	//TODO: Complete Method
@@ -55,30 +66,21 @@ public class PatrulleroEstado extends SearchBasedAgentState {
 		PatrulleroEstado nuevo = new PatrulleroEstado();
 		Mapa map = mapa;
 		nuevo.setMapa(mapa);
-		nuevo.setListaCortesParciales(new ArrayList<Posicion>()); // TODO: completar con los cortes parciales y cortes totales dados
-		nuevo.setListaCortesTotales(new ArrayList<Posicion>());
+		nuevo.setListaCortesParciales(new ArrayList<Posicion>(getListaCortesParciales()));
+		nuevo.setListaCortesTotales(new ArrayList<Posicion>(getListaCortesTotales()));
+		nuevo.setPausado(pausado);
+		nuevo.setJFrame(jFrame);
 		
 		// Se cargan todas las posiciones visitados al nuevo estado
-		ArrayList<Posicion> nodosVisitados2 = new ArrayList<Posicion>();
-		for(Posicion nodoV : listaNodosVisitados){
-			if(nodoV.getClass().equals(Segmento.class)){
-				nodosVisitados2.add(map.getSegmentos().get(nodoV.getHash()));
-			}
-			else if(nodoV.getClass().equals(Nodo.class)){
-				nodosVisitados2.add(map.getNodos().get(nodoV.getHash()));
-			}
-		}
+		ArrayList<Posicion> nodosVisitados2 = new ArrayList<Posicion>(listaNodosVisitados); // Clonado de la lista
 		nuevo.setListaNodosVisitados(nodosVisitados2);
 		
 		// Se carga la posicion actual
 		if(posicionActual.getClass().equals(Segmento.class)){
 			nuevo.setPosicionActual(map.getSegmentos().get(posicionActual.getHash()));
 		}
-		else if(posicionActual.getClass().equals(Nodo.class)){
+		else /*if(posicionActual.getClass().equals(Nodo.class))*/{
 			nuevo.setPosicionActual(map.getNodos().get(posicionActual.getHash())); //TODO revisar si está bien que entre tantas veces
-		}
-		else{
-			nuevo=nuevo; // ERRORR
 		}
 		
 		// se carga la posicioin del incidente
@@ -89,11 +91,11 @@ public class PatrulleroEstado extends SearchBasedAgentState {
 			nuevo.setPosicionIncidente(map.getNodos().get(posicionIncidente.getHash()));
 		}
 		
-		//Se carga el ultimo segmento
-		if (ultimoSegmento!= null){
+		//Se carga el ultimo segmento - No usado
+		/*if (ultimoSegmento!= null){
 			nuevo.setUltimoSegmento(map.getSegmentos().get(ultimoSegmento.getHash()));
 		}
-		
+		*/
         return nuevo;
     }
 
@@ -105,12 +107,18 @@ public class PatrulleroEstado extends SearchBasedAgentState {
     public void updateState(Perception p) {
         
         //TODO: Complete Method
-    	
     	// Primero limpiar todos los segmentos y nodos (habilitado=true, demorado=1)
+    	// O no, y hacer que el agente explore, descubriendo y guardando el historial
     	
-    	//addCorteParcial();
-    	//addCorteTotal();
     	PatrulleroAgentePerception percepcion = (PatrulleroAgentePerception)p;
+
+    	cargarCortesTotales(percepcion.getListaMarcha());
+    	cargarCortesTotales(percepcion.getListaEventoSocial());
+    	cargarCortesParciales(percepcion.getListaAccidenteTransito());
+    	cargarCortesParciales(percepcion.getListaCongestionTransito());
+    	cargarCortesParciales(percepcion.getListaPlanBacheo());
+    	
+    	jFrame.repaint();
     	
     }
 
@@ -135,7 +143,53 @@ public class PatrulleroEstado extends SearchBasedAgentState {
         str+="Patrullero en "+posicionActual.toString()+", incidente en "+posicionIncidente.toString()+".";
         return str;
     }
+	
+	/**
+     * This method is used in the search process to verify if the node already
+     * exists in the actual search.
+     */
+    @Override
+    public boolean equals(Object obj) {
+    	// TODO: revisar si se debe incluir las posiciones visitadas
+    	PatrulleroEstado otroPatrullero=(PatrulleroEstado) obj;
+    	if(otroPatrullero.getPosicionActual().toString().equals(posicionActual.toString())){
+    		return true;
+    	}
+    	else return false;
+    }
     
+    
+	
+    //TODO: Complete this section with agent-specific methods
+    // The following methods are agent-specific:
+    
+    public void setPausado(AtomicBoolean pausad){
+    	pausado=pausad;
+    }
+    public AtomicBoolean getPausado(){
+    	return pausado;
+    }
+    
+    
+    private void cargarCortesTotales(List<Posicion> cortesT){
+    	for(Posicion corte : cortesT){
+    		if(!listaCortesTotales.contains(corte)){
+    			listaCortesTotales.add(corte);
+    			mapa.cortarTotalmente(corte);
+    		}
+    	}
+    }
+    
+    private void cargarCortesParciales(List<Posicion> cortesP){
+    	for(Posicion corte : cortesP){
+    		if(!listaCortesParciales.contains(corte)){
+    			listaCortesParciales.add(corte);
+    			mapa.cortarParcialmente(corte);
+    		}
+    	}
+    }
+    
+	
     public Posicion getPosicionIncidente(){
     	return posicionIncidente;
     }
@@ -246,23 +300,12 @@ public class PatrulleroEstado extends SearchBasedAgentState {
 		this.posicionIncidente = posicionIncidente;
 	}
 	
-	/**
-     * This method is used in the search process to verify if the node already
-     * exists in the actual search.
-     */
-    @Override
-    public boolean equals(Object obj) {
-    	// TODO: revisar si se debe incluir las posiciones visitadas
-    	PatrulleroEstado otroPatrullero=(PatrulleroEstado) obj;
-    	if(otroPatrullero.getPosicionActual().toString().equals(posicionActual.toString())){
-    		return true;
-    	}
-    	else return false;
-    }
-
-    //TODO: Complete this section with agent-specific methods
-    // The following methods are agent-specific:
-   	    
+	public void setJFrame(JFrame frame){
+		jFrame=frame;
+	}
+	public void repintar(){
+		jFrame.repaint();
+	}
 	
 }
 

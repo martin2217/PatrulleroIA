@@ -74,6 +74,8 @@ public class IrA extends SearchAction {
             agState.setPosicionActual(agState.getMapa().getPosicion(destino.getHash()));
             agState.addPosicionVisitada(agState.getMapa().getPosicion(destino.getHash()));
         	
+            agState.repintar();
+            
             return environmentState;
         }
 
